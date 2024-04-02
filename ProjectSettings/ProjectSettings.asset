@@ -162,7 +162,7 @@ PlayerSettings:
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
     Android: com.MetaPresenceHackathon.HackathonProject
-    Standalone: com.Unity-Technologies.com.unity.template.urp-blank
+    Standalone: com.MetaPresenceHackathon.HackathonProject
     iPhone: com.Unity-Technologies.com.unity.template.urp-blank
   buildNumber:
     Standalone: 0
