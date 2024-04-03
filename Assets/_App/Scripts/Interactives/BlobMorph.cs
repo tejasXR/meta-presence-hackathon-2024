@@ -17,8 +17,10 @@ public class BlobMorph : MonoBehaviour
 
     private void Awake()
     {
-        _destinationScale = transform.localScale;
         _blob = GetComponent<Blob>();
+        
+        _destinationScale = transform.localScale;
+        _destinationColor = _blob.MaterialColor;
     }
 
     private void OnTriggerEnter(Collider other)

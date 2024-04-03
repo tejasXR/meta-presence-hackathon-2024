@@ -3,7 +3,21 @@ using UnityEngine;
 
 public class Blob : MonoBehaviour
 {
-    public Color MaterialColor { get; private set; }
+    public Color MaterialColor
+    {
+        get
+        {
+            // TEJAS: Dupe code from Awake, okay for now
+            _meshRenderer = GetComponentInChildren<MeshRenderer>();
+            if (!_meshRenderer)
+            {
+                throw new ApplicationException($"No MeshRenderer component found on {name}");
+            }
+            
+            return _meshRenderer.material.color;
+        }
+        private set => MaterialColor = value;
+    }
 
     private MeshRenderer _meshRenderer;
     
@@ -28,6 +42,4 @@ public class Blob : MonoBehaviour
         // TEJAS: Keep in mind changing the color will no longer make the material be GPU Instanced
         _meshRenderer.material.color = newColor;
     }
-
-   
 }
