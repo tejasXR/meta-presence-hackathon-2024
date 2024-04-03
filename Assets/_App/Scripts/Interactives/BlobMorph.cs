@@ -52,7 +52,7 @@ public class BlobMorph : MonoBehaviour
     
     private bool IsBlobSmaller(Blob blob)
     {
-        return transform.lossyScale.magnitude > blob.transform.lossyScale.magnitude;
+        return transform.lossyScale.magnitude >= blob.transform.lossyScale.magnitude;
     }
 
     private void AbsorbBlobScale(Blob blobToAbsorb)
