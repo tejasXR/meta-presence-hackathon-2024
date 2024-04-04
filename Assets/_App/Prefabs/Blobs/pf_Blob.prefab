@@ -149,7 +149,7 @@ GameObject:
   - component: {fileID: 1266713546525695306}
   - component: {fileID: 7766479633320254590}
   m_Layer: 0
-  m_Name: Blob
+  m_Name: pf_Blob
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
