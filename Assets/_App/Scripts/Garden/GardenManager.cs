@@ -1,7 +1,5 @@
-using System;
 using System.Collections.Generic;
 using Meta.XR.BuildingBlocks;
-using Meta.XR.MRUtilityKit;
 using UnityEngine;
 
 public class GardenManager : MonoBehaviour
@@ -23,22 +21,9 @@ public class GardenManager : MonoBehaviour
         _spatialAnchorCore.EraseAllAnchors();
     }
 
-    public void PlantSeed()
+    public void PlantSeed(Vector3 position)
     {
-        Debug.Log($"[{nameof(GardenManager)}] {nameof(PlantSeed)}");
-
-        int seedCount = 1;
-
-        Tuple<Vector3, Quaternion>[] spawnPositions = SpawnUtil.GetSpawnPositions(
-                objectBounds: Utilities.GetPrefabBounds(Seeds[0].PlantPrefab),
-                positionCount: seedCount,
-                spawnLocation: FindSpawnPositions.SpawnLocation.HangingDown,
-                labels: MRUKAnchor.SceneLabels.CEILING);
-
-        foreach (Tuple<Vector3, Quaternion> spawnPosition in spawnPositions)
-        {
-            Debug.Log($"[{nameof(GardenManager)}] {nameof(PlantSeed)}: Planting new seed at position={spawnPosition.Item1}, rotation={spawnPosition.Item2}");
-            _spatialAnchorCore.InstantiateSpatialAnchor(Seeds[0].PlantPrefab, spawnPosition.Item1, spawnPosition.Item2);
-        }
+        Debug.Log($"[{nameof(GardenManager)}] {nameof(PlantSeed)}: Planting {nameof(Seed)} at position={position}, rotation={Quaternion.identity}");
+        _spatialAnchorCore.InstantiateSpatialAnchor(Seeds[0].PlantPrefab, position, Quaternion.identity);
     }
 }

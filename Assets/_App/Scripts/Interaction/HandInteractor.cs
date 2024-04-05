@@ -13,13 +13,13 @@ public class HandInteractor : MonoBehaviour
 
     void OnTriggerEnter(Collider collider)
     {
-        Debug.Log($"[{nameof(HandInteractor)}] {nameof(OnTriggerEnter)}: {collider.gameObject.name}");
+        Debug.Log($"({transform.parent.name})[{nameof(HandInteractor)}] {nameof(OnTriggerEnter)}: {collider.gameObject.name}");
         HandleColliderEnter(collider);
     }
 
     void OnTriggerExit(Collider collider)
     {
-        Debug.Log($"[{nameof(HandInteractor)}] {nameof(OnTriggerExit)}: {collider.gameObject.name}");
+        Debug.Log($"({transform.parent.name})[{nameof(HandInteractor)}] {nameof(OnTriggerExit)}: {collider.gameObject.name}");
         HandleColliderExit(collider);
     }
 
@@ -35,9 +35,12 @@ public class HandInteractor : MonoBehaviour
             {
                 interactor = collider.GetOVRBone(ovrSkeleton).Transform;
             }
-            else
+            else if (collider.TryGetComponent(out BlobController blob))
             {
                 interactor = collider.transform;
+
+                // DIRTY !!!!!
+                Instantiate(blob.Blob.Seed.PlantPrefab, interactor.position, Quaternion.identity);
             }
         }
 

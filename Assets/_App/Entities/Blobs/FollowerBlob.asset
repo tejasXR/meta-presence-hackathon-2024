@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: FollowerBlob
   m_EditorClassIdentifier: 
   _prefab: {fileID: 8646029585021388215, guid: baa7e177941a7814f987ff58cb6ca6ba, type: 3}
+  _seed: {fileID: 11400000, guid: 2885c438d3bbef5459e96cf0c001f8e7, type: 2}

@@ -50,6 +50,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 085ffda59a013f848b34a1494f2e13c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Blob: {fileID: 11400000, guid: 16aa46f7db42a43419d5b113ba5a7221, type: 2}
 --- !u!114 &-7526363500167929529
 MonoBehaviour:
   m_ObjectHideFlags: 0
