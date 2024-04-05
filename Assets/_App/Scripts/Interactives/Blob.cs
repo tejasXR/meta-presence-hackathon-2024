@@ -16,7 +16,7 @@ public class Blob : MonoBehaviour
             
             return _meshRenderer.material.color;
         }
-        private set => MaterialColor = value;
+        private set => value = MaterialColor;
     }
 
     private MeshRenderer _meshRenderer;
