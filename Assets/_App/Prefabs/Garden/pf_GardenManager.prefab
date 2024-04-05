@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 80aa2eb2-af2f-40a9-ad9e-18044ce65bee
-  instanceId: ee01887c-fd9f-49dd-b95b-4aaf5167c2bf
+  instanceId: 066a7323-daad-4fb0-9812-fe34e9bb6215
   version: 1
 --- !u!114 &1580426640877588158
 MonoBehaviour:
@@ -145,7 +145,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 1f4566e8-f4ba-46d2-9e47-3748c9869766
-  instanceId: a1e26ad8-ce80-436d-8573-aad090a8115e
+  instanceId: 613f8581-3708-44b5-9bca-4b3d8035a37e
   version: 1
 --- !u!114 &6278637509886106633
 MonoBehaviour:
@@ -232,7 +232,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: a383f5ea-3856-4c23-a11c-7fdbb9408035
-  instanceId: 4a467b23-11c2-4fbf-9879-02fc25185bdc
+  instanceId: 301456b1-af1c-47f6-9873-4078f3f9d3c5
   version: 1
 --- !u!114 &9101491806516038968
 MonoBehaviour:
@@ -270,7 +270,7 @@ GameObject:
   - component: {fileID: 3856094891259841689}
   - component: {fileID: 849419983189615845}
   m_Layer: 0
-  m_Name: GardenManager
+  m_Name: pf_GardenManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -306,8 +306,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6aaebfe3a0f7d19418daec22c825c70e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlantPrefab: {fileID: 3030546091100231466, guid: f60a78919f9030b4bb14b4ff55cd643a,
-    type: 3}
+  Seeds:
+  - {fileID: 11400000, guid: 2885c438d3bbef5459e96cf0c001f8e7, type: 2}
   _spatialAnchorCore: {fileID: 9101491806516038968}
   _spatialAnchorLoader: {fileID: 6841667831010647611}
 --- !u!114 &849419983189615845
