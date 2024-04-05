@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class Blob : MonoBehaviour
+public class BlobController : MonoBehaviour
 {
     public Color MaterialColor
     {
@@ -13,14 +13,14 @@ public class Blob : MonoBehaviour
             {
                 throw new ApplicationException($"No MeshRenderer component found on {name}");
             }
-            
+
             return _meshRenderer.material.color;
         }
         private set => MaterialColor = value;
     }
 
     private MeshRenderer _meshRenderer;
-    
+
     private void Awake()
     {
         _meshRenderer = GetComponentInChildren<MeshRenderer>();
