@@ -3,13 +3,13 @@ using UnityEngine;
 /// <summary>
 /// Objects of this class will morph into other Blob objects
 /// </summary>
-[RequireComponent(typeof(Blob))]
+[RequireComponent(typeof(BlobController))]
 public class BlobMorph : MonoBehaviour
 {
     private const float ScaleTransitionSpeed = 4F;
     private const float ColorTransitionSpeed = 1F;
-    
-    private Blob _blob;
+
+    private BlobController _blob;
     private Vector3 _destinationScale;
     private Color _destinationColor;
     private Material _material;
@@ -17,15 +17,15 @@ public class BlobMorph : MonoBehaviour
 
     private void Awake()
     {
-        _blob = GetComponent<Blob>();
-        
+        _blob = GetComponent<BlobController>();
+
         _destinationScale = transform.localScale;
         _destinationColor = _blob.MaterialColor;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        var potentialBlob = other.GetComponent<Blob>();
+        var potentialBlob = other.GetComponent<BlobController>();
         if (potentialBlob)
         {
             if (IsBlobSmaller(potentialBlob))
@@ -49,20 +49,20 @@ public class BlobMorph : MonoBehaviour
             _colorTransitionTime += Time.deltaTime / ColorTransitionSpeed;
         }
     }
-    
-    private bool IsBlobSmaller(Blob blob)
+
+    private bool IsBlobSmaller(BlobController blob)
     {
         return transform.lossyScale.magnitude >= blob.transform.lossyScale.magnitude;
     }
 
-    private void AbsorbBlobScale(Blob blobToAbsorb)
+    private void AbsorbBlobScale(BlobController blobToAbsorb)
     {
         // TEJAS: We may want to use lossy scale in the future and then convert to local scales
         // Using local scales should be fine for now
-       _destinationScale += blobToAbsorb.transform.localScale;
+        _destinationScale += blobToAbsorb.transform.localScale;
     }
 
-    private void AbsorbBlobColor(Blob blobToAbsorb)
+    private void AbsorbBlobColor(BlobController blobToAbsorb)
     {
         _destinationColor = CombineColors(_blob.MaterialColor, blobToAbsorb.MaterialColor);
         _colorTransitionTime = 0;

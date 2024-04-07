@@ -16,7 +16,7 @@ public class SpawnUtil
     /// <param name="labels">When using surface spawning, use this to filter which anchor labels should be included. Eg, spawn only on TABLE or OTHER.</param>
     /// <param name="checkOverlaps">If enabled then the spawn position will be checked to make sure there is no overlap with physics colliders including themselves."</param>
     /// <param name="overrideBounds">Required free space for the object (Set negative to auto-detect using GetPrefabBounds)</param>
-    /// <param name="LayerMask">Set the layer(s) for the physics bounding box checks, collisions will be avoided with these layers.</param>
+    /// <param name="layerMask">Set the layer(s) for the physics bounding box checks, collisions will be avoided with these layers.</param>
     /// <param name="surfaceClearanceDistance">The clearance distance required in front of the surface in order for it to be considered a valid spawn position.</param>
     /// <param name="maxIterations">Maximum number of times to attempt spawning/moving an object before giving up.</param>
     /// <returns></returns>
@@ -27,7 +27,7 @@ public class SpawnUtil
         MRUKAnchor.SceneLabels labels = ~(MRUKAnchor.SceneLabels)0,
         bool checkOverlaps = true,
         float overrideBounds = -1f,
-        int LayerMask = -1,
+        int layerMask = ~0,
         float surfaceClearanceDistance = 0.1f,
         int maxIterations = 1000)
     {
@@ -126,7 +126,7 @@ public class SpawnUtil
                 Quaternion spawnRotation = Quaternion.FromToRotation(Vector3.up, spawnNormal);
                 if (checkOverlaps && objectBounds.HasValue)
                 {
-                    if (Physics.CheckBox(spawnPosition + spawnRotation * adjustedBounds.center, adjustedBounds.extents, spawnRotation, LayerMask, QueryTriggerInteraction.Ignore))
+                    if (Physics.CheckBox(spawnPosition + spawnRotation * adjustedBounds.center, adjustedBounds.extents, spawnRotation, layerMask, QueryTriggerInteraction.Ignore))
                     {
                         continue;
                     }
