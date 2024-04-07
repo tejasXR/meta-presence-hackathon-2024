@@ -12,6 +12,13 @@ public class BlobMorph : MonoBehaviour
     private Material _material;
     private float _colorTransitionTime;
 
+    private enum BlobSizeComparisonEnum
+    {
+        Smaller,
+        SameSize,
+        Larger
+    }
+
     private void Awake()
     {
         _blobController = GetComponent<BlobController>();
@@ -19,22 +26,43 @@ public class BlobMorph : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        var potentialBlob = other.GetComponent<BlobController>();
-        if (potentialBlob)
-        {
-            if (IsBlobSameSize(potentialBlob))
-            {
-                AbsorbBlobScale(potentialBlob);
-                AbsorbBlobColor(potentialBlob);
-                
-                Destroy(potentialBlob.gameObject);
-            }
-        }
+        var interactingBlob = other.GetComponent<BlobController>();
+        if (interactingBlob) 
+            MixBlobs(interactingBlob);
     }
 
-    private bool IsBlobSameSize(BlobController blob)
+    private BlobSizeComparisonEnum CompareSize(BlobController blob)
     {
-        return Math.Abs(_blobController.Size.magnitude - blob.Size.magnitude) < .001F;
+        if (_blobController.Size.magnitude > blob.Size.magnitude)
+            return BlobSizeComparisonEnum.Larger;
+
+        if (Math.Abs(_blobController.Size.magnitude - blob.Size.magnitude) < .001F)
+            return BlobSizeComparisonEnum.SameSize;
+
+        return BlobSizeComparisonEnum.Smaller;
+    }
+
+    private void MixBlobs(BlobController interactingBlob)
+    {
+        var sizeOfInteractingBlob = CompareSize(interactingBlob);
+        switch (sizeOfInteractingBlob)
+        {
+            case BlobSizeComparisonEnum.Smaller:
+                interactingBlob.transform.position = transform.position;
+                interactingBlob.transform.SetParent(transform);
+                break;
+            case BlobSizeComparisonEnum.SameSize:
+                AbsorbBlobScale(interactingBlob);
+                AbsorbBlobColor(interactingBlob);
+                Destroy(interactingBlob.gameObject);
+                break;
+            case BlobSizeComparisonEnum.Larger:
+                transform.position = interactingBlob.transform.position;
+                transform.SetParent(interactingBlob.transform);
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
     }
 
     private void AbsorbBlobScale(BlobController blobToAbsorb)
@@ -42,7 +70,7 @@ public class BlobMorph : MonoBehaviour
         // TEJAS: We may want to use lossy scale in the future and then convert to local scales
         // Using local scales should be fine for now
         var combinedScale = _blobController.Size + blobToAbsorb.Size;
-        _blobController.ChangeScale(combinedScale); ;
+        _blobController.ChangeScale(combinedScale);
     }
 
     private void AbsorbBlobColor(BlobController blobToAbsorb)
