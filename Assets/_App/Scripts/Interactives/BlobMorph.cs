@@ -24,6 +24,9 @@ public class BlobMorph : MonoBehaviour
         _blobController = GetComponent<BlobController>();
     }
 
+    // Added so we can enable/disable script in inspector
+    private void OnEnable() { }
+
     private void OnTriggerEnter(Collider other)
     {
         var interactingBlob = other.GetComponent<BlobController>();

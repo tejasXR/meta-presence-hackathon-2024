@@ -46,7 +46,7 @@ public class BlobController : MonoBehaviour
 
     private void Update()
     {
-        if (_destinationScale.magnitude - transform.localScale.magnitude < .01F)
+        if (_destinationScale.magnitude - transform.localScale.magnitude > .01F)
             transform.localScale = Vector3.Lerp(transform.localScale, _destinationScale, ScaleTransitionSpeed);
         
         if (_colorTransitionTime < 1)
