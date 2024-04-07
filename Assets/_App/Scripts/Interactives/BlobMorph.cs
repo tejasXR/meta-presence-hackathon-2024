@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 /// <summary>
@@ -6,21 +7,14 @@ using UnityEngine;
 [RequireComponent(typeof(BlobController))]
 public class BlobMorph : MonoBehaviour
 {
-    private const float ScaleTransitionSpeed = 4F;
-    private const float ColorTransitionSpeed = 1F;
-
-    private BlobController _blob;
-    private Vector3 _destinationScale;
-    private Color _destinationColor;
+    private BlobController _blobController;
+    
     private Material _material;
     private float _colorTransitionTime;
 
     private void Awake()
     {
-        _blob = GetComponent<BlobController>();
-
-        _destinationScale = transform.localScale;
-        _destinationColor = _blob.MaterialColor;
+        _blobController = GetComponent<BlobController>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -28,7 +22,7 @@ public class BlobMorph : MonoBehaviour
         var potentialBlob = other.GetComponent<BlobController>();
         if (potentialBlob)
         {
-            if (IsBlobSmaller(potentialBlob))
+            if (IsBlobSameSize(potentialBlob))
             {
                 AbsorbBlobScale(potentialBlob);
                 AbsorbBlobColor(potentialBlob);
@@ -38,34 +32,23 @@ public class BlobMorph : MonoBehaviour
         }
     }
 
-    private void Update()
+    private bool IsBlobSameSize(BlobController blob)
     {
-        var lerpedScale = Vector3.Lerp(transform.localScale, _destinationScale, ScaleTransitionSpeed);
-        _blob.ChangeScale(lerpedScale);
-
-        if (_colorTransitionTime < 1)
-        {
-            _blob.ChangeColor(Color.Lerp(_blob.MaterialColor, _destinationColor, _colorTransitionTime));
-            _colorTransitionTime += Time.deltaTime / ColorTransitionSpeed;
-        }
-    }
-
-    private bool IsBlobSmaller(BlobController blob)
-    {
-        return transform.lossyScale.magnitude >= blob.transform.lossyScale.magnitude;
+        return Math.Abs(_blobController.Size.magnitude - blob.Size.magnitude) < .001F;
     }
 
     private void AbsorbBlobScale(BlobController blobToAbsorb)
     {
         // TEJAS: We may want to use lossy scale in the future and then convert to local scales
         // Using local scales should be fine for now
-        _destinationScale += blobToAbsorb.transform.localScale;
+        var combinedScale = _blobController.Size + blobToAbsorb.Size;
+        _blobController.ChangeScale(combinedScale); ;
     }
 
     private void AbsorbBlobColor(BlobController blobToAbsorb)
     {
-        _destinationColor = CombineColors(_blob.MaterialColor, blobToAbsorb.MaterialColor);
-        _colorTransitionTime = 0;
+        var combinedColor = CombineColors(_blobController.MaterialColor, blobToAbsorb.MaterialColor);
+        _blobController.ChangeColor(combinedColor);
     }
 
     private Color CombineColors(params Color[] aColors)
