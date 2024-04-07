@@ -6,8 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/_App/Scenes/Blob Plant Creation Test Scene.unity
-    guid: a61d9e59637923e42ab762343ad2e72e
+    path: Assets/_App/Scenes/Blob Plant Creation Test Scene - Tweaking Blob Mixing.unity
+    guid: 8be8fa9ab9ad38e45bb3f381ebc3c893
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 2d52bf9796925a64e885dcc749b761fc,
       type: 2}
