@@ -22,8 +22,8 @@ public class SeedSpawner : MonoBehaviour
 
     private enum SpawnSurfaceAccessibilityEnum
     {
-        SpawnNearKeyWall,
-        SpawnNearAllWalls
+        Floating,
+        VerticalSurfaces
     }
 
     public void Initialize()
@@ -41,19 +41,18 @@ public class SeedSpawner : MonoBehaviour
         var keyWallCenter = keyWallAnchor.GetAnchorCenter();
         var keyWallBounds = new Bounds(keyWallCenter, keyWallScale);  
         
-        var spawnBounds = spawnSurfaceAccessibility == SpawnSurfaceAccessibilityEnum.SpawnNearAllWalls 
-            ? GenerateBoundsFromReference(entireRoomBounds) : GenerateBoundsFromReference(keyWallBounds);
-        
         // Get spawn position information
         var getSpawnPositions = SpawnUtil.GetSpawnPositions
         (
             // TEJAS: I original thought that the objectBounds arg was the bounds where to place objects, not the physical bouding dimensions of an object :')
             // Leaving this comment in because my intent was to bound the spawning of objects by specific bounds, which we may do later in development
+            // var spawnBounds = spawnSurfaceAccessibility == SpawnSurfaceAccessibilityEnum.SpawnNearAllWalls 
+            //    ? GenerateBoundsFromReference(entireRoomBounds) : GenerateBoundsFromReference(keyWallBounds);
             // objectBounds: spawnBounds,
             
-            objectBounds: spawnBounds,
+            objectBounds: null,
             positionCount: maxSeedsToSpawn,
-            spawnLocation: FindSpawnPositions.SpawnLocation.AnySurface,
+            spawnLocation:  spawnSurfaceAccessibility == SpawnSurfaceAccessibilityEnum.VerticalSurfaces ? FindSpawnPositions.SpawnLocation.AnySurface : FindSpawnPositions.SpawnLocation.Floating,
             labels: spawnSurfaces == SpawnSurfacesEnum.Walls ? MRUKAnchor.SceneLabels.WALL_FACE | MRUKAnchor.SceneLabels.WINDOW_FRAME | MRUKAnchor.SceneLabels.WALL_ART : ~(MRUKAnchor.SceneLabels)0,
             surfaceClearanceDistance: SurfaceClearingDistance
         );
