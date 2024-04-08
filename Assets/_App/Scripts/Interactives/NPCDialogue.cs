@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Oculus.Interaction;
 using UnityEngine;
 
-public class BlobDialogue : MonoBehaviour
+public class NPCDialogue : MonoBehaviour
 {
     [SerializeField] private PointableElement pointableElement;
     [SerializeField] private GameObject dialogueOptions;

@@ -8,12 +8,12 @@ public class PlantCreator : MonoBehaviour
 
     private const float SeedRotationSpeed = 75F;
     
-    private BlobSnapDelegate[] _snapDelegates;
+    private SeedSnapDelegate[] _snapDelegates;
     private bool _allSectionsSnapped;
     
     private void Awake()
     {
-        _snapDelegates = GetComponentsInChildren<BlobSnapDelegate>();
+        _snapDelegates = GetComponentsInChildren<SeedSnapDelegate>();
 
         foreach (var snapDelegate in _snapDelegates)
         {

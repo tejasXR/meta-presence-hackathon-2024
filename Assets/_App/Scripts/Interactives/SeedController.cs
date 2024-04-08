@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class BlobController : MonoBehaviour
+public class SeedController : MonoBehaviour
 {
     public Color MaterialColor
     {

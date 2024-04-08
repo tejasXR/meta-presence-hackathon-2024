@@ -2,7 +2,7 @@ using System;
 using Oculus.Interaction;
 using UnityEngine;
 
-public class BlobSnapDelegate : MonoBehaviour, ISnapPoseDelegate
+public class SeedSnapDelegate : MonoBehaviour, ISnapPoseDelegate
 {
     public event Action Snapped;
     public event Action Unsnapped;

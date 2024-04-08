@@ -4,13 +4,13 @@ using UnityEngine;
 /// <summary>
 /// Objects of this class will morph into other Blob objects
 /// </summary>
-[RequireComponent(typeof(BlobController))]
-public class BlobMorph : MonoBehaviour
+[RequireComponent(typeof(SeedController))]
+public class SeedMorph : MonoBehaviour
 {
     [SerializeField] private BlobCombineBehaviorEnum blobCombineBehavior;
     [SerializeField] private BlobSizeComparisonBehaviorEnum blobSizeComparisonBehavior;
 
-    private BlobController _blobController;
+    private SeedController _seedController;
     private Material _material;
     private float _colorTransitionTime;
 
@@ -35,49 +35,49 @@ public class BlobMorph : MonoBehaviour
 
     private void Awake()
     {
-        _blobController = GetComponent<BlobController>();
+        _seedController = GetComponent<SeedController>();
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        var interactingBlob = other.GetComponent<BlobController>();
+        var interactingBlob = other.GetComponent<SeedController>();
         if (interactingBlob) 
             CombineBlobs(interactingBlob);
     }
 
-    private BlobSizeComparisonEnum CompareSize(BlobController blob)
+    private BlobSizeComparisonEnum CompareSize(SeedController seed)
     {
-        if (_blobController.Size.magnitude > blob.Size.magnitude)
+        if (_seedController.Size.magnitude > seed.Size.magnitude)
             return BlobSizeComparisonEnum.Larger;
 
-        if (Math.Abs(_blobController.Size.magnitude - blob.Size.magnitude) < .001F)
+        if (Math.Abs(_seedController.Size.magnitude - seed.Size.magnitude) < .001F)
             return BlobSizeComparisonEnum.SameSize;
 
         return BlobSizeComparisonEnum.Smaller;
     }
 
-    private void CombineBlobs(BlobController interactingBlob)
+    private void CombineBlobs(SeedController interactingSeed)
     {
-        var sizeOfInteractingBlob = CompareSize(interactingBlob);
+        var sizeOfInteractingBlob = CompareSize(interactingSeed);
         
         if (sizeOfInteractingBlob == BlobSizeComparisonEnum.Smaller)
         {
             if (blobSizeComparisonBehavior == BlobSizeComparisonBehaviorEnum.OnlyCombineWithBlobsOfSameSize)
             {
                 // Have the interacting blob 'live' inside our blob
-                interactingBlob.transform.position = transform.position;
-                interactingBlob.transform.SetParent(transform);
+                interactingSeed.transform.position = transform.position;
+                interactingSeed.transform.SetParent(transform);
             }
 
             if (blobSizeComparisonBehavior == BlobSizeComparisonBehaviorEnum.OnlyCombineWithBlobsOfSameSizeOrSmaller)
             {
-                AbsorbBlob(interactingBlob);
+                AbsorbBlob(interactingSeed);
             }
         }
 
         if (sizeOfInteractingBlob == BlobSizeComparisonEnum.SameSize)
         {
-            AbsorbBlob(interactingBlob);
+            AbsorbBlob(interactingSeed);
         }
 
         if (sizeOfInteractingBlob == BlobSizeComparisonEnum.Larger)
@@ -85,31 +85,31 @@ public class BlobMorph : MonoBehaviour
             if (blobCombineBehavior == BlobCombineBehaviorEnum.FitSmallerBlobsInsideThisBlob)
             {
                 // Have our blob 'live' inside the interacting blob
-                transform.position = interactingBlob.transform.position;
-                transform.SetParent(interactingBlob.transform);
+                transform.position = interactingSeed.transform.position;
+                transform.SetParent(interactingSeed.transform);
             }
         }
     }
 
-    private void AbsorbBlob(BlobController blobToAbsorb)
+    private void AbsorbBlob(SeedController seedToAbsorb)
     {
-        while (_blobController.IsAboutToBeAbsorbed == false)
+        while (_seedController.IsAboutToBeAbsorbed == false)
         {
-            Debug.Log($"{name} is absorbing {blobToAbsorb.name}");
+            Debug.Log($"{name} is absorbing {seedToAbsorb.name}");
             
-            blobToAbsorb.LockForAbsorption();
+            seedToAbsorb.LockForAbsorption();
         
             // CHANGE SCALE
             // TEJAS: We may want to use lossy scale in the future and then convert to local scales
             // Using local scales should be fine for now
-            var combinedScale = _blobController.Size + blobToAbsorb.Size;
-            _blobController.ChangeScale(combinedScale);
+            var combinedScale = _seedController.Size + seedToAbsorb.Size;
+            _seedController.ChangeScale(combinedScale);
         
             // CHANGE COLOR
-            var combinedColor = CombineColors(_blobController.MaterialColor, blobToAbsorb.MaterialColor);
-            _blobController.ChangeColor(combinedColor);
+            var combinedColor = CombineColors(_seedController.MaterialColor, seedToAbsorb.MaterialColor);
+            _seedController.ChangeColor(combinedColor);
         
-            Destroy(blobToAbsorb.gameObject);
+            Destroy(seedToAbsorb.gameObject);
             return;
         }
     }
