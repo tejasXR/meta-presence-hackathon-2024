@@ -785,7 +785,7 @@ GameObject:
   - component: {fileID: 4684143517218558077}
   - component: {fileID: 1241506625403729467}
   m_Layer: 0
-  m_Name: pf_Blob_NPCDialogue
+  m_Name: pf_NPCDialogue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

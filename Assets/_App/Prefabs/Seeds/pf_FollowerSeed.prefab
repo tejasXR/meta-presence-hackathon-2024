@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 4320849262753021247}
   - component: {fileID: 3177127373159491112}
   m_Layer: 0
-  m_Name: pf_FollowerBlob
+  m_Name: pf_FollowerSeed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
