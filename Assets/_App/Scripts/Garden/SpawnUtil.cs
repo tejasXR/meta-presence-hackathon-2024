@@ -2,7 +2,7 @@ using System;
 using Meta.XR.MRUtilityKit;
 using UnityEngine;
 
-public class SpawnUtil
+public static class SpawnUtil
 {
     /// <summary>
     /// Copy of Meta's <see cref="FindSpawnPositions.StartSpawn"/> where positions get returned instead of the objects getting instantiated or moved.
