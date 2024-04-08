@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: b9d9309f-2bf0-40ca-9cee-803aa6a91dae
-  instanceId: 889b87b9-83dc-4fdc-8691-8bf482675d5c
+  instanceId: b4de1cdf-b647-41ee-9b08-f82f898613c4
   version: 1
 --- !u!114 &9174035264968981385
 MonoBehaviour:
@@ -134,7 +134,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 65c6e778-10b3-4490-89da-008a18aa116a
-  instanceId: 6f718ec1-b031-49c9-8ee7-623a72a437bd
+  instanceId: 37be82a8-238b-4216-a7fc-a0659b29091f
   version: 1
 --- !u!114 &4892992725986170316
 MonoBehaviour:
@@ -203,7 +203,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: d4413f4f-542f-451f-92ee-4801f27d676a
-  instanceId: 1937ed1e-676c-475e-9f41-1ae4636a39ab
+  instanceId: 6d978f39-f0fc-4b80-a2d8-13f4e8907af5
   version: 1
 --- !u!114 &2755209629682363616
 MonoBehaviour:
@@ -389,5 +389,6 @@ MonoBehaviour:
   seedPrefab: {fileID: 1266713546525695306, guid: e8f62e5a42ad8fc4caf7673ddd075620,
     type: 3}
   spawnSurfaces: 0
+  spawnSurfaceAccessibility: 1
   maxSeedsToSpawn: 10
   maxHeightToSpawn: 1.5
