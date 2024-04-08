@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: b9d9309f-2bf0-40ca-9cee-803aa6a91dae
-  instanceId: 88be2f85-5513-4922-963e-a414a86f7f83
+  instanceId: 889b87b9-83dc-4fdc-8691-8bf482675d5c
   version: 1
 --- !u!114 &9174035264968981385
 MonoBehaviour:
@@ -64,16 +64,16 @@ MonoBehaviour:
   - Labels: 2
     Prefabs:
     - {fileID: 3041248695010630580, guid: d3dbc604136ab8440a282c417764f219, type: 3}
-    MatchAspectRatio: 0
-    CalculateFacingDirection: 0
+    MatchAspectRatio: 1
+    CalculateFacingDirection: 1
     Scaling: 0
     Alignment: 2
     IgnorePrefabSize: 0
   - Labels: 8293
     Prefabs:
     - {fileID: 3041248695010630580, guid: e17e4ea54c22c7940b6c82559f865343, type: 3}
-    MatchAspectRatio: 0
-    CalculateFacingDirection: 0
+    MatchAspectRatio: 1
+    CalculateFacingDirection: 1
     Scaling: 0
     Alignment: 2
     IgnorePrefabSize: 0
@@ -134,7 +134,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 65c6e778-10b3-4490-89da-008a18aa116a
-  instanceId: 1d7dafc0-6ed0-4375-9b50-6d308de364e7
+  instanceId: 6f718ec1-b031-49c9-8ee7-623a72a437bd
   version: 1
 --- !u!114 &4892992725986170316
 MonoBehaviour:
@@ -203,7 +203,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: d4413f4f-542f-451f-92ee-4801f27d676a
-  instanceId: 2b2d888e-3b0c-42be-b0df-75412bc0e4e4
+  instanceId: 1937ed1e-676c-475e-9f41-1ae4636a39ab
   version: 1
 --- !u!114 &2755209629682363616
 MonoBehaviour:
@@ -321,6 +321,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 3729360339972724498}
+        m_TargetAssemblyTypeName: SeedSpawner, Assembly-CSharp
+        m_MethodName: Initialize
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   roomCreatedEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -374,4 +386,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9d0f9712fafe9542b34b0c3caab5ee1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seedPrefab: {fileID: 0}
+  seedPrefab: {fileID: 1266713546525695306, guid: e8f62e5a42ad8fc4caf7673ddd075620,
+    type: 3}
+  spawnSurfaces: 0
+  maxSeedsToSpawn: 10
+  maxHeightToSpawn: 1.5
