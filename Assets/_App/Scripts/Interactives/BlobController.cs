@@ -21,7 +21,8 @@ public class BlobController : MonoBehaviour
 
   
     public Vector3 Size => _destinationScale;
-    
+    public bool IsAboutToBeAbsorbed { get; private set; }
+
     private const float ScaleTransitionSpeed = 4F;
     private const float ColorTransitionSpeed = 1F;
 
@@ -66,5 +67,12 @@ public class BlobController : MonoBehaviour
     {
         _destinationColor = newColor;
         _colorTransitionTime = 0;
+    }
+    
+    // TEJAS: May refactor this method later to avoid race-conditions or move method to a more appropriate place
+    // Used to prevent race-conditions when two blobs are trying to absorb each other in the same frame
+    public void LockForAbsorption()
+    {
+        IsAboutToBeAbsorbed = true;
     }
 }
