@@ -1,10 +1,7 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using Oculus.Interaction;
 using UnityEngine;
 
-public class NPCDialogue : MonoBehaviour
+public class NPCDialogueController : MonoBehaviour
 {
     [SerializeField] private PointableElement pointableElement;
     [SerializeField] private GameObject dialogueOptions;
