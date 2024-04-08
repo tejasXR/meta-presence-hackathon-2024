@@ -7,8 +7,10 @@ using UnityEngine;
 [RequireComponent(typeof(BlobController))]
 public class BlobMorph : MonoBehaviour
 {
+    [SerializeField] private BlobCombineBehaviorEnum blobCombineBehavior;
+    [SerializeField] private BlobSizeComparisonBehaviorEnum blobSizeComparisonBehavior;
+
     private BlobController _blobController;
-    
     private Material _material;
     private float _colorTransitionTime;
 
@@ -19,19 +21,28 @@ public class BlobMorph : MonoBehaviour
         Larger
     }
 
+    private enum BlobSizeComparisonBehaviorEnum
+    {
+        OnlyCombineWithBlobsOfSameSize,
+        OnlyCombineWithBlobsOfSameSizeOrSmaller
+    }
+
+    private enum BlobCombineBehaviorEnum
+    {
+        DirectlyCombineSizeAndColor,
+        FitSmallerBlobsInsideThisBlob
+    }
+
     private void Awake()
     {
         _blobController = GetComponent<BlobController>();
     }
 
-    // Added so we can enable/disable script in inspector
-    private void OnEnable() { }
-
     private void OnTriggerEnter(Collider other)
     {
         var interactingBlob = other.GetComponent<BlobController>();
         if (interactingBlob) 
-            MixBlobs(interactingBlob);
+            CombineBlobs(interactingBlob);
     }
 
     private BlobSizeComparisonEnum CompareSize(BlobController blob)
@@ -45,41 +56,62 @@ public class BlobMorph : MonoBehaviour
         return BlobSizeComparisonEnum.Smaller;
     }
 
-    private void MixBlobs(BlobController interactingBlob)
+    private void CombineBlobs(BlobController interactingBlob)
     {
         var sizeOfInteractingBlob = CompareSize(interactingBlob);
-        switch (sizeOfInteractingBlob)
+        
+        if (sizeOfInteractingBlob == BlobSizeComparisonEnum.Smaller)
         {
-            case BlobSizeComparisonEnum.Smaller:
+            if (blobSizeComparisonBehavior == BlobSizeComparisonBehaviorEnum.OnlyCombineWithBlobsOfSameSize)
+            {
+                // Have the interacting blob 'live' inside our blob
                 interactingBlob.transform.position = transform.position;
                 interactingBlob.transform.SetParent(transform);
-                break;
-            case BlobSizeComparisonEnum.SameSize:
-                AbsorbBlobScale(interactingBlob);
-                AbsorbBlobColor(interactingBlob);
-                Destroy(interactingBlob.gameObject);
-                break;
-            case BlobSizeComparisonEnum.Larger:
+            }
+
+            if (blobSizeComparisonBehavior == BlobSizeComparisonBehaviorEnum.OnlyCombineWithBlobsOfSameSizeOrSmaller)
+            {
+                AbsorbBlob(interactingBlob);
+            }
+        }
+
+        if (sizeOfInteractingBlob == BlobSizeComparisonEnum.SameSize)
+        {
+            AbsorbBlob(interactingBlob);
+        }
+
+        if (sizeOfInteractingBlob == BlobSizeComparisonEnum.Larger)
+        {
+            if (blobCombineBehavior == BlobCombineBehaviorEnum.FitSmallerBlobsInsideThisBlob)
+            {
+                // Have our blob 'live' inside the interacting blob
                 transform.position = interactingBlob.transform.position;
                 transform.SetParent(interactingBlob.transform);
-                break;
-            default:
-                throw new ArgumentOutOfRangeException();
+            }
         }
     }
 
-    private void AbsorbBlobScale(BlobController blobToAbsorb)
+    private void AbsorbBlob(BlobController blobToAbsorb)
     {
-        // TEJAS: We may want to use lossy scale in the future and then convert to local scales
-        // Using local scales should be fine for now
-        var combinedScale = _blobController.Size + blobToAbsorb.Size;
-        _blobController.ChangeScale(combinedScale);
-    }
-
-    private void AbsorbBlobColor(BlobController blobToAbsorb)
-    {
-        var combinedColor = CombineColors(_blobController.MaterialColor, blobToAbsorb.MaterialColor);
-        _blobController.ChangeColor(combinedColor);
+        while (_blobController.IsAboutToBeAbsorbed == false)
+        {
+            Debug.Log($"{name} is absorbing {blobToAbsorb.name}");
+            
+            blobToAbsorb.LockForAbsorption();
+        
+            // CHANGE SCALE
+            // TEJAS: We may want to use lossy scale in the future and then convert to local scales
+            // Using local scales should be fine for now
+            var combinedScale = _blobController.Size + blobToAbsorb.Size;
+            _blobController.ChangeScale(combinedScale);
+        
+            // CHANGE COLOR
+            var combinedColor = CombineColors(_blobController.MaterialColor, blobToAbsorb.MaterialColor);
+            _blobController.ChangeColor(combinedColor);
+        
+            Destroy(blobToAbsorb.gameObject);
+            return;
+        }
     }
 
     private Color CombineColors(params Color[] aColors)
