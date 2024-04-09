@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class SeedController : MonoBehaviour
 {
+    public event Action<SeedController> SeedPopped;
+
     public Color MaterialColor
     {
         get
@@ -55,6 +57,14 @@ public class SeedController : MonoBehaviour
             _meshRenderer.material.color = Color.Lerp(MaterialColor, _destinationColor, _colorTransitionTime);
             _colorTransitionTime += Time.deltaTime / ColorTransitionSpeed;
         }
+
+#if UNITY_EDITOR
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            Debug.Log($"[{nameof(SeedController)}] {nameof(Update)}: {gameObject.name} popped!");
+            SeedPopped?.Invoke(this);
+        }
+#endif
     }
 
     public void ChangeScale(Vector3 newScale)
