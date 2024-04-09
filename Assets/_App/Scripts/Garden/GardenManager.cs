@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class GardenManager : MonoBehaviour
 {
-    [SerializeField] private List<Seed> Seeds;
+    [SerializeField] private List<Plant> Plants;
 
     [SerializeField] private SpatialAnchorCoreBuildingBlock _spatialAnchorCore;
     [SerializeField] private SpatialAnchorLoaderBuildingBlock _spatialAnchorLoader;
@@ -23,22 +23,32 @@ public class GardenManager : MonoBehaviour
         _spatialAnchorCore.EraseAllAnchors();
     }
 
-    public void PlantSeed()
+    public void OnSeedPopped(SeedController seed)
     {
-        Debug.Log($"[{nameof(GardenManager)}] {nameof(PlantSeed)}");
+        // TODO(yola): Seed > Plant correlation
+        Plant plant = Plants[0];
 
-        int seedCount = 1;
+        Plant(plant.Prefab, GetValidPositionForPlanting(plant.Prefab));
+    }
 
-        Tuple<Vector3, Quaternion>[] spawnPositions = SpawnUtil.GetSpawnPositions(
-                objectBounds: Utilities.GetPrefabBounds(Seeds[0].PlantPrefab),
-                positionCount: seedCount,
+    public void Plant(GameObject plantPrefab, Tuple<Vector3, Quaternion> plantPosition)
+    {
+        Debug.Log($"[{nameof(GardenManager)}] {nameof(Plant)}: Planting {plantPrefab.name} at position={plantPosition.Item1}, rotation={plantPosition.Item2}");
+
+        _spatialAnchorCore.InstantiateSpatialAnchor(plantPrefab, plantPosition.Item1, plantPosition.Item2);
+    }
+
+    public Tuple<Vector3, Quaternion> GetValidPositionForPlanting(GameObject plantPrefab)
+    {
+        Debug.Log($"[{nameof(GardenManager)}] {nameof(GetValidPositionForPlanting)}: plant={plantPrefab.name}");
+
+        Tuple<Vector3, Quaternion>[] validPositions = SpawnUtil.GetSpawnPositions(
+                objectBounds: Utilities.GetPrefabBounds(plantPrefab),
+                positionCount: 1,
                 spawnLocation: FindSpawnPositions.SpawnLocation.HangingDown,
                 labels: MRUKAnchor.SceneLabels.CEILING);
 
-        foreach (Tuple<Vector3, Quaternion> spawnPosition in spawnPositions)
-        {
-            Debug.Log($"[{nameof(GardenManager)}] {nameof(PlantSeed)}: Planting new seed at position={spawnPosition.Item1}, rotation={spawnPosition.Item2}");
-            _spatialAnchorCore.InstantiateSpatialAnchor(Seeds[0].PlantPrefab, spawnPosition.Item1, spawnPosition.Item2);
-        }
+        Debug.Assert(validPositions.Length > 0, $"[{nameof(GardenManager)}] {nameof(GetValidPositionForPlanting)} error: invalid {nameof(validPositions)} array.");
+        return validPositions[0];
     }
 }

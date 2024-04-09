@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 80aa2eb2-af2f-40a9-ad9e-18044ce65bee
-  instanceId: e8ad5265-67da-4933-82fa-105a9f82b9a9
+  instanceId: 95fff76a-bfe9-46ed-9595-e3908a63f216
   version: 1
 --- !u!114 &1580426640877588158
 MonoBehaviour:
@@ -61,15 +61,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _buttonClickActions:
-  - Title: Plant Seed
+  - Title: Pop Random Seed
     Button: 1
     ButtonMode: 0
     Callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 3856094891259841689}
-          m_TargetAssemblyTypeName: GardenManager, Assembly-CSharp
-          m_MethodName: PlantSeed
+        - m_Target: {fileID: 8741356550316788430}
+          m_TargetAssemblyTypeName: SeedSpawner, Assembly-CSharp
+          m_MethodName: PopRandomSeed
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -145,7 +145,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 1f4566e8-f4ba-46d2-9e47-3748c9869766
-  instanceId: a21eb4fb-1e40-453e-a734-bf3ba935c0b5
+  instanceId: 6093af8c-59b5-4bc4-895c-fec20e442718
   version: 1
 --- !u!114 &6278637509886106633
 MonoBehaviour:
@@ -232,7 +232,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: a383f5ea-3856-4c23-a11c-7fdbb9408035
-  instanceId: 5c075e7d-0643-4af7-9580-c5448136f252
+  instanceId: 208e9757-a924-4588-a316-1a5f4184b82f
   version: 1
 --- !u!114 &9101491806516038968
 MonoBehaviour:
@@ -258,56 +258,6 @@ MonoBehaviour:
   _onAnchorEraseCompleted:
     m_PersistentCalls:
       m_Calls: []
---- !u!1 &8237252465722354850
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3660681181717647311}
-  - component: {fileID: 3913942399164913140}
-  m_Layer: 0
-  m_Name: Seed Spawner
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &3660681181717647311
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8237252465722354850}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1658626597535816957}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3913942399164913140
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8237252465722354850}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9d0f9712fafe9542b34b0c3caab5ee1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  seedPrefab: {fileID: 1266713546525695306, guid: e8f62e5a42ad8fc4caf7673ddd075620,
-    type: 3}
-  spawnSurfaces: 0
-  spawnSurfaceAccessibility: 1
-  maxSeedsToSpawn: 10
-  maxHeightToSpawn: 1.5
 --- !u!1 &8715495945399539160
 GameObject:
   m_ObjectHideFlags: 0
@@ -318,6 +268,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1658626597535816957}
   - component: {fileID: 3856094891259841689}
+  - component: {fileID: 8741356550316788430}
   - component: {fileID: 849419983189615845}
   m_Layer: 0
   m_Name: pf_GardenManager
@@ -342,7 +293,6 @@ Transform:
   - {fileID: 7057260186981117687}
   - {fileID: 1948218812312516079}
   - {fileID: 5641815419137225624}
-  - {fileID: 3660681181717647311}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3856094891259841689
@@ -357,10 +307,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6aaebfe3a0f7d19418daec22c825c70e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Seeds:
-  - {fileID: 11400000, guid: 2885c438d3bbef5459e96cf0c001f8e7, type: 2}
+  Plants:
+  - {fileID: 11400000, guid: 16aa46f7db42a43419d5b113ba5a7221, type: 2}
   _spatialAnchorCore: {fileID: 9101491806516038968}
   _spatialAnchorLoader: {fileID: 6841667831010647611}
+--- !u!114 &8741356550316788430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8715495945399539160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9d0f9712fafe9542b34b0c3caab5ee1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  seedPrefab: {fileID: 1266713546525695306, guid: e8f62e5a42ad8fc4caf7673ddd075620,
+    type: 3}
+  spawnSurfaces: 0
+  spawnSurfaceAccessibility: 1
+  maxSeedsToSpawn: 10
+  maxHeightToSpawn: 1.5
 --- !u!114 &849419983189615845
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -388,7 +356,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 3913942399164913140}
+      - m_Target: {fileID: 8741356550316788430}
         m_TargetAssemblyTypeName: SeedSpawner, Assembly-CSharp
         m_MethodName: Initialize
         m_Mode: 1

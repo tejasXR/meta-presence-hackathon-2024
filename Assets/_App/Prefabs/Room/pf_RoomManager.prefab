@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: b9d9309f-2bf0-40ca-9cee-803aa6a91dae
-  instanceId: f79a2f63-34d9-4b34-aa0e-3052dd1b128a
+  instanceId: e698b060-9b1d-4860-98f7-ac88042db20d
   version: 1
 --- !u!114 &9174035264968981385
 MonoBehaviour:
@@ -61,14 +61,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PrefabsToSpawn:
-  - Labels: 2
-    Prefabs:
-    - {fileID: 3041248695010630580, guid: d3dbc604136ab8440a282c417764f219, type: 3}
-    MatchAspectRatio: 1
-    CalculateFacingDirection: 1
-    Scaling: 0
-    Alignment: 2
-    IgnorePrefabSize: 0
   - Labels: 8293
     Prefabs:
     - {fileID: 3041248695010630580, guid: e17e4ea54c22c7940b6c82559f865343, type: 3}
@@ -134,7 +126,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 65c6e778-10b3-4490-89da-008a18aa116a
-  instanceId: b2bdb364-c650-4226-b10a-ce0477bc7f6f
+  instanceId: 5e4cb6d3-24d5-4ac3-aeb9-1746d88109b3
   version: 1
 --- !u!114 &4892992725986170316
 MonoBehaviour:
@@ -203,7 +195,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: d4413f4f-542f-451f-92ee-4801f27d676a
-  instanceId: ea2f40d6-5187-4578-bab6-ee8fa15b522b
+  instanceId: 107a3ba5-ea89-4cac-a6e1-52206ef9a717
   version: 1
 --- !u!114 &2755209629682363616
 MonoBehaviour:

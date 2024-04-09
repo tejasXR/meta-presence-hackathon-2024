@@ -35,6 +35,16 @@ public class SeedSpawner : MonoBehaviour
         _gardenManager = GetComponent<GardenManager>();
     }
 
+    void Update()
+    {
+#if UNITY_EDITOR
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            PopRandomSeed();
+        }
+#endif
+    }
+
     public void Initialize()
     {
         _seedPooler = new Pooler<SeedController>();
@@ -42,6 +52,11 @@ public class SeedSpawner : MonoBehaviour
         SpawnSeeds();
     }
     
+    public void PopRandomSeed()
+    {
+        _seedPooler.BorrowedObjects[UnityEngine.Random.Range(0, _seedPooler.BorrowedCount - 1)].Pop();
+    }
+
     private void SpawnSeeds()
     {
         // Generate bound information

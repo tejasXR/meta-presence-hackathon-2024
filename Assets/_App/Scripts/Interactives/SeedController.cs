@@ -57,14 +57,6 @@ public class SeedController : MonoBehaviour
             _meshRenderer.material.color = Color.Lerp(MaterialColor, _destinationColor, _colorTransitionTime);
             _colorTransitionTime += Time.deltaTime / ColorTransitionSpeed;
         }
-
-#if UNITY_EDITOR
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            Debug.Log($"[{nameof(SeedController)}] {nameof(Update)}: {gameObject.name} popped!");
-            SeedPopped?.Invoke(this);
-        }
-#endif
     }
 
     public void ChangeScale(Vector3 newScale)
@@ -84,5 +76,14 @@ public class SeedController : MonoBehaviour
     public void LockForAbsorption()
     {
         IsAboutToBeAbsorbed = true;
+    }
+
+    public void Pop()
+    {
+        Debug.Log($"({gameObject.name})[{nameof(SeedController)}] {nameof(Pop)}");
+
+        // Popping simply deactivates the seed for now.
+        gameObject.SetActive(false);
+        SeedPopped?.Invoke(this);
     }
 }
