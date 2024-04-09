@@ -1,6 +1,8 @@
+using System;
 using Meta.XR.MRUtilityKit;
 using UnityEngine;
 
+[RequireComponent(typeof(GardenManager))]
 public class SeedSpawner : MonoBehaviour
 {
     [SerializeField] private SeedController seedPrefab;
@@ -11,6 +13,8 @@ public class SeedSpawner : MonoBehaviour
     [SerializeField] private int maxSeedsToSpawn = 10;
     [SerializeField] private float maxHeightToSpawn = 1.5F;
     
+    private GardenManager _gardenManager;
+
     private const float SurfaceClearingDistance = .75F;  // The clearance distance required in front of the surface in order for it to be considered a valid spawn position
     private Pooler<SeedController> _seedPooler;
 
@@ -24,6 +28,11 @@ public class SeedSpawner : MonoBehaviour
     {
         Floating,
         VerticalSurfaces
+    }
+
+    void Awake()
+    {
+        _gardenManager = GetComponent<GardenManager>();
     }
 
     public void Initialize()
@@ -84,6 +93,17 @@ public class SeedSpawner : MonoBehaviour
 
     private SeedController OnPoolerBorrowedItem(int numberOfTotalItemsBorrowed)
     {
-        return Instantiate(seedPrefab);
+        SeedController seed = Instantiate(seedPrefab);
+        seed.SeedPopped += OnSeedPopped;
+        return seed;
+    }
+
+    private void OnSeedPopped(SeedController seed)
+    {
+        _gardenManager.OnSeedPopped(seed);
+
+        // Deactivate and return to pool.
+        seed.gameObject.SetActive(false);
+        _seedPooler.ReturnItem(seed);
     }
 }
