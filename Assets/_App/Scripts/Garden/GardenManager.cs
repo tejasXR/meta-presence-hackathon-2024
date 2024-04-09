@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class GardenManager : MonoBehaviour
 {
-    [SerializeField] private List<Plant> Plants;
+    [SerializeField] private List<GameObject> Plants;
 
     [SerializeField] private SpatialAnchorCoreBuildingBlock _spatialAnchorCore;
     [SerializeField] private SpatialAnchorLoaderBuildingBlock _spatialAnchorLoader;
@@ -26,9 +26,9 @@ public class GardenManager : MonoBehaviour
     public void OnSeedPopped(SeedController seed)
     {
         // TODO(yola): Seed > Plant correlation
-        Plant plant = Plants[0];
+        GameObject plantPrefab = Plants[0];
 
-        Plant(plant.Prefab, GetValidPositionForPlanting(plant.Prefab));
+        Plant(plantPrefab, GetValidPositionForPlanting(plantPrefab));
     }
 
     public void Plant(GameObject plantPrefab, Tuple<Vector3, Quaternion> plantPosition)

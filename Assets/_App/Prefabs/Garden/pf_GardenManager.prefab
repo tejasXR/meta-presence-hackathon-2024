@@ -116,7 +116,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7057260186981117687
 Transform:
   m_ObjectHideFlags: 0
@@ -308,7 +308,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Plants:
-  - {fileID: 11400000, guid: 16aa46f7db42a43419d5b113ba5a7221, type: 2}
+  - {fileID: 3030546091100231466, guid: f60a78919f9030b4bb14b4ff55cd643a, type: 3}
   _spatialAnchorCore: {fileID: 9101491806516038968}
   _spatialAnchorLoader: {fileID: 6841667831010647611}
 --- !u!114 &8741356550316788430
