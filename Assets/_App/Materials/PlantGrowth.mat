@@ -38,8 +38,8 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Clip: 0.97
-    - _Grow: 0
+    - _Clip: 0.992
+    - _Grow: 0.603
     - _Metalic: 0
     - _QueueControl: 0
     - _QueueOffset: 0
