@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 80aa2eb2-af2f-40a9-ad9e-18044ce65bee
-  instanceId: 95fff76a-bfe9-46ed-9595-e3908a63f216
+  instanceId: 5a73bedc-9728-4028-8633-ff22d7f15caf
   version: 1
 --- !u!114 &1580426640877588158
 MonoBehaviour:
@@ -97,95 +97,6 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
---- !u!1 &4439299014093459587
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7057260186981117687}
-  - component: {fileID: 2704733147774657549}
-  - component: {fileID: 6278637509886106633}
-  - component: {fileID: 6841667831010647611}
-  - component: {fileID: 316285203807435558}
-  m_Layer: 0
-  m_Name: '[BuildingBlock] Sample Spatial Anchor Controller'
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &7057260186981117687
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4439299014093459587}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1658626597535816957}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2704733147774657549
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4439299014093459587}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5b023183069df224080314a560e6e1ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  blockId: 1f4566e8-f4ba-46d2-9e47-3748c9869766
-  instanceId: 6093af8c-59b5-4bc4-895c-fec20e442718
-  version: 1
---- !u!114 &6278637509886106633
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4439299014093459587}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5bc6a23b88361f8498219ac2b71b4317, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _anchorPrefab: {fileID: 3030546091100231466, guid: f60a78919f9030b4bb14b4ff55cd643a,
-    type: 3}
-  _followHand: 0
---- !u!114 &6841667831010647611
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4439299014093459587}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 726f9b8f93c8a3e4bb34dc18134b0858, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &316285203807435558
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4439299014093459587}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cec2d2da14aa8c6439e25d13c5247ca7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &5770820636301423727
 GameObject:
   m_ObjectHideFlags: 0
@@ -195,10 +106,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1948218812312516079}
-  - component: {fileID: 7853784057310785793}
+  - component: {fileID: 21629832969808440}
   - component: {fileID: 9101491806516038968}
   m_Layer: 0
-  m_Name: '[BuildingBlock] Spatial Anchor Core'
+  m_Name: PersistenceManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -219,7 +130,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1658626597535816957}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7853784057310785793
+--- !u!114 &21629832969808440
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -228,12 +139,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 5770820636301423727}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5b023183069df224080314a560e6e1ff, type: 3}
+  m_Script: {fileID: 11500000, guid: a7864ff6dba048d4dae1936cce6eb6fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blockId: a383f5ea-3856-4c23-a11c-7fdbb9408035
-  instanceId: 208e9757-a924-4588-a316-1a5f4184b82f
-  version: 1
+  _plants: {fileID: 11400000, guid: 5ea12fbbe2e31fa48bf9fb160ba15d3b, type: 2}
 --- !u!114 &9101491806516038968
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -248,16 +157,64 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _onAnchorCreateCompleted:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 21629832969808440}
+        m_TargetAssemblyTypeName: GardenPersistenceManager, Assembly-CSharp
+        m_MethodName: SaveAndStartGrowingPlant
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _onAnchorsLoadCompleted:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 21629832969808440}
+        m_TargetAssemblyTypeName: GardenPersistenceManager, Assembly-CSharp
+        m_MethodName: RestoreGardenState
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _onAnchorsEraseAllCompleted:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 21629832969808440}
+        m_TargetAssemblyTypeName: GardenPersistenceManager, Assembly-CSharp
+        m_MethodName: RemoveAllPlantsFromLocalStorage
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _onAnchorEraseCompleted:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 21629832969808440}
+        m_TargetAssemblyTypeName: GardenPersistenceManager, Assembly-CSharp
+        m_MethodName: RemovePlantFromLocalStorage
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8715495945399539160
 GameObject:
   m_ObjectHideFlags: 0
@@ -290,7 +247,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 7057260186981117687}
   - {fileID: 1948218812312516079}
   - {fileID: 5641815419137225624}
   m_Father: {fileID: 0}
@@ -307,10 +263,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6aaebfe3a0f7d19418daec22c825c70e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Plants:
-  - {fileID: 3030546091100231466, guid: f60a78919f9030b4bb14b4ff55cd643a, type: 3}
-  _spatialAnchorCore: {fileID: 9101491806516038968}
-  _spatialAnchorLoader: {fileID: 6841667831010647611}
+  _persistenceManager: {fileID: 21629832969808440}
+  _plants: {fileID: 11400000, guid: 5ea12fbbe2e31fa48bf9fb160ba15d3b, type: 2}
 --- !u!114 &8741356550316788430
 MonoBehaviour:
   m_ObjectHideFlags: 0

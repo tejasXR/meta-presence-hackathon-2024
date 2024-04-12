@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4bab4caf064d131488073b7015c87006, type: 2}
+  - {fileID: 2100000, guid: 05ac9f21beb13c143bc279bea1cfd1fb, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 8241301067917369585}
   - component: {fileID: 9654764580692362}
   m_Layer: 0
-  m_Name: pf_SimplePlant
+  m_Name: pf_SimplePlantB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -128,9 +128,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac99e2231cecdea449d44fbd75f1cb72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _meshRenderers:
-  - {fileID: 6793962529628773359}
+  _type: 2
   _lifeSpan: 60
   _growthRate: 0.1
+  _meshRenderers:
+  - {fileID: 6793962529628773359}
   _minGrow: 0
   _maxGrow: 1

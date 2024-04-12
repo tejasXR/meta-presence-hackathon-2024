@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: PlantGrowth
+  m_Name: mat_SimplePlantA
   m_Shader: {fileID: -6465566751694194690, guid: 52cac8ee29ab8cc45883c4acf8e6e4cb,
     type: 3}
   m_Parent: {fileID: 0}
@@ -46,7 +46,7 @@ Material:
     - _Scale: -2.43
     - _Smoothness: 0
     m_Colors:
-    - _Color: {r: 0.2192346, g: 0.6603774, b: 0, a: 0}
+    - _Color: {r: 0.65882355, g: 0, b: 0.29385108, a: 0}
     - _Vector3: {r: 0, g: 9.1, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &7215916877688492645

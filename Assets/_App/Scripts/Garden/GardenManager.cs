@@ -1,54 +1,54 @@
-using System;
-using System.Collections.Generic;
-using Meta.XR.BuildingBlocks;
 using Meta.XR.MRUtilityKit;
 using UnityEngine;
 
 public class GardenManager : MonoBehaviour
 {
-    [SerializeField] private List<GameObject> Plants;
+    [SerializeField] private GardenPersistenceManager _persistenceManager;
+    [SerializeField] private Plants _plants;
 
-    [SerializeField] private SpatialAnchorCoreBuildingBlock _spatialAnchorCore;
-    [SerializeField] private SpatialAnchorLoaderBuildingBlock _spatialAnchorLoader;
+    void OnApplicationQuit()
+    {
+        Debug.Log($"[{nameof(GardenManager)}] {nameof(OnApplicationQuit)}");
+
+        _persistenceManager.SaveGardenState();
+    }
 
     public void InitGarden()
     {
         Debug.Log($"[{nameof(GardenManager)}] {nameof(InitGarden)}");
 
-        _spatialAnchorLoader.LoadAnchorsFromDefaultLocalStorage();
+        _persistenceManager.InitGarden();
     }
 
     public void DestroyGarden()
     {
-        _spatialAnchorCore.EraseAllAnchors();
+        Debug.Log($"[{nameof(GardenManager)}] {nameof(DestroyGarden)}");
+
+        _persistenceManager.DestroyGarden();
     }
 
     public void OnSeedPopped(SeedController seed)
     {
+        Debug.Log($"[{nameof(GardenManager)}] {nameof(OnSeedPopped)}: {nameof(seed)}={seed.gameObject.name}");
+
         // TODO(yola): Seed > Plant correlation
-        GameObject plantPrefab = Plants[0];
+        Plants.PlantType randomPlantType = (Plants.PlantType)Random.Range(1, System.Enum.GetValues(typeof(Plants.PlantType)).Length);
+        GameObject randomPlantPrefab = _plants.GetPrefab(randomPlantType);
 
-        Plant(plantPrefab, GetValidPositionForPlanting(plantPrefab));
+        _persistenceManager.CreateNewPlant(randomPlantPrefab, GetValidPlantPosition(randomPlantPrefab));
     }
 
-    public void Plant(GameObject plantPrefab, Tuple<Vector3, Quaternion> plantPosition)
+    private System.Tuple<Vector3, Quaternion> GetValidPlantPosition(GameObject plantPrefab)
     {
-        Debug.Log($"[{nameof(GardenManager)}] {nameof(Plant)}: Planting {plantPrefab.name} at position={plantPosition.Item1}, rotation={plantPosition.Item2}");
+        Debug.Log($"[{nameof(GardenManager)}] {nameof(GetValidPlantPosition)}: {nameof(plantPrefab)}={plantPrefab.name}");
 
-        _spatialAnchorCore.InstantiateSpatialAnchor(plantPrefab, plantPosition.Item1, plantPosition.Item2);
-    }
-
-    public Tuple<Vector3, Quaternion> GetValidPositionForPlanting(GameObject plantPrefab)
-    {
-        Debug.Log($"[{nameof(GardenManager)}] {nameof(GetValidPositionForPlanting)}: plant={plantPrefab.name}");
-
-        Tuple<Vector3, Quaternion>[] validPositions = SpawnUtil.GetSpawnPositions(
+        System.Tuple<Vector3, Quaternion>[] validPositions = SpawnUtil.GetSpawnPositions(
                 objectBounds: Utilities.GetPrefabBounds(plantPrefab),
                 positionCount: 1,
                 spawnLocation: FindSpawnPositions.SpawnLocation.HangingDown,
                 labels: MRUKAnchor.SceneLabels.CEILING);
 
-        Debug.Assert(validPositions.Length > 0, $"[{nameof(GardenManager)}] {nameof(GetValidPositionForPlanting)} error: invalid {nameof(validPositions)} array.");
+        Debug.Assert(validPositions.Length > 0, $"[{nameof(GardenManager)}] {nameof(GetValidPlantPosition)} error: invalid {nameof(validPositions)} array.");
         return validPositions[0];
     }
 }

@@ -4,15 +4,19 @@ using UnityEngine;
 
 public class PlantController : MonoBehaviour
 {
-    [SerializeField] private List<MeshRenderer> _meshRenderers;
+    [SerializeField] private Plants.PlantType _type;
     [SerializeField] private float _lifeSpan = 5f;
     [SerializeField] private float _growthRate = 0.05f;
+    [SerializeField] private List<MeshRenderer> _meshRenderers;
 
     [Range(0f, 1f)]
     [SerializeField] private float _minGrow = 0.2f;
 
     [Range(0f, 1f)]
     [SerializeField] private float _maxGrow = 0.9f;
+
+    public Plants.PlantType Type => _type;
+    public float GrowValue => _materials.Count > 0 ? _materials[0].GetFloat(GROW_PROPERTY) : _minGrow;
 
     private readonly List<Material> _materials = new();
     private bool _isFullyGrown;
@@ -32,23 +36,30 @@ public class PlantController : MonoBehaviour
                 }
             }
         }
+    }
 
+    public void StartGrowing() => ResumeGrowing(_minGrow);
+
+    public void ResumeGrowing(float lastGrowValue)
+    {
         foreach (Material material in _materials)
         {
-            StartCoroutine(Grow(material));
+            StartCoroutine(Grow(material, lastGrowValue));
         }
     }
 
-    private IEnumerator Grow(Material material)
+    private IEnumerator Grow(Material material, float lastGrowValue)
     {
-        float growValue = material.GetFloat(GROW_PROPERTY);
+        material.SetFloat(GROW_PROPERTY, lastGrowValue);
+        float growValue = lastGrowValue;
+
         Debug.Log($"({gameObject.name})[{nameof(PlantController)}] {nameof(Grow)}: value={growValue}");
 
         while (growValue < _maxGrow)
         {
             growValue += 1 / (_lifeSpan / _growthRate);
             material.SetFloat(GROW_PROPERTY, growValue);
-            Debug.Log($"({gameObject.name})[{nameof(PlantController)}] {nameof(Grow)}: value={growValue}");
+            // Debug.Log($"({gameObject.name})[{nameof(PlantController)}] {nameof(Grow)}: value={growValue}");
 
             yield return new WaitForSeconds(_growthRate);
         }
@@ -68,7 +79,7 @@ public class PlantController : MonoBehaviour
         {
             growValue -= 1 / (_lifeSpan / _growthRate);
             material.SetFloat(GROW_PROPERTY, growValue);
-            Debug.Log($"({gameObject.name})[{nameof(PlantController)}] {nameof(Shrink)}: value={growValue}");
+            // Debug.Log($"({gameObject.name})[{nameof(PlantController)}] {nameof(Shrink)}: value={growValue}");
 
             yield return new WaitForSeconds(_growthRate);
         }
