@@ -16,7 +16,7 @@ public class SeedSpawner : MonoBehaviour
     private GardenManager _gardenManager;
 
     private const float SurfaceClearingDistance = .75F;  // The clearance distance required in front of the surface in order for it to be considered a valid spawn position
-    private Pooler<SeedController> _seedPooler;
+    private readonly Pooler<SeedController> _seedPooler = new();
 
     private enum SpawnSurfacesEnum
     {
@@ -54,6 +54,11 @@ public class SeedSpawner : MonoBehaviour
     
     public void PopRandomSeed()
     {
+        if (_seedPooler.BorrowedCount == 0)
+        {
+            Debug.Log($"[{nameof(SeedSpawner)}] {nameof(PopRandomSeed)}: There are no seeds to pop!");
+            return;
+        }
         _seedPooler.BorrowedObjects[UnityEngine.Random.Range(0, _seedPooler.BorrowedCount - 1)].Pop();
     }
 
