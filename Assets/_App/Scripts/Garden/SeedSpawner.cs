@@ -47,7 +47,6 @@ public class SeedSpawner : MonoBehaviour
 
     public void Initialize()
     {
-        _seedPooler = new Pooler<SeedController>();
         _seedPooler.Initialize(OnPoolerBorrowedItem, maxSeedsToSpawn);
         SpawnSeeds();
     }
