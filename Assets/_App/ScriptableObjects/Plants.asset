@@ -13,12 +13,6 @@ MonoBehaviour:
   m_Name: Plants
   m_EditorClassIdentifier: 
   _plants:
-  - Type: 0
-    Prefab: {fileID: 3030546091100231466, guid: 0508b1b200e89e34588fcd33dc9a11b6,
-      type: 3}
   - Type: 1
-    Prefab: {fileID: 3030546091100231466, guid: f9120fdbd1c82174a89c9364ac86ada2,
-      type: 3}
-  - Type: 1
-    Prefab: {fileID: 3030546091100231466, guid: f9120fdbd1c82174a89c9364ac86ada2,
+    Prefab: {fileID: 3874508914265952722, guid: 339518c8e778e174395fa071b9b288df,
       type: 3}
