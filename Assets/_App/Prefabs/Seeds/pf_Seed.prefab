@@ -144,8 +144,8 @@ GameObject:
   - component: {fileID: 6830854556218966323}
   - component: {fileID: 1645885094732742357}
   - component: {fileID: 4811488638310536670}
-  - component: {fileID: 4320849262753021247}
   - component: {fileID: 1653994964226470285}
+  - component: {fileID: 4320849262753021247}
   - component: {fileID: 1266713546525695306}
   - component: {fileID: 7766479633320254590}
   m_Layer: 0
@@ -221,27 +221,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &4320849262753021247
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8646029585021388215}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &1653994964226470285
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -269,6 +248,27 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!135 &4320849262753021247
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8646029585021388215}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1266713546525695306
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -288,6 +288,9 @@ MonoBehaviour:
   - {r: 0.65882355, g: 0.24313727, b: 0.5019608, a: 1}
   - {r: 0.87843144, g: 0.45098042, b: 0.8705883, a: 1}
   - {r: 0.70980394, g: 0.32941177, b: 0.35686275, a: 1}
+  startingPatterns:
+  - {fileID: 2800000, guid: 02e29b8030b26f04099c3c1ba3d50136, type: 3}
+  - {fileID: 2800000, guid: facddd36ecf2b1f448525039e36b2ba9, type: 3}
   minStartingScale: 0.075
   maxStartingScale: 0.2
 --- !u!114 &7766479633320254590
