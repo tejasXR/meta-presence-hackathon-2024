@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: b9d9309f-2bf0-40ca-9cee-803aa6a91dae
-  instanceId: e698b060-9b1d-4860-98f7-ac88042db20d
+  instanceId: 2f409401-5a64-47c9-a07b-a7e94ef4c0ba
   version: 1
 --- !u!114 &9174035264968981385
 MonoBehaviour:
@@ -126,7 +126,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 65c6e778-10b3-4490-89da-008a18aa116a
-  instanceId: 5e4cb6d3-24d5-4ac3-aeb9-1746d88109b3
+  instanceId: 86e7c9d6-b396-4380-b382-2ac8cd70e4fd
   version: 1
 --- !u!114 &4892992725986170316
 MonoBehaviour:
@@ -142,7 +142,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MeshMaterial: {fileID: 2100000, guid: 599b01c5f1d17436c89b88cc04257314, type: 2}
   BorderSize: 0.2
-  Colliders: 0
+  Colliders: 1
   castShadows: 1
   hideMesh: 0
   textureCoordinateModes:
@@ -195,7 +195,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: d4413f4f-542f-451f-92ee-4801f27d676a
-  instanceId: 107a3ba5-ea89-4cac-a6e1-52206ef9a717
+  instanceId: 38a9bbd5-7aa3-48f6-8075-3a64a9705986
   version: 1
 --- !u!114 &2755209629682363616
 MonoBehaviour:
@@ -238,6 +238,37 @@ MonoBehaviour:
     LoadSceneOnStartup: 1
     SeatWidth: 0.6
     SceneJson: 
+--- !u!1 &6293524925337064130
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5952963053858718230}
+  m_Layer: 0
+  m_Name: Environmental Depth Initializer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5952963053858718230
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6293524925337064130}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7507975546397540767}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6965797732230555248
 GameObject:
   m_ObjectHideFlags: 0
@@ -271,6 +302,7 @@ Transform:
   - {fileID: 23802401904020283}
   - {fileID: 3342606486757060387}
   - {fileID: 2460880053104703083}
+  - {fileID: 5952963053858718230}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4507381400064113020
