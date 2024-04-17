@@ -78,7 +78,7 @@ public class SeedSpawner : MonoBehaviour
             //    ? GenerateBoundsFromReference(entireRoomBounds) : GenerateBoundsFromReference(keyWallBounds);
             // objectBounds: spawnBounds,
             
-            objectBounds: null,
+            objectBounds: Utilities.GetPrefabBounds(seedPrefab.gameObject),
             positionCount: maxSeedsToSpawn,
             spawnLocation:  spawnSurfaceAccessibility == SpawnSurfaceAccessibilityEnum.VerticalSurfaces ? FindSpawnPositions.SpawnLocation.AnySurface : FindSpawnPositions.SpawnLocation.Floating,
             labels: spawnSurfaces == SpawnSurfacesEnum.Walls ? MRUKAnchor.SceneLabels.WALL_FACE | MRUKAnchor.SceneLabels.WINDOW_FRAME | MRUKAnchor.SceneLabels.WALL_ART : ~(MRUKAnchor.SceneLabels)0,
