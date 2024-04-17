@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -9,6 +8,7 @@ public class SeedController : MonoBehaviour
     public event Action<SeedController> SeedPopped;
 
     [SerializeField] private List<Color> startingColors;
+    [SerializeField] private List<Texture2D> startingPatterns;
     [Space]
     [Range(.075F, .15F)] [SerializeField] private float minStartingScale;
     [Range(.1F, .3F)] [SerializeField] private float maxStartingScale;
@@ -73,6 +73,10 @@ public class SeedController : MonoBehaviour
         // Color
         var randomColor = startingColors[Random.Range(0, startingColors.Count)];
         _meshRenderer.material.color = randomColor;
+        
+        // Pattern
+        var randomPattern = startingPatterns[Random.Range(0, startingPatterns.Count)];
+        _meshRenderer.material.mainTexture = randomPattern;
         
         // Rotation
         transform.rotation = Quaternion.Euler(Random.Range(0F, 360F), Random.Range(0F, 360F), Random.Range(0F, 360F));
