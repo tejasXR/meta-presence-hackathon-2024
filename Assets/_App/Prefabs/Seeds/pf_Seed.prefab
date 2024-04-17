@@ -289,7 +289,7 @@ MonoBehaviour:
   - {r: 0.87843144, g: 0.45098042, b: 0.8705883, a: 1}
   - {r: 0.70980394, g: 0.32941177, b: 0.35686275, a: 1}
   minStartingScale: 0.075
-  maxStartingScale: 0.3
+  maxStartingScale: 0.2
 --- !u!114 &7766479633320254590
 MonoBehaviour:
   m_ObjectHideFlags: 0
