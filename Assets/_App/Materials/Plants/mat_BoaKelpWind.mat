@@ -39,7 +39,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _Clip: 0.993
-    - _Grow: 0.683
+    - _Grow: 1
     - _Metalic: 0
     - _QueueControl: 0
     - _QueueOffset: 0
