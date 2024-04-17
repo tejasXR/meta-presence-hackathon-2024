@@ -1,9 +1,17 @@
 using System;
+using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class SeedController : MonoBehaviour
 {
     public event Action<SeedController> SeedPopped;
+
+    [SerializeField] private List<Color> startingColors;
+    [Space]
+    [Range(.075F, .15F)] [SerializeField] private float minStartingScale;
+    [Range(.1F, .3F)] [SerializeField] private float maxStartingScale;
 
     public Color MaterialColor
     {
@@ -26,7 +34,7 @@ public class SeedController : MonoBehaviour
     public bool IsAboutToBeAbsorbed { get; private set; }
 
     private const float ScaleTransitionSpeed = 4F;
-    private const float ColorTransitionSpeed = 1F;
+    private const float ColorTransitionSpeed = 3F;
 
     private MeshRenderer _meshRenderer;
     private Vector3 _destinationScale;
@@ -41,8 +49,9 @@ public class SeedController : MonoBehaviour
             throw new ApplicationException($"No MeshRenderer component found on {name}");
         }
 
-        MaterialColor = _meshRenderer.material.color;
+        ConfigureVariation();
         
+        MaterialColor = _meshRenderer.material.color;
         _destinationScale = transform.localScale;
         _destinationColor = MaterialColor;
     }
@@ -57,6 +66,24 @@ public class SeedController : MonoBehaviour
             _meshRenderer.material.color = Color.Lerp(MaterialColor, _destinationColor, _colorTransitionTime);
             _colorTransitionTime += Time.deltaTime / ColorTransitionSpeed;
         }
+    }
+    
+    private void ConfigureVariation()
+    {
+        // Color
+        var randomColor = startingColors[Random.Range(0, startingColors.Count)];
+        _meshRenderer.material.color = randomColor;
+        
+        // Rotation
+        transform.rotation = Quaternion.Euler(Random.Range(0F, 360F), Random.Range(0F, 360F), Random.Range(0F, 360F));
+        
+        // Scale
+        if (maxStartingScale < minStartingScale)
+        {
+            throw new ApplicationException(
+                "The maximum seed starting scale can't be less than the minimum starting scale. Aborting seed creation");
+        }
+        transform.localScale = Vector3.one * Random.Range(minStartingScale, maxStartingScale);
     }
 
     public void ChangeScale(Vector3 newScale)
@@ -86,4 +113,6 @@ public class SeedController : MonoBehaviour
         gameObject.SetActive(false);
         SeedPopped?.Invoke(this);
     }
+
+   
 }
