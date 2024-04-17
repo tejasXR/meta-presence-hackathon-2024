@@ -90,9 +90,8 @@ public class SeedSpawner : MonoBehaviour
         {
             var pooledSeed = _seedPooler.BorrowItem();
             pooledSeed.transform.SetParent(transform);
-            pooledSeed.transform.SetPositionAndRotation(tupleVector3Quaternion.Item1, tupleVector3Quaternion.Item2); 
+            pooledSeed.transform.position = tupleVector3Quaternion.Item1; 
         }
-        
     }
 
     private Bounds GenerateBoundsFromReference(Bounds referenceBound)
