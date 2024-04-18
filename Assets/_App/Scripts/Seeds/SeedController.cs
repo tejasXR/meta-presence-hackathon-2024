@@ -11,7 +11,9 @@ public class SeedController : MonoBehaviour
     [Space]
     [Range(.075F, .15F)][SerializeField] private float minStartingScale;
     [Range(.1F, .3F)][SerializeField] private float maxStartingScale;
+
     [SerializeField] private float _moveSpeed = 1.3f;
+    [SerializeField] private float _distanceToTarget = 0.01f;
 
     [SerializeField] private List<GameObject> _deactivateOnFlung;
 
@@ -47,7 +49,9 @@ public class SeedController : MonoBehaviour
     private Color _destinationColor;
     private float _colorTransitionTime;
 
-    private Vector3 _target = Vector3.negativeInfinity;
+    public Plants.PlantType Plant { get; private set; } = Plants.PlantType.Unknown;
+    public Vector3 PlantTargetPosition { get; private set; } = Vector3.negativeInfinity;
+    public Quaternion PlantTargetRotation { get; private set; } = Quaternion.identity;
 
     private void Awake()
     {
@@ -75,9 +79,14 @@ public class SeedController : MonoBehaviour
             _colorTransitionTime += Time.deltaTime / ColorTransitionSpeed;
         }
 
-        if (_target.IsValid())
+        if (PlantTargetPosition.IsValid())
         {
-            transform.position = Vector3.Slerp(transform.position, _target, _moveSpeed * Time.deltaTime);
+            transform.position = Vector3.Slerp(transform.position, PlantTargetPosition, _moveSpeed * Time.deltaTime);
+
+            if (Vector3.Distance(transform.position, PlantTargetPosition) <= _distanceToTarget)
+            {
+                ReachedTargetDestination();
+            }
         }
     }
     
@@ -122,31 +131,38 @@ public class SeedController : MonoBehaviour
         IsAboutToBeAbsorbed = true;
     }
 
-    public void SeedFlung()
+    public void FlungTowardsCeiling()
     {
         OnSeedFlung?.Invoke(this);
     }
 
-    public void SetTarget(Vector3 target)
+    public void SetPlant(Plants.PlantType plant, Vector3 targetPosition, Quaternion targetRotation)
     {
-        _target = target;
-        bool isValid = _target.IsValid();
+        Plant = plant;
+        PlantTargetPosition = targetPosition;
+        PlantTargetRotation = targetRotation;
+
+        bool isValid = PlantTargetPosition.IsValid();
         foreach (GameObject go in _deactivateOnFlung)
         {
             go.SetActive(!isValid);
         }
     }
 
-    public void ResetTarget() => SetTarget(Vector3.negativeInfinity);
-
-    public void Pop()
+    public void ReachedTargetDestination()
     {
-        Debug.Log($"({gameObject.name})[{nameof(SeedController)}] {nameof(Pop)}");
-
-        // Popping simply deactivates the seed for now.
-        gameObject.SetActive(false);
         OnSeedPopped?.Invoke(this);
+
+        Pop();
+        Reset();
     }
 
-   
+    private void Pop()
+    {
+        // Popping simply deactivates the seed for now.
+        // TODO(simran): Trigger pop VFX.
+        gameObject.SetActive(false);
+    }
+
+    private void Reset() => SetPlant(Plants.PlantType.Unknown, Vector3.negativeInfinity, Quaternion.identity);
 }

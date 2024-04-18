@@ -49,7 +49,7 @@ public class SeedSpawner : MonoBehaviour
 
     public void Initialize()
     {
-        _seedPooler.Initialize(OnPoolerBorrowedItem, maxSeedsToSpawn);
+        _seedPooler.Initialize(InstantiateNewSeed, maxSeedsToSpawn);
         SpawnSeeds();
     }
     
@@ -63,7 +63,7 @@ public class SeedSpawner : MonoBehaviour
             Debug.Log($"[{nameof(SeedSpawner)}] {nameof(PopRandomSeed)}: There are no seeds to pop!");
             return;
         }
-        _seedPooler.BorrowedObjects[UnityEngine.Random.Range(0, _seedPooler.BorrowedCount - 1)].Pop();
+        _seedPooler.BorrowedObjects[UnityEngine.Random.Range(0, _seedPooler.BorrowedCount - 1)].ReachedTargetDestination();
     }
 
     private void SpawnSeeds()
@@ -114,7 +114,7 @@ public class SeedSpawner : MonoBehaviour
         return referenceBound;
     }
 
-    private SeedController OnPoolerBorrowedItem(int numberOfTotalItemsBorrowed)
+    private SeedController InstantiateNewSeed(int numberOfTotalItemsBorrowed)
     {
         SeedController seed = Instantiate(seedPrefab);
         seed.OnSeedFlung.AddListener(OnSeedFlung);
@@ -125,20 +125,14 @@ public class SeedSpawner : MonoBehaviour
     private void OnSeedFlung(SeedController seed)
     {
         Plants.PlantType plant = _gardenManager.GetPlantFrom(seed);
-        GameObject plantPrefab = _gardenManager.GetPlantPrefab(plant);
-        Tuple<Vector3, Quaternion> validPlantPosition = _gardenManager.GetValidPlantPosition(plantPrefab);
+        Tuple<Vector3, Quaternion> validPlantPosition = GardenManager.GetValidPlantPosition(_gardenManager.GetPlantPrefab(plant));
 
-        seed.SetTarget(validPlantPosition.Item1);
+        seed.SetPlant(plant, validPlantPosition.Item1, Quaternion.Euler(0f, UnityEngine.Random.Range(0f, 360f), 0f) * validPlantPosition.Item2);
     }
 
     private void OnSeedPopped(SeedController seed)
     {
         _gardenManager.OnSeedPopped(seed);
-
-        // Deactivate and return to pool.
-        seed.OnSeedPopped.RemoveListener(OnSeedPopped);
-        seed.gameObject.SetActive(false);
-        seed.ResetTarget();
         _seedPooler.ReturnItem(seed);
     }
 }

@@ -37,15 +37,14 @@ public class GardenManager : MonoBehaviour
 
     public void OnSeedPopped(SeedController seed)
     {
-        Debug.Log($"[{nameof(GardenManager)}] {nameof(OnSeedPopped)}: {nameof(seed)}={seed.gameObject.name}");
-
-        Plants.PlantType randomPlantType = (Plants.PlantType)Random.Range(1, System.Enum.GetValues(typeof(Plants.PlantType)).Length);
-        GameObject randomPlantPrefab = _plants.GetPrefab(randomPlantType);
-
-        _persistenceManager.CreateNewPlant(randomPlantPrefab, GetValidPlantPosition(randomPlantPrefab));
+        Debug.Log($"[{nameof(GardenManager)}] {nameof(OnSeedPopped)}: {nameof(seed)}={seed.gameObject.name}, {nameof(seed.Plant)}={seed.Plant}, {nameof(seed.PlantTargetPosition)}={seed.PlantTargetPosition}");
+        _persistenceManager.CreateNewPlant(
+            GetPlantPrefab(seed.Plant),
+            seed.PlantTargetPosition,
+            seed.PlantTargetRotation);
     }
 
-    public System.Tuple<Vector3, Quaternion> GetValidPlantPosition(GameObject plantPrefab)
+    public static System.Tuple<Vector3, Quaternion> GetValidPlantPosition(GameObject plantPrefab)
     {
         Debug.Log($"[{nameof(GardenManager)}] {nameof(GetValidPlantPosition)}: {nameof(plantPrefab)}={plantPrefab.name}");
 

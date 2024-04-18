@@ -539,7 +539,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1266713546525695306}
         m_TargetAssemblyTypeName: SeedController, Assembly-CSharp
-        m_MethodName: SeedFlung
+        m_MethodName: FlungTowardsCeiling
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
