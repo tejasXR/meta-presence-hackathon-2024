@@ -4,7 +4,7 @@ using UnityEngine;
 public class GardenManager : MonoBehaviour
 {
     [SerializeField] private GardenPersistenceManager _persistenceManager;
-    [SerializeField] private PlantData plantData;
+    [SerializeField] private Plants plants;
 
     void OnApplicationQuit()
     {
@@ -27,13 +27,13 @@ public class GardenManager : MonoBehaviour
         _persistenceManager.DestroyGarden();
     }
 
-    public PlantData.PlantType GetPlantFrom(SeedController seed)
+    public Plants.PlantType GetPlantFrom(SeedController seed)
     {
         // TODO(yola): Seed > Plant correlation
-        return (PlantData.PlantType)Random.Range(1, System.Enum.GetValues(typeof(PlantData.PlantType)).Length);
+        return (Plants.PlantType)Random.Range(1, System.Enum.GetValues(typeof(Plants.PlantType)).Length);
     }
 
-    public GameObject GetPlantPrefab(PlantData.PlantType plant) => plantData.GetPrefab(plant);
+    public GameObject GetPlantPrefab(Plants.PlantType plant) => plants.GetPrefab(plant);
 
     public void OnSeedPopped(SeedController seed)
     {
