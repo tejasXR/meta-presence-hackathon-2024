@@ -249,11 +249,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 43157973901529907, guid: e65fcf223de2503438d552497171da16,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0.00033163317
-      objectReference: {fileID: 0}
     - target: {fileID: 6830854556218966323, guid: e65fcf223de2503438d552497171da16,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -268,11 +263,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7662630091662801715, guid: e65fcf223de2503438d552497171da16,
-        type: 3}
-      propertyPath: m_Mesh
-      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8646029585021388215, guid: e65fcf223de2503438d552497171da16,
         type: 3}
@@ -431,7 +421,7 @@ PrefabInstance:
     - target: {fileID: 955684668572153136, guid: 72b9c0f6af4cb0e4581518d5159b28e7,
         type: 3}
       propertyPath: m_Name
-      value: pf_AudioManager
+      value: AudioManager
       objectReference: {fileID: 0}
     - target: {fileID: 1462444880581536761, guid: 72b9c0f6af4cb0e4581518d5159b28e7,
         type: 3}
@@ -561,8 +551,8 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 203844589}
-  - {fileID: 1513084593966617941}
+  - {fileID: 4379033503558215553}
   - {fileID: 3128239825956174609}
   - {fileID: 6250836238354601808}
+  - {fileID: 1513084593966617941}
   - {fileID: 388076433}
-  - {fileID: 4379033503558215553}
