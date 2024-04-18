@@ -124,7 +124,7 @@ public class SeedSpawner : MonoBehaviour
 
     private void OnSeedFlung(SeedController seed)
     {
-        Plants.PlantType plant = _gardenManager.GetPlantFrom(seed);
+        PlantData.PlantType plant = _gardenManager.GetPlantFrom(seed);
         Tuple<Vector3, Quaternion> validPlantPosition = GardenManager.GetValidPlantPosition(_gardenManager.GetPlantPrefab(plant));
 
         seed.SetPlant(plant, validPlantPosition.Item1, Quaternion.Euler(0f, UnityEngine.Random.Range(0f, 360f), 0f) * validPlantPosition.Item2);

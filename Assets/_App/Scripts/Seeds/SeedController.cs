@@ -49,7 +49,7 @@ public class SeedController : MonoBehaviour
     private Color _destinationColor;
     private float _colorTransitionTime;
 
-    public Plants.PlantType Plant { get; private set; } = Plants.PlantType.Unknown;
+    public PlantData.PlantType Plant { get; private set; } = PlantData.PlantType.Unknown;
     public Vector3 PlantTargetPosition { get; private set; } = Vector3.negativeInfinity;
     public Quaternion PlantTargetRotation { get; private set; } = Quaternion.identity;
 
@@ -136,7 +136,7 @@ public class SeedController : MonoBehaviour
         OnSeedFlung?.Invoke(this);
     }
 
-    public void SetPlant(Plants.PlantType plant, Vector3 targetPosition, Quaternion targetRotation)
+    public void SetPlant(PlantData.PlantType plant, Vector3 targetPosition, Quaternion targetRotation)
     {
         Plant = plant;
         PlantTargetPosition = targetPosition;
@@ -164,5 +164,5 @@ public class SeedController : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    private void Reset() => SetPlant(Plants.PlantType.Unknown, Vector3.negativeInfinity, Quaternion.identity);
+    private void Reset() => SetPlant(PlantData.PlantType.Unknown, Vector3.negativeInfinity, Quaternion.identity);
 }

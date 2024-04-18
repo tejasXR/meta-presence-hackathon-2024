@@ -6,7 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(SpatialAnchorCoreBuildingBlock))]
 public class GardenPersistenceManager : MonoBehaviour
 {
-    [SerializeField] private Plants _plants;
+    [SerializeField] private PlantData plantData;
 
     private GardenData _garden;
 
@@ -25,11 +25,11 @@ public class GardenPersistenceManager : MonoBehaviour
 
     public void InitGarden()
     {
-        Dictionary<Plants.PlantType, List<Guid>> plantTypeMap = new();
+        Dictionary<PlantData.PlantType, List<Guid>> plantTypeMap = new();
 
         foreach (KeyValuePair<Guid, GardenData.PlantData> plant in _garden.Map)
         {
-            if (Enum.TryParse(plant.Value.Type, out Plants.PlantType plantType))
+            if (Enum.TryParse(plant.Value.Type, out PlantData.PlantType plantType))
             {
                 if (plantTypeMap.TryGetValue(plantType, out List<Guid> plantsByType))
                 {
@@ -43,9 +43,9 @@ public class GardenPersistenceManager : MonoBehaviour
             }
         }
 
-        foreach (KeyValuePair<Plants.PlantType, List<Guid>> plantsByType in plantTypeMap)
+        foreach (KeyValuePair<PlantData.PlantType, List<Guid>> plantsByType in plantTypeMap)
         {
-            _spatialAnchorCore.LoadAndInstantiateAnchors(_plants.GetPrefab(plantsByType.Key), plantsByType.Value);
+            _spatialAnchorCore.LoadAndInstantiateAnchors(plantData.GetPrefab(plantsByType.Key), plantsByType.Value);
         }
     }
 

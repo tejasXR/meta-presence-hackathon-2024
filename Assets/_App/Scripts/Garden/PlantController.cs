@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlantController : MonoBehaviour
 {
-    [SerializeField] private Plants.PlantType _type;
+    [SerializeField] private PlantData.PlantType _type;
     [SerializeField] private float _lifeSpan = 5f;
     [SerializeField] private float _growthRate = 0.05f;
     [SerializeField] private List<MeshRenderer> _meshRenderers;
@@ -15,7 +15,7 @@ public class PlantController : MonoBehaviour
     [Range(0f, 1f)]
     [SerializeField] private float _maxGrow = 0.9f;
 
-    public Plants.PlantType Type => _type;
+    public PlantData.PlantType Type => _type;
     public float GrowValue => _materials.Count > 0 ? _materials[0].GetFloat(GROW_PROPERTY) : _minGrow;
 
     private readonly List<Material> _materials = new();
