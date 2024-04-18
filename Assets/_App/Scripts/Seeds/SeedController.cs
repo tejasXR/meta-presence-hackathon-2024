@@ -13,6 +13,9 @@ public class SeedController : MonoBehaviour
     [Range(.075F, .15F)] [SerializeField] private float minStartingScale;
     [Range(.1F, .3F)] [SerializeField] private float maxStartingScale;
 
+    [Space]
+    public UnityEvent<SeedController> OnSeedFlung;
+
     public Color MaterialColor
     {
         get
@@ -107,6 +110,11 @@ public class SeedController : MonoBehaviour
     public void LockForAbsorption()
     {
         IsAboutToBeAbsorbed = true;
+    }
+
+    public void SeedFlung()
+    {
+        OnSeedFlung?.Invoke(this);
     }
 
     public void Pop()
