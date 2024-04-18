@@ -117,8 +117,18 @@ public class SeedSpawner : MonoBehaviour
     private SeedController OnPoolerBorrowedItem(int numberOfTotalItemsBorrowed)
     {
         SeedController seed = Instantiate(seedPrefab);
-        seed.SeedPopped += OnSeedPopped;
+        seed.OnSeedFlung.AddListener(OnSeedFlung);
+        seed.OnSeedPopped.AddListener(OnSeedPopped);
         return seed;
+    }
+
+    private void OnSeedFlung(SeedController seed)
+    {
+        Plants.PlantType plant = _gardenManager.GetPlantFrom(seed);
+        GameObject plantPrefab = _gardenManager.GetPlantPrefab(plant);
+        Tuple<Vector3, Quaternion> validPlantPosition = _gardenManager.GetValidPlantPosition(plantPrefab);
+
+        seed.SetTarget(validPlantPosition.Item1);
     }
 
     private void OnSeedPopped(SeedController seed)
@@ -126,7 +136,9 @@ public class SeedSpawner : MonoBehaviour
         _gardenManager.OnSeedPopped(seed);
 
         // Deactivate and return to pool.
+        seed.OnSeedPopped.RemoveListener(OnSeedPopped);
         seed.gameObject.SetActive(false);
+        seed.ResetTarget();
         _seedPooler.ReturnItem(seed);
     }
 }

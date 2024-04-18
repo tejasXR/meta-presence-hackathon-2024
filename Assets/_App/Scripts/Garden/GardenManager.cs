@@ -27,18 +27,25 @@ public class GardenManager : MonoBehaviour
         _persistenceManager.DestroyGarden();
     }
 
+    public Plants.PlantType GetPlantFrom(SeedController seed)
+    {
+        // TODO(yola): Seed > Plant correlation
+        return (Plants.PlantType)Random.Range(1, System.Enum.GetValues(typeof(Plants.PlantType)).Length);
+    }
+
+    public GameObject GetPlantPrefab(Plants.PlantType plant) => _plants.GetPrefab(plant);
+
     public void OnSeedPopped(SeedController seed)
     {
         Debug.Log($"[{nameof(GardenManager)}] {nameof(OnSeedPopped)}: {nameof(seed)}={seed.gameObject.name}");
 
-        // TODO(yola): Seed > Plant correlation
         Plants.PlantType randomPlantType = (Plants.PlantType)Random.Range(1, System.Enum.GetValues(typeof(Plants.PlantType)).Length);
         GameObject randomPlantPrefab = _plants.GetPrefab(randomPlantType);
 
         _persistenceManager.CreateNewPlant(randomPlantPrefab, GetValidPlantPosition(randomPlantPrefab));
     }
 
-    private System.Tuple<Vector3, Quaternion> GetValidPlantPosition(GameObject plantPrefab)
+    public System.Tuple<Vector3, Quaternion> GetValidPlantPosition(GameObject plantPrefab)
     {
         Debug.Log($"[{nameof(GardenManager)}] {nameof(GetValidPlantPosition)}: {nameof(plantPrefab)}={plantPrefab.name}");
 

@@ -1,20 +1,23 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using Random = UnityEngine.Random;
 
 public class SeedController : MonoBehaviour
 {
-    public event Action<SeedController> SeedPopped;
-
     [SerializeField] private List<Color> startingColors;
     [SerializeField] private List<Texture2D> startingPatterns;
     [Space]
-    [Range(.075F, .15F)] [SerializeField] private float minStartingScale;
-    [Range(.1F, .3F)] [SerializeField] private float maxStartingScale;
+    [Range(.075F, .15F)][SerializeField] private float minStartingScale;
+    [Range(.1F, .3F)][SerializeField] private float maxStartingScale;
+    [SerializeField] private float _moveSpeed = 1.3f;
+
+    [SerializeField] private List<GameObject> _deactivateOnFlung;
 
     [Space]
     public UnityEvent<SeedController> OnSeedFlung;
+    public UnityEvent<SeedController> OnSeedPopped;
 
     public Color MaterialColor
     {
@@ -44,6 +47,8 @@ public class SeedController : MonoBehaviour
     private Color _destinationColor;
     private float _colorTransitionTime;
 
+    private Vector3 _target = Vector3.negativeInfinity;
+
     private void Awake()
     {
         _meshRenderer = GetComponentInChildren<MeshRenderer>();
@@ -68,6 +73,11 @@ public class SeedController : MonoBehaviour
         {
             _meshRenderer.material.color = Color.Lerp(MaterialColor, _destinationColor, _colorTransitionTime);
             _colorTransitionTime += Time.deltaTime / ColorTransitionSpeed;
+        }
+
+        if (_target.IsValid())
+        {
+            transform.position = Vector3.Slerp(transform.position, _target, _moveSpeed * Time.deltaTime);
         }
     }
     
@@ -117,13 +127,25 @@ public class SeedController : MonoBehaviour
         OnSeedFlung?.Invoke(this);
     }
 
+    public void SetTarget(Vector3 target)
+    {
+        _target = target;
+        bool isValid = _target.IsValid();
+        foreach (GameObject go in _deactivateOnFlung)
+        {
+            go.SetActive(!isValid);
+        }
+    }
+
+    public void ResetTarget() => SetTarget(Vector3.negativeInfinity);
+
     public void Pop()
     {
         Debug.Log($"({gameObject.name})[{nameof(SeedController)}] {nameof(Pop)}");
 
         // Popping simply deactivates the seed for now.
         gameObject.SetActive(false);
-        SeedPopped?.Invoke(this);
+        OnSeedPopped?.Invoke(this);
     }
 
    
