@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public static class SaveDataManager
+public static class GardenDataManager
 {
     private const string GARDEN_DATA_FILENAME = "GardenData.dat";
 

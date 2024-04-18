@@ -68,7 +68,7 @@ public class GardenPersistenceManager : MonoBehaviour
 
     public void LoadGardenState()
     {
-        _garden = SaveDataManager.LoadGarden() ?? new();
+        _garden = GardenDataManager.LoadGarden() ?? new();
         
         if (_garden != default)
         {
@@ -96,7 +96,7 @@ public class GardenPersistenceManager : MonoBehaviour
         }
 
         _garden.DateTimeOfLastVisit = DateTime.Now.ToString("s");
-        SaveDataManager.SaveGarden(_garden);
+        GardenDataManager.SaveGarden(_garden);
     }
 
     public void RestoreGardenState(List<Guid> _)
@@ -135,7 +135,7 @@ public class GardenPersistenceManager : MonoBehaviour
 
         if (_garden.Map.Remove(uuid))
         {
-            SaveDataManager.SaveGarden(_garden);
+            GardenDataManager.SaveGarden(_garden);
         }
     }
 
@@ -147,6 +147,6 @@ public class GardenPersistenceManager : MonoBehaviour
         }
 
         _garden.Map.Clear();
-        SaveDataManager.SaveGarden(_garden);
+        GardenDataManager.SaveGarden(_garden);
     }
 }
