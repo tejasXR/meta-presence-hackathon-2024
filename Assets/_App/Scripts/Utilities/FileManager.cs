@@ -10,6 +10,7 @@ public static class FileManager
         try
         {
             File.WriteAllText(fullPath, fileContents);
+            Debug.Log($"Successfully saved {filename} at path: {fullPath}");
             return true;
         }
         catch (Exception e)
@@ -25,6 +26,7 @@ public static class FileManager
         try
         {
             result = File.ReadAllText(fullPath);
+            Debug.Log($"Successfully loaded {filename} at path: {fullPath}");
             return true;
         }
         catch (Exception e)
