@@ -12,6 +12,8 @@ public class SeedSpawner : MonoBehaviour
     [Space(5)]
     [SerializeField] private int maxSeedsToSpawn = 10;
     [SerializeField] private float maxHeightToSpawn = 1.5F;
+    [Space]
+    [SerializeField] private bool enableRandomSeedPopping;
     
     private GardenManager _gardenManager;
 
@@ -53,6 +55,9 @@ public class SeedSpawner : MonoBehaviour
     
     public void PopRandomSeed()
     {
+        if (!enableRandomSeedPopping)
+            return;
+        
         if (_seedPooler.BorrowedCount == 0)
         {
             Debug.Log($"[{nameof(SeedSpawner)}] {nameof(PopRandomSeed)}: There are no seeds to pop!");
