@@ -4,35 +4,48 @@ using UnityEngine;
 
 public static class FileManager
 {
-    public static bool WriteToFile(string filename, string fileContents)
+    public static bool TryWriteToFile(string filePath, string fileContents)
     {
-        string fullPath = Path.Combine(Application.persistentDataPath, filename);
         try
         {
-            File.WriteAllText(fullPath, fileContents);
-            Debug.Log($"Successfully saved {filename} at path: {fullPath}");
+            File.WriteAllText(filePath, fileContents);
+            Debug.Log($"Successfully saved file at: {filePath}");
             return true;
         }
         catch (Exception e)
         {
-            Debug.LogWarning($"Failed to write to {fullPath} with exception {e}");
+            Debug.LogWarning($"Failed to write to {filePath} with exception {e}");
             return false;
         }
     }
 
-    public static bool LoadFromFile(string filename, out string result)
+    public static bool TryLoadFromFile(string filePath, out string result)
     {
-        string fullPath = Path.Combine(Application.persistentDataPath, filename);
         try
         {
-            result = File.ReadAllText(fullPath);
-            Debug.Log($"Successfully loaded {filename} at path: {fullPath}");
+            result = File.ReadAllText(filePath);
+            Debug.Log($"Successfully loaded file at path: {filePath}");
             return true;
         }
         catch (Exception e)
         {
-            Debug.LogWarning($"Failed to read from {fullPath} with exception {e}");
+            Debug.LogWarning($"Failed to read from {filePath} with exception {e}");
             result = "";
+            return false;
+        }
+    }
+
+    public static bool TryDeleteFile(string filePath)
+    {
+        try
+        {
+            File.Delete(filePath);
+            Debug.Log($"Successfully deleted file at path: {filePath}");
+            return true;
+        }
+        catch (Exception e)
+        {
+            Debug.LogWarning($"Failed to delete file at {filePath} with exception {e}");
             return false;
         }
     }
