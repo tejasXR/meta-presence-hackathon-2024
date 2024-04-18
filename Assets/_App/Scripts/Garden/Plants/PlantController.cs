@@ -1,10 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlantController : MonoBehaviour
 {
-    [SerializeField] private PlantData.PlantType _type;
+    [SerializeField] private Plants.PlantType _type;
     [SerializeField] private float _lifeSpan = 5f;
     [SerializeField] private float _growthRate = 0.05f;
     [SerializeField] private List<MeshRenderer> _meshRenderers;
@@ -15,13 +16,14 @@ public class PlantController : MonoBehaviour
     [Range(0f, 1f)]
     [SerializeField] private float _maxGrow = 0.9f;
 
-    public PlantData.PlantType Type => _type;
+    public Plants.PlantType Type => _type;
     public float GrowValue => _materials.Count > 0 ? _materials[0].GetFloat(GROW_PROPERTY) : _minGrow;
 
     private readonly List<Material> _materials = new();
     private bool _isFullyGrown;
 
     private const string GROW_PROPERTY = "_Grow";
+    private const int MAX_LIFE_SPAN_DAYS = 2;
 
     void Start()
     {
@@ -57,7 +59,7 @@ public class PlantController : MonoBehaviour
 
         while (growValue < _maxGrow)
         {
-            growValue += 1 / (_lifeSpan / _growthRate);
+            growValue += 1 / (_growthRate / _lifeSpan);
             material.SetFloat(GROW_PROPERTY, growValue);
             // Debug.Log($"({gameObject.name})[{nameof(PlantController)}] {nameof(Grow)}: value={growValue}");
 
@@ -77,7 +79,7 @@ public class PlantController : MonoBehaviour
 
         while (growValue > _minGrow)
         {
-            growValue -= 1 / (_lifeSpan / _growthRate);
+            growValue -= 1 / (_growthRate / _lifeSpan);
             material.SetFloat(GROW_PROPERTY, growValue);
             // Debug.Log($"({gameObject.name})[{nameof(PlantController)}] {nameof(Shrink)}: value={growValue}");
 
@@ -85,5 +87,14 @@ public class PlantController : MonoBehaviour
         }
 
         Debug.Log($"({gameObject.name})[{nameof(PlantController)}] {nameof(Shrink)}: reached minimum growth.");
+    }
+
+    public void GrowBasedOnRealityTime(TimeSpan timeSinceCreation)
+    {
+        var plantHalfLife = TimeSpan.FromDays(MAX_LIFE_SPAN_DAYS) / 2; 
+        if (timeSinceCreation > plantHalfLife)
+        {
+            ResumeGrowing(GROW_VALUE_AFTER_LIFE_SPAN);
+        }
     }
 }
