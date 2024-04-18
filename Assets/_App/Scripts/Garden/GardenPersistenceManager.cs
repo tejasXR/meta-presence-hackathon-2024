@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Meta.XR.BuildingBlocks;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 [RequireComponent(typeof(SpatialAnchorCoreBuildingBlock))]
@@ -8,13 +9,24 @@ public class GardenPersistenceManager : MonoBehaviour
 {
     [SerializeField] private PlantData plantData;
 
+    [Button("Save Garden State")]
+    public void SaveGardenStateButton()
+    {
+        SaveGardenState();
+    }
+    
+    [Button("Load Garden State")]
+    public void LoadGardenStateButton()
+    {
+        LoadGardenState();
+    }
+    
     private GardenData _garden;
-
     private SpatialAnchorCoreBuildingBlock _spatialAnchorCore;
 
     void Awake()
     {
-        _garden = SaveDataManager.LoadGarden() ?? new();
+        LoadGardenState();
         _spatialAnchorCore = GetComponent<SpatialAnchorCoreBuildingBlock>();
     }
 
@@ -54,6 +66,24 @@ public class GardenPersistenceManager : MonoBehaviour
         _spatialAnchorCore.EraseAllAnchors();
     }
 
+    public void LoadGardenState()
+    {
+        _garden = SaveDataManager.LoadGarden() ?? new();
+        
+        if (_garden != default)
+        {
+            var timePassedSinceLastVisit = _garden.TimeSinceLastVisit;
+            
+            var timeLog = "Time since garden was last visited is ";
+            timeLog += timePassedSinceLastVisit.Days > 0 ? $"{timePassedSinceLastVisit.Days} days" : "";
+            timeLog += timePassedSinceLastVisit.Hours > 0 ? $"{timePassedSinceLastVisit.Hours} hours" : "";
+            timeLog += timePassedSinceLastVisit.Minutes > 0 ? $"{timePassedSinceLastVisit.Minutes} minutes" : "";
+            timeLog += $"{timePassedSinceLastVisit.Seconds} seconds";
+            
+            Debug.Log(timeLog);
+        }
+    }
+
     public void SaveGardenState()
     {
         PlantController[] plants = FindObjectsOfType<PlantController>();
@@ -65,7 +95,7 @@ public class GardenPersistenceManager : MonoBehaviour
             }
         }
 
-        _garden.TimeSinceLastVisit = DateTime.Now;
+        _garden.DateTimeOfLastVisit = DateTime.Now.ToString("s");
         SaveDataManager.SaveGarden(_garden);
     }
 

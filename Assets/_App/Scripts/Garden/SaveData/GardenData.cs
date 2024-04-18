@@ -1,6 +1,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using UnityEngine.Rendering;
 
 [Serializable]
 public class GardenData
@@ -15,7 +16,8 @@ public class GardenData
     }
 
     public Dictionary<Guid, PlantData> Map = new();
-    public DateTime TimeSinceLastVisit;
+    public string DateTimeOfLastVisit;
+    public TimeSpan TimeSinceLastVisit => DateTime.Now - DateTime.Parse(DateTimeOfLastVisit);
 
     public string ToJson()
     {
