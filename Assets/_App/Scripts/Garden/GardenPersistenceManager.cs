@@ -7,7 +7,7 @@ using UnityEngine;
 [RequireComponent(typeof(SpatialAnchorCoreBuildingBlock))]
 public class GardenPersistenceManager : MonoBehaviour
 {
-    [SerializeField] private PlantData plantData;
+    [SerializeField] private Plants plants;
 
     [Button("Save Garden State")]
     public void SaveGardenStateButton()
@@ -19,6 +19,12 @@ public class GardenPersistenceManager : MonoBehaviour
     public void LoadGardenStateButton()
     {
         LoadGardenState();
+    }
+
+    [Button("Destroy Garden")]
+    public void DestroyGardenButton()
+    {
+        DestroyGarden();
     }
     
     private GardenData _garden;
@@ -37,11 +43,11 @@ public class GardenPersistenceManager : MonoBehaviour
 
     public void InitGarden()
     {
-        Dictionary<PlantData.PlantType, List<Guid>> plantTypeMap = new();
+        Dictionary<Plants.PlantType, List<Guid>> plantTypeMap = new();
 
-        foreach (KeyValuePair<Guid, GardenData.PlantData> plant in _garden.Map)
+        foreach (KeyValuePair<Guid, PlantData> plant in _garden.Map)
         {
-            if (Enum.TryParse(plant.Value.Type, out PlantData.PlantType plantType))
+            if (Enum.TryParse(plant.Value.Type, out Plants.PlantType plantType))
             {
                 if (plantTypeMap.TryGetValue(plantType, out List<Guid> plantsByType))
                 {
@@ -55,33 +61,45 @@ public class GardenPersistenceManager : MonoBehaviour
             }
         }
 
-        foreach (KeyValuePair<PlantData.PlantType, List<Guid>> plantsByType in plantTypeMap)
+        foreach (KeyValuePair<Plants.PlantType, List<Guid>> plantsByType in plantTypeMap)
         {
-            _spatialAnchorCore.LoadAndInstantiateAnchors(plantData.GetPrefab(plantsByType.Key), plantsByType.Value);
+            _spatialAnchorCore.LoadAndInstantiateAnchors(plants.GetPrefab(plantsByType.Key), plantsByType.Value);
         }
     }
 
     public void DestroyGarden()
     {
         _spatialAnchorCore.EraseAllAnchors();
+        
+        _garden.Map.Clear();
+        _garden.DateTimeOfLastVisit = "";
+        GardenDataManager.SaveGarden(_garden);
     }
 
     public void LoadGardenState()
     {
         _garden = GardenDataManager.LoadGarden() ?? new();
+
+        var timePassedSinceLastVisit = _garden.GetTimeSinceLastVisit();
+
+        if (timePassedSinceLastVisit == null)
+            return;
+
+        var timePassedValue = timePassedSinceLastVisit.Value;
         
-        if (_garden != default)
+        PlantController[] plants = FindObjectsOfType<PlantController>();
+        foreach (PlantController plantController in plants)
         {
-            var timePassedSinceLastVisit = _garden.TimeSinceLastVisit;
-            
-            var timeLog = "Time since garden was last visited is ";
-            timeLog += timePassedSinceLastVisit.Days > 0 ? $"{timePassedSinceLastVisit.Days} days" : "";
-            timeLog += timePassedSinceLastVisit.Hours > 0 ? $"{timePassedSinceLastVisit.Hours} hours" : "";
-            timeLog += timePassedSinceLastVisit.Minutes > 0 ? $"{timePassedSinceLastVisit.Minutes} minutes" : "";
-            timeLog += $"{timePassedSinceLastVisit.Seconds} seconds";
-            
-            Debug.Log(timeLog);
+            plantController.GrowBasedOnRealityTime();
         }
+        
+        var timeLog = "Time since garden was last visited is ";
+        timeLog += timePassedValue.Days > 0 ? $"{timePassedValue.Days} days" : "";
+        timeLog += timePassedValue.Hours > 0 ? $"{timePassedValue.Hours} hours" : "";
+        timeLog += timePassedValue.Minutes > 0 ? $"{timePassedValue.Minutes} minutes" : "";
+        timeLog += $"{timePassedValue.Seconds} seconds";
+            
+        Debug.Log(timeLog);
     }
 
     public void SaveGardenState()
@@ -104,7 +122,7 @@ public class GardenPersistenceManager : MonoBehaviour
         PlantController[] plants = FindObjectsOfType<PlantController>();
         foreach (PlantController plantController in plants)
         {
-            if (plantController.TryGetComponent(out OVRSpatialAnchor anchor) && _garden.Map.TryGetValue(anchor.Uuid, out GardenData.PlantData plantData))
+            if (plantController.TryGetComponent(out OVRSpatialAnchor anchor) && _garden.Map.TryGetValue(anchor.Uuid, out PlantData plantData))
             {
                 plantController.ResumeGrowing(plantData.GrowValue);
             }
