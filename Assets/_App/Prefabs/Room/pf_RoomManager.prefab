@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: b9d9309f-2bf0-40ca-9cee-803aa6a91dae
-  instanceId: 2f409401-5a64-47c9-a07b-a7e94ef4c0ba
+  instanceId: f072afee-b98f-4f68-b467-ddb50f11924f
   version: 1
 --- !u!114 &9174035264968981385
 MonoBehaviour:
@@ -61,7 +61,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PrefabsToSpawn:
-  - Labels: 8293
+  - Labels: 8295
     Prefabs:
     - {fileID: 3041248695010630580, guid: e17e4ea54c22c7940b6c82559f865343, type: 3}
     MatchAspectRatio: 1
@@ -126,7 +126,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 65c6e778-10b3-4490-89da-008a18aa116a
-  instanceId: 86e7c9d6-b396-4380-b382-2ac8cd70e4fd
+  instanceId: afe4487d-2a45-440a-a39e-adff80547904
   version: 1
 --- !u!114 &4892992725986170316
 MonoBehaviour:
@@ -195,7 +195,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: d4413f4f-542f-451f-92ee-4801f27d676a
-  instanceId: 38a9bbd5-7aa3-48f6-8075-3a64a9705986
+  instanceId: dedec40e-dccb-4552-942f-c385e99fd7ef
   version: 1
 --- !u!114 &2755209629682363616
 MonoBehaviour:
