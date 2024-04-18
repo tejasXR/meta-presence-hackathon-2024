@@ -1,17 +1,25 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using Random = UnityEngine.Random;
 
 public class SeedController : MonoBehaviour
 {
-    public event Action<SeedController> SeedPopped;
-
     [SerializeField] private List<Color> startingColors;
     [SerializeField] private List<Texture2D> startingPatterns;
     [Space]
-    [Range(.075F, .15F)] [SerializeField] private float minStartingScale;
-    [Range(.1F, .3F)] [SerializeField] private float maxStartingScale;
+    [Range(.075F, .15F)][SerializeField] private float minStartingScale;
+    [Range(.1F, .3F)][SerializeField] private float maxStartingScale;
+
+    [SerializeField] private float _moveSpeed = 1.3f;
+    [SerializeField] private float _distanceToTarget = 0.01f;
+
+    [SerializeField] private List<GameObject> _deactivateOnFlung;
+
+    [Space]
+    public UnityEvent<SeedController> OnSeedFlung;
+    public UnityEvent<SeedController> OnSeedPopped;
 
     public Color MaterialColor
     {
@@ -41,6 +49,10 @@ public class SeedController : MonoBehaviour
     private Color _destinationColor;
     private float _colorTransitionTime;
 
+    public Plants.PlantType Plant { get; private set; } = Plants.PlantType.Unknown;
+    public Vector3 PlantTargetPosition { get; private set; } = Vector3.negativeInfinity;
+    public Quaternion PlantTargetRotation { get; private set; } = Quaternion.identity;
+
     private void Awake()
     {
         _meshRenderer = GetComponentInChildren<MeshRenderer>();
@@ -65,6 +77,16 @@ public class SeedController : MonoBehaviour
         {
             _meshRenderer.material.color = Color.Lerp(MaterialColor, _destinationColor, _colorTransitionTime);
             _colorTransitionTime += Time.deltaTime / ColorTransitionSpeed;
+        }
+
+        if (PlantTargetPosition.IsValid())
+        {
+            transform.position = Vector3.Slerp(transform.position, PlantTargetPosition, _moveSpeed * Time.deltaTime);
+
+            if (Vector3.Distance(transform.position, PlantTargetPosition) <= _distanceToTarget)
+            {
+                ReachedTargetDestination();
+            }
         }
     }
     
@@ -109,14 +131,38 @@ public class SeedController : MonoBehaviour
         IsAboutToBeAbsorbed = true;
     }
 
-    public void Pop()
+    public void FlungTowardsCeiling()
     {
-        Debug.Log($"({gameObject.name})[{nameof(SeedController)}] {nameof(Pop)}");
-
-        // Popping simply deactivates the seed for now.
-        gameObject.SetActive(false);
-        SeedPopped?.Invoke(this);
+        OnSeedFlung?.Invoke(this);
     }
 
-   
+    public void SetPlant(Plants.PlantType plant, Vector3 targetPosition, Quaternion targetRotation)
+    {
+        Plant = plant;
+        PlantTargetPosition = targetPosition;
+        PlantTargetRotation = targetRotation;
+
+        bool isValid = PlantTargetPosition.IsValid();
+        foreach (GameObject go in _deactivateOnFlung)
+        {
+            go.SetActive(!isValid);
+        }
+    }
+
+    public void ReachedTargetDestination()
+    {
+        OnSeedPopped?.Invoke(this);
+
+        Pop();
+        Reset();
+    }
+
+    private void Pop()
+    {
+        // Popping simply deactivates the seed for now.
+        // TODO(simran): Trigger pop VFX.
+        gameObject.SetActive(false);
+    }
+
+    private void Reset() => SetPlant(Plants.PlantType.Unknown, Vector3.negativeInfinity, Quaternion.identity);
 }

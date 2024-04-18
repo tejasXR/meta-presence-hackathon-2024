@@ -18,9 +18,9 @@ public class GardenPersistenceManager : MonoBehaviour
         _spatialAnchorCore = GetComponent<SpatialAnchorCoreBuildingBlock>();
     }
 
-    public void CreateNewPlant(GameObject plantPrefab, Tuple<Vector3, Quaternion> plantPosition)
+    public void CreateNewPlant(GameObject prefab, Vector3 position, Quaternion rotation)
     {
-        _spatialAnchorCore.InstantiateSpatialAnchor(plantPrefab, plantPosition.Item1, plantPosition.Item2);
+        _spatialAnchorCore.InstantiateSpatialAnchor(prefab, position, rotation);
     }
 
     public void InitGarden()
