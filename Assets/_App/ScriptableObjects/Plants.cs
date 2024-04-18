@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Plants", menuName = "MQPP Hackathon/New Plants")]
-public class PlantData : ScriptableObject
+public class Plants : ScriptableObject
 {
     [Serializable]
     public class Plant
