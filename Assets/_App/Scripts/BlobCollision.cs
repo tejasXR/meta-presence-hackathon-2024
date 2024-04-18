@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ThrowBlob : MonoBehaviour
 {
-    public Vector3 throwDirection = Vector3.forward; 
+    public Vector3 throwDirection = Vector3.up; 
     public float throwForce = 10f;
     public Rigidbody rb;
 
