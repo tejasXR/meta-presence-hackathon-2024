@@ -16,7 +16,15 @@ public class GardenData
 
     public Dictionary<Guid, PlantData> Map = new();
     public string DateTimeOfLastVisit;
-    public TimeSpan TimeSinceLastVisit => DateTime.Now - DateTime.Parse(DateTimeOfLastVisit);
+    
+    public TimeSpan? GetTimeSinceLastVisit()
+    {
+        DateTime.TryParse(DateTimeOfLastVisit, out DateTime parsedDateTime);
+        if (parsedDateTime == default)
+            return null;
+                
+        return DateTime.Now - parsedDateTime;
+    }
 
     public string ToJson()
     {
