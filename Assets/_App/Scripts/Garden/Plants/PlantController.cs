@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class PlantController : MonoBehaviour
 {
@@ -21,9 +23,17 @@ public class PlantController : MonoBehaviour
 
     private readonly List<Material> _materials = new();
     private bool _isFullyGrown;
+    private DateTime? _creationDate; // TEJAS: We may consolidate this property elsewhere as we refactor/clean the project!
+    private List<Coroutine> _growMaterialRoutines;
 
     private const string GROW_PROPERTY = "_Grow";
     private const int MAX_LIFE_SPAN_DAYS = 2;
+
+    [Button("Set Random Growth For Plant")]
+    public void RandomGrowthButton()
+    {
+        ResumeGrowing(Random.Range(_minGrow, _maxGrow));
+    }
 
     void Start()
     {
@@ -42,35 +52,42 @@ public class PlantController : MonoBehaviour
 
     public void StartGrowing() => ResumeGrowing(_minGrow);
 
-    public void ResumeGrowing(float lastGrowValue)
+    public void ResumeGrowing(float growthValue)
     {
         foreach (Material material in _materials)
         {
-            StartCoroutine(Grow(material, lastGrowValue));
+            var growthRoutine = StartCoroutine(SetMaterialGrowth(material, growthValue));
+            _growMaterialRoutines.Add(growthRoutine);
         }
     }
 
-    private IEnumerator Grow(Material material, float lastGrowValue)
+    private IEnumerator SetMaterialGrowth(Material material, float newGrowthValue)
     {
-        material.SetFloat(GROW_PROPERTY, lastGrowValue);
-        float growValue = lastGrowValue;
+        var currentGrowthValue = material.GetFloat(GROW_PROPERTY);
 
-        Debug.Log($"({gameObject.name})[{nameof(PlantController)}] {nameof(Grow)}: value={growValue}");
+        Debug.Log($"({gameObject.name})[{nameof(PlantController)}] {nameof(SetMaterialGrowth)}: value = {newGrowthValue}");
 
-        while (growValue < _maxGrow)
+        int growthDirection = currentGrowthValue < newGrowthValue ? 1 : -1;
+        var growthIncrement = 1 / (_lifeSpan / _growthRate) * growthDirection;
+
+        while (currentGrowthValue < newGrowthValue)
         {
-            growValue += 1 / (_growthRate / _lifeSpan);
-            material.SetFloat(GROW_PROPERTY, growValue);
-            // Debug.Log($"({gameObject.name})[{nameof(PlantController)}] {nameof(Grow)}: value={growValue}");
+            if (currentGrowthValue > _maxGrow)
+                yield break; 
+                    
+            currentGrowthValue = Mathf.Clamp(currentGrowthValue + growthIncrement, _minGrow, _maxGrow);
+            material.SetFloat(GROW_PROPERTY, currentGrowthValue);
 
             yield return new WaitForSeconds(_growthRate);
         }
 
-        _isFullyGrown = true;
-        Debug.Log($"({gameObject.name})[{nameof(PlantController)}] {nameof(Grow)}: reached maximum growth.");
+        _isFullyGrown = Math.Abs(currentGrowthValue - _maxGrow) < .001F;
+        
+        Debug.Log($"({gameObject.name})[{nameof(PlantController)}] {nameof(SetMaterialGrowth)}: reached maximum growth.");
     }
 
-    private IEnumerator Shrink(Material material)
+    // TEJAS: Because we can now set a specific growth value, a dedicated Shrink method isn't needed
+    /*private IEnumerator Shrink(Material material)
     {
         _isFullyGrown = false;
 
@@ -79,7 +96,7 @@ public class PlantController : MonoBehaviour
 
         while (growValue > _minGrow)
         {
-            growValue -= 1 / (_growthRate / _lifeSpan);
+            growValue -= 1 / (_lifeSpan / _growthRate);
             material.SetFloat(GROW_PROPERTY, growValue);
             // Debug.Log($"({gameObject.name})[{nameof(PlantController)}] {nameof(Shrink)}: value={growValue}");
 
@@ -87,14 +104,28 @@ public class PlantController : MonoBehaviour
         }
 
         Debug.Log($"({gameObject.name})[{nameof(PlantController)}] {nameof(Shrink)}: reached minimum growth.");
+    }*/
+
+    // TEJAS: We may consolidate this method elsewhere more relevant! 
+    public void SetCreationDate(DateTime creationDate)
+    {
+        _creationDate = creationDate;
     }
 
-    public void GrowBasedOnRealityTime(TimeSpan timeSinceCreation)
+    public void GrowBasedOnRealityTime()
     {
-        var plantHalfLife = TimeSpan.FromDays(MAX_LIFE_SPAN_DAYS) / 2; 
-        if (timeSinceCreation > plantHalfLife)
+        // Stop current growths
+        _growMaterialRoutines.ForEach(StopCoroutine);
+        
+        if (!_creationDate.HasValue)
         {
-            ResumeGrowing(GROW_VALUE_AFTER_LIFE_SPAN);
+            Debug.LogError("Our plant doesn't have a creation date, so we can't grow based on real time");
+            return;
         }
+        
+        var timeSinceCreation = DateTime.Now - _creationDate;
+        var growthTarget = (_maxGrow - _minGrow) * (float)(timeSinceCreation / TimeSpan.FromDays(MAX_LIFE_SPAN_DAYS));
+        var clampedTarget = Mathf.Clamp(growthTarget, _minGrow, _maxGrow);
+        ResumeGrowing(clampedTarget); 
     }
 }
