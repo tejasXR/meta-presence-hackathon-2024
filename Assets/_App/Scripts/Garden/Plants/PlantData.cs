@@ -5,6 +5,6 @@ public struct PlantData
 {
     public Guid Uuid;
     public string Type;
-    public DateTime CreatedAt;
+    public string CreatedAt;
     public float GrowValue;
 }

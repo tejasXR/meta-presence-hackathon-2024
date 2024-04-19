@@ -123,7 +123,7 @@ public class GardenPersistenceManager : MonoBehaviour
                 // However, keeping this method call in for clarity on why/how stuff has changed
                 // plantController.ResumeGrowing(plantData.GrowValue);
                 
-                plantController.SetCreationDate(plantData.CreatedAt);
+                plantController.SetCreationDate(DateTime.Parse(plantData.CreatedAt));
                 plantController.GrowBasedOnPassedTime();
             }
         }
@@ -138,7 +138,7 @@ public class GardenPersistenceManager : MonoBehaviour
 
         if (anchor.TryGetComponent(out PlantController plantController))
         {
-            _garden.Map[anchor.Uuid] = new() { Uuid = anchor.Uuid, Type = plantController.Type.ToString(), CreatedAt = DateTime.Now };
+            _garden.Map[anchor.Uuid] = new() { Uuid = anchor.Uuid, Type = plantController.Type.ToString(), CreatedAt = DateTime.Now.ToString("s") };
 
             plantController.StartGrowing();
         }
