@@ -4,7 +4,7 @@ using UnityEngine;
 public class GardenManager : MonoBehaviour
 {
     [SerializeField] private GardenPersistenceManager _persistenceManager;
-    [SerializeField] private Plants _plants;
+    [SerializeField] private Plants plants;
 
     void OnApplicationQuit()
     {
@@ -33,7 +33,7 @@ public class GardenManager : MonoBehaviour
         return (Plants.PlantType)Random.Range(1, System.Enum.GetValues(typeof(Plants.PlantType)).Length);
     }
 
-    public GameObject GetPlantPrefab(Plants.PlantType plant) => _plants.GetPrefab(plant);
+    public GameObject GetPlantPrefab(Plants.PlantType plant) => plants.GetPrefab(plant);
 
     public void OnSeedPopped(SeedController seed)
     {

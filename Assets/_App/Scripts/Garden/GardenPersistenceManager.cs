@@ -1,20 +1,38 @@
 using System;
 using System.Collections.Generic;
 using Meta.XR.BuildingBlocks;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 [RequireComponent(typeof(SpatialAnchorCoreBuildingBlock))]
 public class GardenPersistenceManager : MonoBehaviour
 {
-    [SerializeField] private Plants _plants;
+    [SerializeField] private Plants plants;
 
+    [Button("Save Garden State")]
+    public void SaveGardenStateButton()
+    {
+        SaveGardenState();
+    }
+    
+    [Button("Load Garden State")]
+    public void LoadGardenStateButton()
+    {
+        LoadGardenState();
+    }
+
+    [Button("Destroy Garden")]
+    public void DestroyGardenButton()
+    {
+        DestroyGarden();
+    }
+    
     private GardenData _garden;
-
     private SpatialAnchorCoreBuildingBlock _spatialAnchorCore;
 
     void Awake()
     {
-        _garden = SaveDataManager.LoadGarden() ?? new();
+        LoadGardenState();
         _spatialAnchorCore = GetComponent<SpatialAnchorCoreBuildingBlock>();
     }
 
@@ -27,7 +45,7 @@ public class GardenPersistenceManager : MonoBehaviour
     {
         Dictionary<Plants.PlantType, List<Guid>> plantTypeMap = new();
 
-        foreach (KeyValuePair<Guid, GardenData.PlantData> plant in _garden.Map)
+        foreach (KeyValuePair<Guid, PlantData> plant in _garden.Map)
         {
             if (Enum.TryParse(plant.Value.Type, out Plants.PlantType plantType))
             {
@@ -45,13 +63,37 @@ public class GardenPersistenceManager : MonoBehaviour
 
         foreach (KeyValuePair<Plants.PlantType, List<Guid>> plantsByType in plantTypeMap)
         {
-            _spatialAnchorCore.LoadAndInstantiateAnchors(_plants.GetPrefab(plantsByType.Key), plantsByType.Value);
+            _spatialAnchorCore.LoadAndInstantiateAnchors(plants.GetPrefab(plantsByType.Key), plantsByType.Value);
         }
     }
 
     public void DestroyGarden()
     {
         _spatialAnchorCore.EraseAllAnchors();
+        
+        _garden.Map.Clear();
+        _garden.DateTimeOfLastVisit = "";
+        GardenDataManager.SaveGarden(_garden);
+    }
+
+    public void LoadGardenState()
+    {
+        _garden = GardenDataManager.LoadGarden() ?? new();
+
+        var timePassedSinceLastVisit = _garden.GetTimeSinceLastVisit();
+
+        if (timePassedSinceLastVisit == null)
+            return;
+
+        var timePassedValue = timePassedSinceLastVisit.Value;
+        
+        var timeLog = "Time since garden was last visited is ";
+        timeLog += timePassedValue.Days > 0 ? $"{timePassedValue.Days} days" : "";
+        timeLog += timePassedValue.Hours > 0 ? $"{timePassedValue.Hours} hours" : "";
+        timeLog += timePassedValue.Minutes > 0 ? $"{timePassedValue.Minutes} minutes" : "";
+        timeLog += $"{timePassedValue.Seconds} seconds";
+            
+        Debug.Log(timeLog);
     }
 
     public void SaveGardenState()
@@ -65,8 +107,8 @@ public class GardenPersistenceManager : MonoBehaviour
             }
         }
 
-        _garden.TimeSinceLastVisit = DateTime.Now;
-        SaveDataManager.SaveGarden(_garden);
+        _garden.DateTimeOfLastVisit = DateTime.Now.ToString("s");
+        GardenDataManager.SaveGarden(_garden);
     }
 
     public void RestoreGardenState(List<Guid> _)
@@ -74,9 +116,11 @@ public class GardenPersistenceManager : MonoBehaviour
         PlantController[] plants = FindObjectsOfType<PlantController>();
         foreach (PlantController plantController in plants)
         {
-            if (plantController.TryGetComponent(out OVRSpatialAnchor anchor) && _garden.Map.TryGetValue(anchor.Uuid, out GardenData.PlantData plantData))
+            if (plantController.TryGetComponent(out OVRSpatialAnchor anchor) && _garden.Map.TryGetValue(anchor.Uuid, out PlantData plantData))
             {
                 plantController.ResumeGrowing(plantData.GrowValue);
+                plantController.SetCreationDate(plantData.CreatedAt);
+                plantController.GrowBasedOnPassedTime();
             }
         }
     }
@@ -105,7 +149,7 @@ public class GardenPersistenceManager : MonoBehaviour
 
         if (_garden.Map.Remove(uuid))
         {
-            SaveDataManager.SaveGarden(_garden);
+            GardenDataManager.SaveGarden(_garden);
         }
     }
 
@@ -117,6 +161,6 @@ public class GardenPersistenceManager : MonoBehaviour
         }
 
         _garden.Map.Clear();
-        SaveDataManager.SaveGarden(_garden);
+        GardenDataManager.SaveGarden(_garden);
     }
 }

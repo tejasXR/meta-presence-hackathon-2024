@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 80aa2eb2-af2f-40a9-ad9e-18044ce65bee
-  instanceId: 5a73bedc-9728-4028-8633-ff22d7f15caf
+  instanceId: dcd9307c-a7f2-4455-9817-eb64587db52d
   version: 1
 --- !u!114 &1580426640877588158
 MonoBehaviour:
@@ -142,7 +142,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7864ff6dba048d4dae1936cce6eb6fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _plants: {fileID: 11400000, guid: 5ea12fbbe2e31fa48bf9fb160ba15d3b, type: 2}
+  plants: {fileID: 11400000, guid: 5ea12fbbe2e31fa48bf9fb160ba15d3b, type: 2}
 --- !u!114 &9101491806516038968
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -264,7 +264,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _persistenceManager: {fileID: 21629832969808440}
-  _plants: {fileID: 11400000, guid: 5ea12fbbe2e31fa48bf9fb160ba15d3b, type: 2}
+  plants: {fileID: 11400000, guid: 5ea12fbbe2e31fa48bf9fb160ba15d3b, type: 2}
 --- !u!114 &8741356550316788430
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -283,6 +283,7 @@ MonoBehaviour:
   spawnSurfaceAccessibility: 1
   maxSeedsToSpawn: 10
   maxHeightToSpawn: 1.5
+  enableRandomSeedPopping: 0
 --- !u!114 &849419983189615845
 MonoBehaviour:
   m_ObjectHideFlags: 0
