@@ -24,7 +24,20 @@ public class PlantController : MonoBehaviour
 
     private readonly List<Material> _materials = new();
     private bool _isFullyGrown;
-    private DateTime? _creationDate; // TEJAS: We may consolidate this property elsewhere as we refactor/clean the project!
+
+    // TEJAS: We may consolidate this property elsewhere as we refactor/clean the project
+    public DateTime CreationDate
+    {
+        get
+        {
+            if (_creationDate == null)
+                return DateTime.Now;
+
+            return _creationDate.Value;
+        }
+    }
+
+    private DateTime? _creationDate;
     private readonly List<IEnumerator> _growMaterialRoutines = new();
 
     private const string GROW_PROPERTY = "_Grow";
@@ -41,7 +54,7 @@ public class PlantController : MonoBehaviour
     {
         if (!_creationDate.HasValue)
         {
-           _creationDate = DateTime.Now;
+            _creationDate = DateTime.Now;
         }
         
         var creationDateValue = _creationDate.Value;

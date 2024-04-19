@@ -103,7 +103,7 @@ public class GardenPersistenceManager : MonoBehaviour
         {
             if (plantController.TryGetComponent(out OVRSpatialAnchor anchor))
             {
-                _garden.Map[anchor.Uuid] = new() { Uuid = anchor.Uuid, Type = plantController.Type.ToString(), GrowValue = plantController.GrowValue };
+                _garden.Map[anchor.Uuid] = new() { Uuid = anchor.Uuid, Type = plantController.Type.ToString(), CreatedAt = plantController.CreationDate.ToString("s"), GrowValue = plantController.GrowValue };
             }
         }
 
@@ -138,8 +138,9 @@ public class GardenPersistenceManager : MonoBehaviour
 
         if (anchor.TryGetComponent(out PlantController plantController))
         {
-            _garden.Map[anchor.Uuid] = new() { Uuid = anchor.Uuid, Type = plantController.Type.ToString(), CreatedAt = DateTime.Now.ToString("s") };
+            _garden.Map[anchor.Uuid] = new() { Uuid = anchor.Uuid, Type = plantController.Type.ToString() };
 
+            plantController.SetCreationDate(DateTime.Now);
             plantController.StartGrowing();
         }
     }
