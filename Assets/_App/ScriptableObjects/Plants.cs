@@ -25,7 +25,7 @@ public class Plants : ScriptableObject
 
     private Dictionary<PlantType, Plant> _plantsByType;
 
-    public GameObject GetPrefab(PlantType type)
+    public bool TryGetPrefab(PlantType type, out GameObject prefab)
     {
         if (_plantsByType == null)
         {
@@ -37,10 +37,12 @@ public class Plants : ScriptableObject
         }
         if (_plantsByType.TryGetValue(type, out Plant plant))
         {
-            return plant.Prefab;
+            prefab = plant.Prefab;
+            return true;
         }
 
-        Debug.LogWarning($"[{nameof(Plants)}] {nameof(GetPrefab)}: No prefab for plant of {nameof(type)} {type}");
-        return null;
+        Debug.LogWarning($"[{nameof(Plants)}] {nameof(TryGetPrefab)}: No prefab for plant of {nameof(type)} {type}");
+        prefab = null;
+        return false;
     }
 }

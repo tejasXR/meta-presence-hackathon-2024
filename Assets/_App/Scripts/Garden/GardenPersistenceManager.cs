@@ -63,7 +63,10 @@ public class GardenPersistenceManager : MonoBehaviour
 
         foreach (KeyValuePair<Plants.PlantType, List<Guid>> plantsByType in plantTypeMap)
         {
-            _spatialAnchorCore.LoadAndInstantiateAnchors(plants.GetPrefab(plantsByType.Key), plantsByType.Value);
+            if (plants.TryGetPrefab(plantsByType.Key, out GameObject prefab))
+            {
+                _spatialAnchorCore.LoadAndInstantiateAnchors(prefab, plantsByType.Value);
+            }
         }
     }
 
