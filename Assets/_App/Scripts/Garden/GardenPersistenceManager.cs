@@ -118,9 +118,13 @@ public class GardenPersistenceManager : MonoBehaviour
         {
             if (plantController.TryGetComponent(out OVRSpatialAnchor anchor) && _garden.Map.TryGetValue(anchor.Uuid, out PlantData plantData))
             {
-                plantController.ResumeGrowing(plantData.GrowValue);
+                // TEJAS: We don't resume our plant growth anymore.
+                // Instead we set a creation date and grow the plant based on the time passed since plant creation.
+                // However, keeping this method call in for clarity on why/how stuff has changed
+                // plantController.ResumeGrowing(plantData.GrowValue);
+                
                 plantController.SetCreationDate(plantData.CreatedAt);
-                plantController.GrowBasedOnPassedTime(DateTime.Now);
+                plantController.GrowBasedOnPassedTime();
             }
         }
     }
