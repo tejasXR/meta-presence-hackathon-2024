@@ -1,5 +1,7 @@
 using System;
+using System.Runtime.CompilerServices;
 using Meta.XR.MRUtilityKit;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 [RequireComponent(typeof(GardenManager))]
@@ -56,13 +58,17 @@ public class SeedSpawner : MonoBehaviour
     public void PopRandomSeed()
     {
         if (!enableRandomSeedPopping)
+        {
+            Debug.LogWarning($"Trying to pop random seed but the {nameof(enableRandomSeedPopping)} bool is set to false");
             return;
+        }
         
         if (_seedPooler.BorrowedCount == 0)
         {
             Debug.Log($"[{nameof(SeedSpawner)}] {nameof(PopRandomSeed)}: There are no seeds to pop!");
             return;
         }
+        
         _seedPooler.BorrowedObjects[UnityEngine.Random.Range(0, _seedPooler.BorrowedCount - 1)].ReachedTargetDestination();
     }
 
