@@ -87,12 +87,6 @@ public class GardenPersistenceManager : MonoBehaviour
 
         var timePassedValue = timePassedSinceLastVisit.Value;
         
-        PlantController[] plants = FindObjectsOfType<PlantController>();
-        foreach (PlantController plantController in plants)
-        {
-            plantController.GrowBasedOnRealityTime();
-        }
-        
         var timeLog = "Time since garden was last visited is ";
         timeLog += timePassedValue.Days > 0 ? $"{timePassedValue.Days} days" : "";
         timeLog += timePassedValue.Hours > 0 ? $"{timePassedValue.Hours} hours" : "";
@@ -125,6 +119,8 @@ public class GardenPersistenceManager : MonoBehaviour
             if (plantController.TryGetComponent(out OVRSpatialAnchor anchor) && _garden.Map.TryGetValue(anchor.Uuid, out PlantData plantData))
             {
                 plantController.ResumeGrowing(plantData.GrowValue);
+                plantController.SetCreationDate(plantData.CreatedAt);
+                plantController.GrowBasedOnPassedTime();
             }
         }
     }

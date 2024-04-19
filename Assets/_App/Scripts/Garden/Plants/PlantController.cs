@@ -112,7 +112,7 @@ public class PlantController : MonoBehaviour
         _creationDate = creationDate;
     }
 
-    public void GrowBasedOnRealityTime()
+    public void GrowBasedOnPassedTime()
     {
         // Stop current growths
         _growMaterialRoutines.ForEach(StopCoroutine);
