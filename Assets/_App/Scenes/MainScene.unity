@@ -274,6 +274,352 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e65fcf223de2503438d552497171da16, type: 3}
+--- !u!1001 &1226040597
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1862462170838006972, guid: ecf1fcc1fdb20514a8289199af79decf,
+        type: 3}
+      propertyPath: m_Name
+      value: PassthroughManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 2696715340969943901, guid: ecf1fcc1fdb20514a8289199af79decf,
+        type: 3}
+      propertyPath: _passthroughLayer
+      value: 
+      objectReference: {fileID: 1513084593966617942}
+    - target: {fileID: 2696715340969943901, guid: ecf1fcc1fdb20514a8289199af79decf,
+        type: 3}
+      propertyPath: _lutTextures.Array.size
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 2696715340969943901, guid: ecf1fcc1fdb20514a8289199af79decf,
+        type: 3}
+      propertyPath: _lutTextures.Array.data[0]
+      value: 
+      objectReference: {fileID: 2800000, guid: bb02e2c340c850f4d8de7dcbcede7113, type: 3}
+    - target: {fileID: 2696715340969943901, guid: ecf1fcc1fdb20514a8289199af79decf,
+        type: 3}
+      propertyPath: _lutTextures.Array.data[1]
+      value: 
+      objectReference: {fileID: 2800000, guid: 13ecdbc75e44f354d97f3f0430577c11, type: 3}
+    - target: {fileID: 2696715340969943901, guid: ecf1fcc1fdb20514a8289199af79decf,
+        type: 3}
+      propertyPath: _lutTextures.Array.data[2]
+      value: 
+      objectReference: {fileID: 2800000, guid: 2da86a8b7ad52ba428ae037e7b9e24f9, type: 3}
+    - target: {fileID: 2696715340969943901, guid: ecf1fcc1fdb20514a8289199af79decf,
+        type: 3}
+      propertyPath: _lutTextures.Array.data[3]
+      value: 
+      objectReference: {fileID: 2800000, guid: 35ef1918cb204de4f9739346cd0c908f, type: 3}
+    - target: {fileID: 2696715340969943901, guid: ecf1fcc1fdb20514a8289199af79decf,
+        type: 3}
+      propertyPath: _lutTextures.Array.data[4]
+      value: 
+      objectReference: {fileID: 2800000, guid: fc18adf7e885e6246a3679db09b14e50, type: 3}
+    - target: {fileID: 2696715340969943901, guid: ecf1fcc1fdb20514a8289199af79decf,
+        type: 3}
+      propertyPath: _lutTextures.Array.data[5]
+      value: 
+      objectReference: {fileID: 2800000, guid: c78132e0402bb3d459e7a6cbc40521fb, type: 3}
+    - target: {fileID: 2696715340969943901, guid: ecf1fcc1fdb20514a8289199af79decf,
+        type: 3}
+      propertyPath: _lutTextures.Array.data[6]
+      value: 
+      objectReference: {fileID: 2800000, guid: 418a52f11bb75504985e6bb50b3dd627, type: 3}
+    - target: {fileID: 2696715340969943901, guid: ecf1fcc1fdb20514a8289199af79decf,
+        type: 3}
+      propertyPath: _lutTextures.Array.data[7]
+      value: 
+      objectReference: {fileID: 2800000, guid: f1b8c3ef833400a40936281a14e7e5ec, type: 3}
+    - target: {fileID: 2696715340969943901, guid: ecf1fcc1fdb20514a8289199af79decf,
+        type: 3}
+      propertyPath: _lutTextures.Array.data[8]
+      value: 
+      objectReference: {fileID: 2800000, guid: 8d8473fdd94fdf44aa0431a5643a0f70, type: 3}
+    - target: {fileID: 2696715340969943901, guid: ecf1fcc1fdb20514a8289199af79decf,
+        type: 3}
+      propertyPath: _lutTextures.Array.data[9]
+      value: 
+      objectReference: {fileID: 2800000, guid: 84b28107eddcb4e478af7ca9f7154f7b, type: 3}
+    - target: {fileID: 2696715340969943901, guid: ecf1fcc1fdb20514a8289199af79decf,
+        type: 3}
+      propertyPath: _lutTextures.Array.data[10]
+      value: 
+      objectReference: {fileID: 2800000, guid: c2dabfedc6c9e32438f342d75d61a38c, type: 3}
+    - target: {fileID: 2696715340969943901, guid: ecf1fcc1fdb20514a8289199af79decf,
+        type: 3}
+      propertyPath: _lutTextures.Array.data[11]
+      value: 
+      objectReference: {fileID: 2800000, guid: 4bbf91d18748a8b4b9c98c8daadea540, type: 3}
+    - target: {fileID: 2696715340969943901, guid: ecf1fcc1fdb20514a8289199af79decf,
+        type: 3}
+      propertyPath: _lutTextures.Array.data[12]
+      value: 
+      objectReference: {fileID: 2800000, guid: ac880710ea6d7c14288267900c7939a0, type: 3}
+    - target: {fileID: 2696715340969943901, guid: ecf1fcc1fdb20514a8289199af79decf,
+        type: 3}
+      propertyPath: _lutTextures.Array.data[13]
+      value: 
+      objectReference: {fileID: 2800000, guid: af910e2590a3a924c84aa3a338ff0ba0, type: 3}
+    - target: {fileID: 2696715340969943901, guid: ecf1fcc1fdb20514a8289199af79decf,
+        type: 3}
+      propertyPath: _lutTextures.Array.data[14]
+      value: 
+      objectReference: {fileID: 2800000, guid: 9d7007090f960a948b755a4eb5c04958, type: 3}
+    - target: {fileID: 2696715340969943901, guid: ecf1fcc1fdb20514a8289199af79decf,
+        type: 3}
+      propertyPath: _lutTextures.Array.data[15]
+      value: 
+      objectReference: {fileID: 2800000, guid: d063bb87c0a270041b4a50d6a94f6024, type: 3}
+    - target: {fileID: 2696715340969943901, guid: ecf1fcc1fdb20514a8289199af79decf,
+        type: 3}
+      propertyPath: _lutTextures.Array.data[16]
+      value: 
+      objectReference: {fileID: 2800000, guid: ff72aaebb53aec643954c57f7a5451da, type: 3}
+    - target: {fileID: 2696715340969943901, guid: ecf1fcc1fdb20514a8289199af79decf,
+        type: 3}
+      propertyPath: _lutTextures.Array.data[17]
+      value: 
+      objectReference: {fileID: 2800000, guid: 183b6521a57d23846826332c34d8a2f8, type: 3}
+    - target: {fileID: 2696715340969943901, guid: ecf1fcc1fdb20514a8289199af79decf,
+        type: 3}
+      propertyPath: _lutTextures.Array.data[18]
+      value: 
+      objectReference: {fileID: 2800000, guid: a5256b89744433e46865dba0ef5bd7d4, type: 3}
+    - target: {fileID: 2696715340969943901, guid: ecf1fcc1fdb20514a8289199af79decf,
+        type: 3}
+      propertyPath: _lutTextures.Array.data[19]
+      value: 
+      objectReference: {fileID: 2800000, guid: 0b935d5be6a690043a12ddbdf27cb5f3, type: 3}
+    - target: {fileID: 2696715340969943901, guid: ecf1fcc1fdb20514a8289199af79decf,
+        type: 3}
+      propertyPath: _lutTextures.Array.data[20]
+      value: 
+      objectReference: {fileID: 2800000, guid: 7707e87db36480c418b980bb71ba5faa, type: 3}
+    - target: {fileID: 2696715340969943901, guid: ecf1fcc1fdb20514a8289199af79decf,
+        type: 3}
+      propertyPath: _lutTextures.Array.data[21]
+      value: 
+      objectReference: {fileID: 2800000, guid: 3986a38f0ba403e46845c5b5baad95cc, type: 3}
+    - target: {fileID: 2696715340969943901, guid: ecf1fcc1fdb20514a8289199af79decf,
+        type: 3}
+      propertyPath: _lutTextures.Array.data[22]
+      value: 
+      objectReference: {fileID: 2800000, guid: b7ecd28a6cd38cd46a35a6f517a2699d, type: 3}
+    - target: {fileID: 2696715340969943901, guid: ecf1fcc1fdb20514a8289199af79decf,
+        type: 3}
+      propertyPath: _lutTextures.Array.data[23]
+      value: 
+      objectReference: {fileID: 2800000, guid: f85ae26c2ada8cb4f84532165d553144, type: 3}
+    - target: {fileID: 2696715340969943901, guid: ecf1fcc1fdb20514a8289199af79decf,
+        type: 3}
+      propertyPath: _lutTextures.Array.data[24]
+      value: 
+      objectReference: {fileID: 2800000, guid: b5a946c608ec74a468c6b26998cc2b37, type: 3}
+    - target: {fileID: 2696715340969943901, guid: ecf1fcc1fdb20514a8289199af79decf,
+        type: 3}
+      propertyPath: _lutTextures.Array.data[25]
+      value: 
+      objectReference: {fileID: 2800000, guid: 00ee32d09d1966f4985c39b8d800cacb, type: 3}
+    - target: {fileID: 2696715340969943901, guid: ecf1fcc1fdb20514a8289199af79decf,
+        type: 3}
+      propertyPath: _lutTextures.Array.data[26]
+      value: 
+      objectReference: {fileID: 2800000, guid: 9a1f0ce31749719428d5e98b4392dd4a, type: 3}
+    - target: {fileID: 2696715340969943901, guid: ecf1fcc1fdb20514a8289199af79decf,
+        type: 3}
+      propertyPath: _lutTextures.Array.data[27]
+      value: 
+      objectReference: {fileID: 2800000, guid: d2dd7275339e86648a8d38257bd18c30, type: 3}
+    - target: {fileID: 2696715340969943901, guid: ecf1fcc1fdb20514a8289199af79decf,
+        type: 3}
+      propertyPath: _lutTextures.Array.data[28]
+      value: 
+      objectReference: {fileID: 2800000, guid: 993bd617920fc3946a9335909db33769, type: 3}
+    - target: {fileID: 2696715340969943901, guid: ecf1fcc1fdb20514a8289199af79decf,
+        type: 3}
+      propertyPath: _lutTextures.Array.data[29]
+      value: 
+      objectReference: {fileID: 2800000, guid: 9d91942e8052738408fa16d76f87c4f4, type: 3}
+    - target: {fileID: 2696715340969943901, guid: ecf1fcc1fdb20514a8289199af79decf,
+        type: 3}
+      propertyPath: _lutTextures.Array.data[30]
+      value: 
+      objectReference: {fileID: 2800000, guid: d4b75264a4a39354181c3c553cbd1725, type: 3}
+    - target: {fileID: 2696715340969943901, guid: ecf1fcc1fdb20514a8289199af79decf,
+        type: 3}
+      propertyPath: _lutTextures.Array.data[31]
+      value: 
+      objectReference: {fileID: 2800000, guid: 419b94795bfee8949ac36908a3d6a321, type: 3}
+    - target: {fileID: 2696715340969943901, guid: ecf1fcc1fdb20514a8289199af79decf,
+        type: 3}
+      propertyPath: _lutTextures.Array.data[32]
+      value: 
+      objectReference: {fileID: 2800000, guid: ad0c777ef1dffc545ac2c8466ef8d3fb, type: 3}
+    - target: {fileID: 2696715340969943901, guid: ecf1fcc1fdb20514a8289199af79decf,
+        type: 3}
+      propertyPath: _lutTextures.Array.data[33]
+      value: 
+      objectReference: {fileID: 2800000, guid: 8079e3f6a4769fc40aec05f9535f361c, type: 3}
+    - target: {fileID: 2696715340969943901, guid: ecf1fcc1fdb20514a8289199af79decf,
+        type: 3}
+      propertyPath: _lutData.Array.data[1].Texture
+      value: 
+      objectReference: {fileID: 2800000, guid: 08cfff01a17e72843a47aa51bc239cdc, type: 3}
+    - target: {fileID: 2696715340969943901, guid: ecf1fcc1fdb20514a8289199af79decf,
+        type: 3}
+      propertyPath: _lutData.Array.data[2].Texture
+      value: 
+      objectReference: {fileID: 2800000, guid: a438695ad1b59a346a0831c136d77589, type: 3}
+    - target: {fileID: 2696715340969943901, guid: ecf1fcc1fdb20514a8289199af79decf,
+        type: 3}
+      propertyPath: _lutData.Array.data[3].Texture
+      value: 
+      objectReference: {fileID: 2800000, guid: 32815a769d37fcb428dcc805e3453b4a, type: 3}
+    - target: {fileID: 2696715340969943901, guid: ecf1fcc1fdb20514a8289199af79decf,
+        type: 3}
+      propertyPath: _lutData.Array.data[4].Texture
+      value: 
+      objectReference: {fileID: 2800000, guid: 71d47d5c81f3f8c488fc3fee3b058a88, type: 3}
+    - target: {fileID: 2696715340969943901, guid: ecf1fcc1fdb20514a8289199af79decf,
+        type: 3}
+      propertyPath: _lutData.Array.data[5].Texture
+      value: 
+      objectReference: {fileID: 2800000, guid: 47e0fafcbf28c554f83d812cb562be76, type: 3}
+    - target: {fileID: 2696715340969943901, guid: ecf1fcc1fdb20514a8289199af79decf,
+        type: 3}
+      propertyPath: _lutData.Array.data[6].Texture
+      value: 
+      objectReference: {fileID: 2800000, guid: 57049e010879bc44fb6735e647ad6041, type: 3}
+    - target: {fileID: 8473422080609628007, guid: ecf1fcc1fdb20514a8289199af79decf,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8473422080609628007, guid: ecf1fcc1fdb20514a8289199af79decf,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8473422080609628007, guid: ecf1fcc1fdb20514a8289199af79decf,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8473422080609628007, guid: ecf1fcc1fdb20514a8289199af79decf,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8473422080609628007, guid: ecf1fcc1fdb20514a8289199af79decf,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8473422080609628007, guid: ecf1fcc1fdb20514a8289199af79decf,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8473422080609628007, guid: ecf1fcc1fdb20514a8289199af79decf,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8473422080609628007, guid: ecf1fcc1fdb20514a8289199af79decf,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8473422080609628007, guid: ecf1fcc1fdb20514a8289199af79decf,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8473422080609628007, guid: ecf1fcc1fdb20514a8289199af79decf,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ecf1fcc1fdb20514a8289199af79decf, type: 3}
+--- !u!1001 &1387813842
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5843487467941305553, guid: 868c28d939230c84bbf1cdf1e5f934fc,
+        type: 3}
+      propertyPath: m_Name
+      value: GameManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 6438618512594293466, guid: 868c28d939230c84bbf1cdf1e5f934fc,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6438618512594293466, guid: 868c28d939230c84bbf1cdf1e5f934fc,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6438618512594293466, guid: 868c28d939230c84bbf1cdf1e5f934fc,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6438618512594293466, guid: 868c28d939230c84bbf1cdf1e5f934fc,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6438618512594293466, guid: 868c28d939230c84bbf1cdf1e5f934fc,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6438618512594293466, guid: 868c28d939230c84bbf1cdf1e5f934fc,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6438618512594293466, guid: 868c28d939230c84bbf1cdf1e5f934fc,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6438618512594293466, guid: 868c28d939230c84bbf1cdf1e5f934fc,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6438618512594293466, guid: 868c28d939230c84bbf1cdf1e5f934fc,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6438618512594293466, guid: 868c28d939230c84bbf1cdf1e5f934fc,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 868c28d939230c84bbf1cdf1e5f934fc, type: 3}
 --- !u!1001 &1513084593966617941
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -342,6 +688,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d0e333ce16644a4489f02f1f960eba38, type: 3}
+--- !u!114 &1513084593966617942 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8884395806638410722, guid: d0e333ce16644a4489f02f1f960eba38,
+    type: 3}
+  m_PrefabInstance: {fileID: 1513084593966617941}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 555725d48e9051a4bb6b8d45178c2fdd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3128239825956174609
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -552,6 +910,8 @@ SceneRoots:
   m_Roots:
   - {fileID: 203844589}
   - {fileID: 4379033503558215553}
+  - {fileID: 1387813842}
+  - {fileID: 1226040597}
   - {fileID: 3128239825956174609}
   - {fileID: 6250836238354601808}
   - {fileID: 1513084593966617941}
