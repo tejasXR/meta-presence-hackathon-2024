@@ -30,11 +30,17 @@ public class Plants : ScriptableObject
         if (_plantsByType == null)
         {
             _plantsByType = new();
-            foreach (var plant in _plants)
+            foreach (Plant newPlant in _plants)
             {
-                _plantsByType[plant.Type] = plant;
+                _plantsByType[newPlant.Type] = newPlant;
             }
         }
-        return _plantsByType[type].Prefab;
+        if (_plantsByType.TryGetValue(type, out Plant plant))
+        {
+            return plant.Prefab;
+        }
+
+        Debug.LogWarning($"[{nameof(Plants)}] {nameof(GetPrefab)}: No prefab for plant of {nameof(type)} {type}");
+        return null;
     }
 }
