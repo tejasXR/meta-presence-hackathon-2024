@@ -114,8 +114,7 @@ public class PlantController : MonoBehaviour
 
     public void GrowBasedOnPassedTime()
     {
-        // Stop current growths
-        _growMaterialRoutines.ForEach(StopCoroutine);
+        StopGrowthCoroutines();
         
         if (!_creationDate.HasValue)
         {
@@ -127,5 +126,12 @@ public class PlantController : MonoBehaviour
         var growthTarget = (_maxGrow - _minGrow) * (float)(timeSinceCreation / TimeSpan.FromDays(MAX_LIFE_SPAN_DAYS));
         var clampedTarget = Mathf.Clamp(growthTarget, _minGrow, _maxGrow);
         ResumeGrowing(clampedTarget); 
+    }
+
+    private void StopGrowthCoroutines()
+    {
+        // Helpful when we need to force-set a growth value on start
+        _growMaterialRoutines.ForEach(StopCoroutine);
+        _growMaterialRoutines.Clear();
     }
 }
