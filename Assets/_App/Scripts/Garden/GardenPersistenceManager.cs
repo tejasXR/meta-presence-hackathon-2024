@@ -120,7 +120,7 @@ public class GardenPersistenceManager : MonoBehaviour
             {
                 plantController.ResumeGrowing(plantData.GrowValue);
                 plantController.SetCreationDate(plantData.CreatedAt);
-                plantController.GrowBasedOnPassedTime();
+                plantController.GrowBasedOnPassedTime(DateTime.Now);
             }
         }
     }

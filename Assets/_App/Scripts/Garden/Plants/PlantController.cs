@@ -34,6 +34,12 @@ public class PlantController : MonoBehaviour
     {
         ResumeGrowing(Random.Range(_minGrow, _maxGrow));
     }
+    
+    [Button("Simulate 12 Hours Passing")]
+    public void Simulate12HoursPassedButton()
+    {
+        GrowBasedOnPassedTime(DateTime.Now.Add(TimeSpan.FromHours(12)));
+    }
 
     void Start()
     {
@@ -112,7 +118,7 @@ public class PlantController : MonoBehaviour
         _creationDate = creationDate;
     }
 
-    public void GrowBasedOnPassedTime()
+    public void GrowBasedOnPassedTime(DateTime currentDateTime)
     {
         StopGrowthCoroutines();
         
@@ -122,15 +128,15 @@ public class PlantController : MonoBehaviour
             return;
         }
         
-        var timeSinceCreation = DateTime.Now - _creationDate;
+        var timeSinceCreation = currentDateTime - _creationDate;
         var growthTarget = (_maxGrow - _minGrow) * (float)(timeSinceCreation / TimeSpan.FromDays(MAX_LIFE_SPAN_DAYS));
         var clampedTarget = Mathf.Clamp(growthTarget, _minGrow, _maxGrow);
         ResumeGrowing(clampedTarget); 
     }
 
+    // Helpful when we need to force-set a growth value on start
     private void StopGrowthCoroutines()
     {
-        // Helpful when we need to force-set a growth value on start
         _growMaterialRoutines.ForEach(StopCoroutine);
         _growMaterialRoutines.Clear();
     }
