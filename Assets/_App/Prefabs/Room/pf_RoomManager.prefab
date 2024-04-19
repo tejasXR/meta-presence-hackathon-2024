@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: b9d9309f-2bf0-40ca-9cee-803aa6a91dae
-  instanceId: f072afee-b98f-4f68-b467-ddb50f11924f
+  instanceId: 31eaff2c-7892-4712-b1bd-729f1a5ec666
   version: 1
 --- !u!114 &9174035264968981385
 MonoBehaviour:
@@ -126,7 +126,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 65c6e778-10b3-4490-89da-008a18aa116a
-  instanceId: afe4487d-2a45-440a-a39e-adff80547904
+  instanceId: 41b7dd58-2d29-4b01-8140-32d35469de43
   version: 1
 --- !u!114 &4892992725986170316
 MonoBehaviour:
@@ -195,7 +195,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: d4413f4f-542f-451f-92ee-4801f27d676a
-  instanceId: dedec40e-dccb-4552-942f-c385e99fd7ef
+  instanceId: 5c8b42a7-e271-478d-86da-1d20267b0295
   version: 1
 --- !u!114 &2755209629682363616
 MonoBehaviour:
@@ -247,6 +247,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5952963053858718230}
+  - component: {fileID: 407202595617376166}
   m_Layer: 0
   m_Name: Environmental Depth Initializer
   m_TagString: Untagged
@@ -269,6 +270,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7507975546397540767}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &407202595617376166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6293524925337064130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd46a30a85a71b440b6e5201eb9af3b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6965797732230555248
 GameObject:
   m_ObjectHideFlags: 0
