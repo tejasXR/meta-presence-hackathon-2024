@@ -103,7 +103,7 @@ public class GardenPersistenceManager : MonoBehaviour
         {
             if (plantController.TryGetComponent(out OVRSpatialAnchor anchor))
             {
-                _garden.Map[anchor.Uuid] = new() { Uuid = anchor.Uuid, Type = plantController.Type.ToString(), GrowValue = plantController.GrowValue };
+                _garden.Map[anchor.Uuid] = new() { Uuid = anchor.Uuid, Type = plantController.Type.ToString(), CreatedAt = plantController.CreationDate.ToString("s"), GrowValue = plantController.GrowValue };
             }
         }
 
@@ -118,8 +118,12 @@ public class GardenPersistenceManager : MonoBehaviour
         {
             if (plantController.TryGetComponent(out OVRSpatialAnchor anchor) && _garden.Map.TryGetValue(anchor.Uuid, out PlantData plantData))
             {
-                plantController.ResumeGrowing(plantData.GrowValue);
-                plantController.SetCreationDate(plantData.CreatedAt);
+                // TEJAS: We don't resume our plant growth anymore.
+                // Instead we set a creation date and grow the plant based on the time passed since plant creation.
+                // However, keeping this method call in for clarity on why/how stuff has changed
+                // plantController.ResumeGrowing(plantData.GrowValue);
+                
+                plantController.SetCreationDate(DateTime.Parse(plantData.CreatedAt));
                 plantController.GrowBasedOnPassedTime();
             }
         }
@@ -134,8 +138,9 @@ public class GardenPersistenceManager : MonoBehaviour
 
         if (anchor.TryGetComponent(out PlantController plantController))
         {
-            _garden.Map[anchor.Uuid] = new() { Uuid = anchor.Uuid, Type = plantController.Type.ToString(), CreatedAt = DateTime.Now };
+            _garden.Map[anchor.Uuid] = new() { Uuid = anchor.Uuid, Type = plantController.Type.ToString() };
 
+            plantController.SetCreationDate(DateTime.Now);
             plantController.StartGrowing();
         }
     }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -23,8 +24,21 @@ public class PlantController : MonoBehaviour
 
     private readonly List<Material> _materials = new();
     private bool _isFullyGrown;
-    private DateTime? _creationDate; // TEJAS: We may consolidate this property elsewhere as we refactor/clean the project!
-    private List<Coroutine> _growMaterialRoutines;
+
+    // TEJAS: We may consolidate this property elsewhere as we refactor/clean the project
+    public DateTime CreationDate
+    {
+        get
+        {
+            if (_creationDate == null)
+                return DateTime.Now;
+
+            return _creationDate.Value;
+        }
+    }
+
+    private DateTime? _creationDate;
+    private readonly List<IEnumerator> _growMaterialRoutines = new();
 
     private const string GROW_PROPERTY = "_Grow";
     private const int MAX_LIFE_SPAN_DAYS = 2;
@@ -33,6 +47,27 @@ public class PlantController : MonoBehaviour
     public void RandomGrowthButton()
     {
         ResumeGrowing(Random.Range(_minGrow, _maxGrow));
+    }
+    
+    [Button("Simulate 12 Hours Passing")]
+    public void Simulate12HoursPassedButton()
+    {
+        if (!_creationDate.HasValue)
+        {
+            _creationDate = DateTime.Now;
+        }
+        
+        var creationDateValue = _creationDate.Value;
+         
+        // Double checking we don't use a default value
+        if (creationDateValue == default)
+            creationDateValue = DateTime.Now;
+
+        creationDateValue = creationDateValue.Subtract(TimeSpan.FromHours(12));
+        _creationDate = creationDateValue;
+        
+        SetCreationDate(_creationDate.Value);
+        GrowBasedOnPassedTime();
     }
 
     void Start()
@@ -56,7 +91,8 @@ public class PlantController : MonoBehaviour
     {
         foreach (Material material in _materials)
         {
-            var growthRoutine = StartCoroutine(SetMaterialGrowth(material, growthValue));
+            var growthRoutine = SetMaterialGrowth(material, growthValue);
+            StartCoroutine(growthRoutine);
             _growMaterialRoutines.Add(growthRoutine);
         }
     }
@@ -128,9 +164,12 @@ public class PlantController : MonoBehaviour
         ResumeGrowing(clampedTarget); 
     }
 
+    // Helpful when we need to force-set a growth value on start
     private void StopGrowthCoroutines()
     {
-        // Helpful when we need to force-set a growth value on start
+        if (_growMaterialRoutines.Count <= 0) 
+            return;
+        
         _growMaterialRoutines.ForEach(StopCoroutine);
         _growMaterialRoutines.Clear();
     }

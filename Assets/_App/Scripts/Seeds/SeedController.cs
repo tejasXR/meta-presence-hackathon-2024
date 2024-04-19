@@ -49,7 +49,7 @@ public class SeedController : MonoBehaviour
     private Color _destinationColor;
     private float _colorTransitionTime;
 
-    public Plants.PlantType Plant { get; private set; } = Plants.PlantType.Unknown;
+    public Plants.PlantType Plant { get; private set; } = Plants.PlantType.KelpBoa;
     public Vector3 PlantTargetPosition { get; private set; } = Vector3.negativeInfinity;
     public Quaternion PlantTargetRotation { get; private set; } = Quaternion.identity;
 
