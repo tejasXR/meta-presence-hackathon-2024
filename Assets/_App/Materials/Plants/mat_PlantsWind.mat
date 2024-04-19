@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: mat_BoaKelpWind
+  m_Name: mat_PlantsWind
   m_Shader: {fileID: -6465566751694194690, guid: c2f5846e7cc087648afc3117407f757a,
     type: 3}
   m_Parent: {fileID: 0}

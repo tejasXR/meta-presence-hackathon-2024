@@ -15,7 +15,10 @@ public class Plants : ScriptableObject
     public enum PlantType
     {
         Unknown,
-        BoaKelp
+        KelpBoa,
+        KelpBull,
+        BranchA,
+        BranchTrumpet
     }
 
     [SerializeField] private List<Plant> _plants;
