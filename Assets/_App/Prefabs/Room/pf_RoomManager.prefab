@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: b9d9309f-2bf0-40ca-9cee-803aa6a91dae
-  instanceId: 31eaff2c-7892-4712-b1bd-729f1a5ec666
+  instanceId: ca70f5d8-4bb0-4c68-8b4a-a70d27b50c0a
   version: 1
 --- !u!114 &9174035264968981385
 MonoBehaviour:
@@ -61,22 +61,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PrefabsToSpawn:
-  - Labels: 8295
+  - Labels: 2
     Prefabs:
-    - {fileID: 3041248695010630580, guid: e17e4ea54c22c7940b6c82559f865343, type: 3}
+    - {fileID: 3041248695010630580, guid: ffed84eda134138449f9cdeeaf9a513d, type: 3}
     MatchAspectRatio: 1
     CalculateFacingDirection: 1
     Scaling: 0
     Alignment: 2
     IgnorePrefabSize: 0
-  - Labels: 8088
-    Prefabs:
-    - {fileID: 7065377858461432164, guid: 899924757f2cb0543877f621c99626c1, type: 3}
-    MatchAspectRatio: 0
-    CalculateFacingDirection: 0
-    Scaling: 0
-    Alignment: 2
-    IgnorePrefabSize: 1
   onPrefabSpawned:
     m_PersistentCalls:
       m_Calls: []
@@ -92,7 +84,7 @@ GameObject:
   - component: {fileID: 162806962373725553}
   - component: {fileID: 4892992725986170316}
   m_Layer: 0
-  m_Name: '[BuildingBlock] Effect Mesh'
+  m_Name: '[BuildingBlock] (Global Mesh) Effect Mesh'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -126,7 +118,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 65c6e778-10b3-4490-89da-008a18aa116a
-  instanceId: 41b7dd58-2d29-4b01-8140-32d35469de43
+  instanceId: 7d2ded4e-4ea9-4b58-bfbe-8f29e869876f
   version: 1
 --- !u!114 &4892992725986170316
 MonoBehaviour:
@@ -140,15 +132,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e76943ac7e7394f3e969f0c048b26639, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MeshMaterial: {fileID: 2100000, guid: 599b01c5f1d17436c89b88cc04257314, type: 2}
-  BorderSize: 0.2
-  Colliders: 1
+  MeshMaterial: {fileID: 2100000, guid: 01069ca54128b3e489800b7831ae5e85, type: 2}
+  BorderSize: 0
+  Colliders: 0
   castShadows: 1
   hideMesh: 0
   textureCoordinateModes:
   - U: 0
     V: 0
-  Labels: 2
+  Labels: 16384
 --- !u!1 &5202302972805929993
 GameObject:
   m_ObjectHideFlags: 0
@@ -195,7 +187,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: d4413f4f-542f-451f-92ee-4801f27d676a
-  instanceId: 5c8b42a7-e271-478d-86da-1d20267b0295
+  instanceId: 8b1bc76a-bc37-44d7-b197-b7500ba222c9
   version: 1
 --- !u!114 &2755209629682363616
 MonoBehaviour:
@@ -282,6 +274,75 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd46a30a85a71b440b6e5201eb9af3b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &6311403766416817911
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4818270365286685359}
+  - component: {fileID: 1235099434966630705}
+  - component: {fileID: 5112276206032731980}
+  m_Layer: 0
+  m_Name: '[BuildingBlock] (Ceiling) Effect Mesh'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4818270365286685359
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6311403766416817911}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7507975546397540767}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1235099434966630705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6311403766416817911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b023183069df224080314a560e6e1ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blockId: 65c6e778-10b3-4490-89da-008a18aa116a
+  instanceId: f7931e1a-11da-4d2b-a7c7-9300bd84304f
+  version: 1
+--- !u!114 &5112276206032731980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6311403766416817911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e76943ac7e7394f3e969f0c048b26639, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MeshMaterial: {fileID: 2100000, guid: 599b01c5f1d17436c89b88cc04257314, type: 2}
+  BorderSize: 0.2
+  Colliders: 0
+  castShadows: 1
+  hideMesh: 0
+  textureCoordinateModes:
+  - U: 0
+    V: 0
+  Labels: 2
 --- !u!1 &6965797732230555248
 GameObject:
   m_ObjectHideFlags: 0
@@ -315,6 +376,7 @@ Transform:
   - {fileID: 23802401904020283}
   - {fileID: 3342606486757060387}
   - {fileID: 2460880053104703083}
+  - {fileID: 4818270365286685359}
   - {fileID: 5952963053858718230}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -346,6 +408,18 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 4892992725986170316}
+        m_TargetAssemblyTypeName: Meta.XR.MRUtilityKit.EffectMesh, meta.xr.mrutilitykit
+        m_MethodName: CreateMesh
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 5112276206032731980}
         m_TargetAssemblyTypeName: Meta.XR.MRUtilityKit.EffectMesh, meta.xr.mrutilitykit
         m_MethodName: CreateMesh
         m_Mode: 1
