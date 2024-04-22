@@ -1,26 +1,33 @@
-using System.Collections;
 using UnityEngine;
 
 public class CeilingVfxController : MonoBehaviour
 {
     [SerializeField] private ParticleSystem _dustVfx;
+    [SerializeField] private float _particlesPerSquareMeter = 50;
+
+    private bool _initialized = false;
 
     void Start()
     {
-        StartCoroutine(InitializeDustVfxShape());
-
         GameManager.Instance.OnGameModeChanged.AddListener(OnGameModeChanged);
-        OnGameModeChanged(GameManager.Instance.CurrentGameMode);
     }
 
     private void OnGameModeChanged(GameMode mode)
     {
+        if (!_initialized)
+        {
+            InitializeVfx();
+            _initialized = true;
+        }
         _dustVfx.gameObject.SetActive(mode == GameMode.Gazing);
     }
 
-    private IEnumerator InitializeDustVfxShape()
+    private void InitializeVfx()
     {
-        // TODO(yola): Figure out a way to access the ceiling mesh to use as particle system shape.
-        yield return null;
+        var shape = _dustVfx.shape;
+        shape.scale = new Vector3(transform.localScale.x, transform.localScale.y, 0.01f);
+
+        var main = _dustVfx.main;
+        main.maxParticles = (int)(transform.localScale.x * transform.localScale.y * _particlesPerSquareMeter);
     }
 }

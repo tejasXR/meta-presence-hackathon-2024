@@ -1,11 +1,11 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public enum GameMode { Building, Gazing }
+public enum GameMode { Lobby, Building, Gazing }
 
 public class GameManager : Singleton<GameManager>
 {
-    public GameMode CurrentGameMode = GameMode.Building;
+    public GameMode CurrentGameMode = GameMode.Lobby;
 
     [Header("Gazing Mode Config")]
     [SerializeField] private float _gazingPositionThreshold = 0.01f;
@@ -29,12 +29,15 @@ public class GameManager : Singleton<GameManager>
     {
         _cameraTransform = Camera.main.transform;
         _lastCameraPosition = _cameraTransform.position;
-
-        GameModeChanged(CurrentGameMode);
     }
 
     void Update()
     {
+        if (CurrentGameMode == GameMode.Lobby)
+        {
+            return;
+        }
+
         float deltaPos = Vector3.Distance(_lastCameraPosition, _cameraTransform.position);
 
         if (deltaPos < _gazingPositionThreshold)
@@ -57,6 +60,16 @@ public class GameManager : Singleton<GameManager>
         _lastCameraPosition = _cameraTransform.position;
     }
 
+    public void Initialize() => GameModeChanged(GameMode.Building);
+
+    private void GameModeChanged(GameMode mode)
+    {
+        CurrentGameMode = mode;
+
+        _passthroughController.SetLut((int)mode - 1);
+        OnGameModeChanged?.Invoke(mode);
+    }
+
 #if UNITY_EDITOR
     void OnValidate()
     {
@@ -69,12 +82,4 @@ public class GameManager : Singleton<GameManager>
         }
     }
 #endif
-
-    private void GameModeChanged(GameMode mode)
-    {
-        CurrentGameMode = mode;
-
-        _passthroughController.SetLut((int)mode);
-        OnGameModeChanged?.Invoke(mode);
-    }
 }
