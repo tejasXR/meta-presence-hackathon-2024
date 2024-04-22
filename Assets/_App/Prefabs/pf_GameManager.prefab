@@ -45,7 +45,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3184936ac7e3a2c4ea32c8dabfe23a97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _currentGameMode: 0
+  CurrentGameMode: 0
+  _gazingPositionThreshold: 0.01
+  _gazingTimeThreshold: 3
   _passthroughController: {fileID: 4739196819939416867}
   OnGameModeChanged:
     m_PersistentCalls:
@@ -98,4 +100,4 @@ MonoBehaviour:
   _lutTextures:
   - {fileID: 2800000, guid: 1177e07906cbddc41b9769eaed0a4ec7, type: 3}
   - {fileID: 2800000, guid: d575399a6a7b7fa47871d1ac6b1fd8dc, type: 3}
-  _lutTransitionDuration: 2
+  _lutTransitionDuration: 5
