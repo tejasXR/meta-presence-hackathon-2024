@@ -1,16 +1,18 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public class GameManager : Singleton<GameManager>
+public class GameManager : MonoBehaviour
 {
-    public enum GameMode { None, Building, Gazing }
+    public enum GameMode { Building, Gazing }
 
-    [SerializeField] private GameMode _currentGameMode = GameMode.None;
+    [SerializeField] private GameMode _currentGameMode = GameMode.Building;
+
+    [SerializeField] private PassthroughController _passthroughController;
 
     [Space]
     public UnityEvent<GameMode> OnGameModeChanged;
 
-    private GameMode _lastValidatedGameMode = GameMode.None;
+    private GameMode _lastValidatedGameMode = GameMode.Building;
 
     void OnValidate()
     {
@@ -18,7 +20,13 @@ public class GameManager : Singleton<GameManager>
         {
             Debug.Log($"[{nameof(GameManager)}] {nameof(OnValidate)}: {nameof(GameMode)} changed: previous={_lastValidatedGameMode}, current={_currentGameMode}");
             _lastValidatedGameMode = _currentGameMode;
-            OnGameModeChanged?.Invoke(_currentGameMode);
+            GameModeChanged();
         }
+    }
+
+    private void GameModeChanged()
+    {
+        _passthroughController.SetLut((int)_currentGameMode);
+        OnGameModeChanged?.Invoke(_currentGameMode);
     }
 }
