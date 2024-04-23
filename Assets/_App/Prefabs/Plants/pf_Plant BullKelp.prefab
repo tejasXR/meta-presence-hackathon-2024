@@ -99,7 +99,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9654764580692362, guid: f60a78919f9030b4bb14b4ff55cd643a, type: 3}
       propertyPath: _lifeSpan
-      value: 10
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 9654764580692362, guid: f60a78919f9030b4bb14b4ff55cd643a, type: 3}
       propertyPath: _growthRate

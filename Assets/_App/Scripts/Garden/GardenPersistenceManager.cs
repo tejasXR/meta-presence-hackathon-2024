@@ -14,7 +14,7 @@ public class GardenPersistenceManager : MonoBehaviour
     {
         SaveGardenState();
     }
-    
+
     [Button("Load Garden State")]
     public void LoadGardenStateButton()
     {
@@ -26,7 +26,7 @@ public class GardenPersistenceManager : MonoBehaviour
     {
         DestroyGarden();
     }
-    
+
     private GardenData _garden;
     private SpatialAnchorCoreBuildingBlock _spatialAnchorCore;
 
@@ -73,7 +73,7 @@ public class GardenPersistenceManager : MonoBehaviour
     public void DestroyGarden()
     {
         _spatialAnchorCore.EraseAllAnchors();
-        
+
         _garden.Map.Clear();
         _garden.DateTimeOfLastVisit = "";
         GardenDataManager.SaveGarden(_garden);
@@ -82,21 +82,7 @@ public class GardenPersistenceManager : MonoBehaviour
     public void LoadGardenState()
     {
         _garden = GardenDataManager.LoadGarden() ?? new();
-
-        var timePassedSinceLastVisit = _garden.GetTimeSinceLastVisit();
-
-        if (timePassedSinceLastVisit == null)
-            return;
-
-        var timePassedValue = timePassedSinceLastVisit.Value;
-        
-        var timeLog = "Time since garden was last visited is ";
-        timeLog += timePassedValue.Days > 0 ? $"{timePassedValue.Days} days" : "";
-        timeLog += timePassedValue.Hours > 0 ? $"{timePassedValue.Hours} hours" : "";
-        timeLog += timePassedValue.Minutes > 0 ? $"{timePassedValue.Minutes} minutes" : "";
-        timeLog += $"{timePassedValue.Seconds} seconds";
-            
-        Debug.Log(timeLog);
+        Debug.Log($"[{nameof(GardenPersistenceManager)}] {nameof(LoadGardenState)}: {_garden}");
     }
 
     public void SaveGardenState()
@@ -106,7 +92,12 @@ public class GardenPersistenceManager : MonoBehaviour
         {
             if (plantController.TryGetComponent(out OVRSpatialAnchor anchor))
             {
-                _garden.Map[anchor.Uuid] = new() { Uuid = anchor.Uuid, Type = plantController.Type.ToString(), CreatedAt = plantController.CreationDate.ToString("s"), GrowValue = plantController.GrowValue };
+                _garden.Map[anchor.Uuid] = new()
+                {
+                    Uuid = anchor.Uuid,
+                    Type = plantController.Type.ToString(),
+                    Growth = plantController.Growth
+                };
             }
         }
 
@@ -121,13 +112,7 @@ public class GardenPersistenceManager : MonoBehaviour
         {
             if (plantController.TryGetComponent(out OVRSpatialAnchor anchor) && _garden.Map.TryGetValue(anchor.Uuid, out PlantData plantData))
             {
-                // TEJAS: We don't resume our plant growth anymore.
-                // Instead we set a creation date and grow the plant based on the time passed since plant creation.
-                // However, keeping this method call in for clarity on why/how stuff has changed
-                // plantController.ResumeGrowing(plantData.GrowValue);
-                
-                plantController.SetCreationDate(DateTime.Parse(plantData.CreatedAt));
-                plantController.GrowBasedOnPassedTime();
+                plantController.ResumeGrowing(plantData.Growth, _garden.GetTimeSinceLastVisit());
             }
         }
     }
@@ -143,7 +128,6 @@ public class GardenPersistenceManager : MonoBehaviour
         {
             _garden.Map[anchor.Uuid] = new() { Uuid = anchor.Uuid, Type = plantController.Type.ToString() };
 
-            plantController.SetCreationDate(DateTime.Now);
             plantController.StartGrowing();
         }
     }

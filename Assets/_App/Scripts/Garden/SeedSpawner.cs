@@ -132,8 +132,8 @@ public class SeedSpawner : MonoBehaviour
         Plants.PlantType plant = _gardenManager.GetPlantFrom(seed);
         if (_gardenManager.TryGetPlantPrefab(plant, out GameObject prefab))
         {
-            Tuple<Vector3, Quaternion> validPlantPosition = GardenManager.GetValidPlantPosition(prefab);
-            Quaternion randomYAxisRotation = Quaternion.Euler(0f, UnityEngine.Random.Range(0f, 360f), 0f);
+            Tuple<Vector3, Quaternion> validPlantPosition = GetValidPositionForPlanting(prefab);
+            Quaternion randomYAxisRotation = Quaternion.Euler(0f, Random.Range(0f, 360f), 0f);
 
             seed.SetPlant(plant, validPlantPosition.Item1, randomYAxisRotation * validPlantPosition.Item2);
         }
@@ -143,5 +143,19 @@ public class SeedSpawner : MonoBehaviour
     {
         _gardenManager.OnSeedPopped(seed);
         _seedPooler.ReturnItem(seed);
+    }
+
+    private Tuple<Vector3, Quaternion> GetValidPositionForPlanting(GameObject plantPrefab)
+    {
+        Debug.Log($"[{nameof(SeedSpawner)}] {nameof(GetValidPositionForPlanting)}: {nameof(plantPrefab)}={plantPrefab.name}");
+
+        Tuple<Vector3, Quaternion>[] validPositions = SpawnUtil.GetSpawnPositions(
+                objectBounds: Utilities.GetPrefabBounds(plantPrefab),
+                positionCount: 1,
+                spawnLocation: FindSpawnPositions.SpawnLocation.HangingDown,
+                labels: MRUKAnchor.SceneLabels.CEILING);
+
+        Debug.Assert(validPositions.Length > 0, $"[{nameof(GardenManager)}] {nameof(GetValidPositionForPlanting)} error: invalid {nameof(validPositions)} array.");
+        return validPositions[0];
     }
 }

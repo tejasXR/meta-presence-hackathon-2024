@@ -1,155 +1,118 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Sirenix.OdinInspector;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class PlantController : MonoBehaviour
 {
     [SerializeField] private Plants.PlantType _type;
     [SerializeField] private float _lifeSpan = 5f;
-    [SerializeField] private float _growthRate = 0.05f;
     [SerializeField] private List<MeshRenderer> _meshRenderers;
 
     [Range(0f, 1f)]
-    [SerializeField] private float _minGrow = 0.2f;
+    [SerializeField] private float _minGrowth = 0f;
 
     [Range(0f, 1f)]
-    [SerializeField] private float _maxGrow = 0.9f;
+    [SerializeField] private float _maxGrowth = 1f;
+
+    [SerializeField] private float _growth;
 
     public Plants.PlantType Type => _type;
-    public float GrowValue => _materials.Count > 0 ? _materials[0].GetFloat(GROW_PROPERTY) : _minGrow;
 
     private readonly List<Material> _materials = new();
-    private bool _isFullyGrown;
 
-    // TEJAS: We may consolidate this property elsewhere as we refactor/clean the project
-    public DateTime CreationDate
+    private const string GROWTH_PROPERTY = "_Growth";
+
+    private Coroutine _growthCoroutine;
+
+    public float Growth
     {
-        get
+        get => _growth;
+        set
         {
-            if (_creationDate == null)
-                return DateTime.Now;
-
-            return _creationDate.Value;
+            // Debug.Log($"[{nameof(PlantController)}] {nameof(Growth)}: {nameof(value)}={value}");
+            foreach (Material material in _materials)
+            {
+                material.SetFloat(GROWTH_PROPERTY, value);
+            }
+            _growth = value;
         }
     }
 
-    private DateTime? _creationDate;
-    private readonly List<IEnumerator> _growMaterialRoutines = new();
-
-    private const string GROW_PROPERTY = "_Grow";
-    private const int MAX_LIFE_SPAN_DAYS = 2;
-
-    [Button("Set Random Growth For Plant")]
-    public void RandomGrowthButton()
+    void Awake()
     {
-        ResumeGrowing(Random.Range(_minGrow, _maxGrow));
+        InitializeMaterials();
+        Growth = _minGrowth;
     }
 
-    [Button("Simulate 12 Hours Passing")]
-    public void Simulate12HoursPassedButton()
+    public void StartGrowing() => ResumeGrowing(_minGrowth, null);
+
+    public void ResumeGrowing(float lastRecordedGrowthValue, TimeSpan? lastRecordedGrowthTimespan)
     {
-        if (!_creationDate.HasValue)
+        Debug.Log($"[{nameof(PlantController)}] {nameof(ResumeGrowing)}: {nameof(lastRecordedGrowthValue)}={lastRecordedGrowthValue}, {nameof(lastRecordedGrowthTimespan)}={lastRecordedGrowthTimespan?.ToString(@"d\.hh\:mm\:ss") ?? "N/A"}");
+
+        float growthDifference = 0f;
+        if (lastRecordedGrowthTimespan.HasValue)
         {
-            _creationDate = DateTime.Now;
+            growthDifference = 1f / (_lifeSpan / (float)lastRecordedGrowthTimespan.Value.TotalSeconds);
+
+            Debug.Log($"[{nameof(PlantController)}] {nameof(ResumeGrowing)}: Plant grew {growthDifference} in the last {lastRecordedGrowthTimespan.Value:d\\.hh\\:mm\\:ss}");
         }
 
-        var creationDateValue = _creationDate.Value;
+        Growth = Math.Min(lastRecordedGrowthValue + growthDifference, _maxGrowth);
+        Debug.Log($"[{nameof(PlantController)}] {nameof(ResumeGrowing)}: {nameof(Growth)}={Growth}");
 
-        // Double checking we don't use a default value
-        if (creationDateValue == default)
-            creationDateValue = DateTime.Now;
-
-        creationDateValue = creationDateValue.Subtract(TimeSpan.FromHours(12));
-        _creationDate = creationDateValue;
-
-        SetCreationDate(_creationDate.Value);
-        GrowBasedOnPassedTime();
+        StartGrowthCoroutine(ref _growthCoroutine);
     }
 
-    void Start()
+    private void StartGrowthCoroutine(ref Coroutine coroutine)
+    {
+        if (coroutine != null)
+        {
+            StopCoroutine(coroutine);
+        }
+        coroutine = StartCoroutine(Grow());
+    }
+
+    private IEnumerator Grow()
+    {
+        while (Growth < _maxGrowth)
+        {
+            Growth += 1 / (_lifeSpan / GameManager.Instance.PlantsGrowthFrequency) * GameManager.Instance.PlantsGrowthSpeed;
+            yield return new WaitForSeconds(GameManager.Instance.PlantsGrowthFrequency);
+        }
+
+        Growth = _maxGrowth;
+    }
+
+    private void InitializeMaterials()
     {
         foreach (MeshRenderer meshRenderer in _meshRenderers)
         {
             foreach (Material material in meshRenderer.materials)
             {
-                if (material.HasProperty(GROW_PROPERTY))
+                if (material.HasProperty(GROWTH_PROPERTY))
                 {
-                    material.SetFloat(GROW_PROPERTY, _minGrow);
                     _materials.Add(material);
                 }
             }
         }
     }
 
-    public void StartGrowing() => ResumeGrowing(_minGrow);
-
-    public void ResumeGrowing(float growthValue)
+#if UNITY_EDITOR
+    [Sirenix.OdinInspector.Button("Set Random Growth For Plant")]
+    public void RandomGrowthButton()
     {
-        foreach (Material material in _materials)
-        {
-            var growthRoutine = SetMaterialGrowth(material, growthValue);
-            StartCoroutine(growthRoutine);
-            _growMaterialRoutines.Add(growthRoutine);
-        }
+        ResumeGrowing(UnityEngine.Random.Range(_minGrowth, _maxGrowth), null);
     }
 
-    private IEnumerator SetMaterialGrowth(Material material, float newGrowthValue)
+    [Sirenix.OdinInspector.LabelText("Time In Seconds")]
+    public int TimeInSeconds = 120;
+
+    [Sirenix.OdinInspector.Button("Simulate Time Passed")]
+    public void SimulateTimePassedButton()
     {
-        var currentGrowthValue = material.GetFloat(GROW_PROPERTY);
-
-        Debug.Log($"({gameObject.name})[{nameof(PlantController)}] {nameof(SetMaterialGrowth)}: value = {newGrowthValue}");
-
-        int growthDirection = currentGrowthValue < newGrowthValue ? 1 : -1;
-        var growthIncrement = 1 / (_lifeSpan / _growthRate) * growthDirection;
-
-        while (currentGrowthValue < newGrowthValue)
-        {
-            if (currentGrowthValue > _maxGrow)
-                yield break;
-
-            currentGrowthValue = Mathf.Clamp(currentGrowthValue + growthIncrement, _minGrow, _maxGrow);
-            material.SetFloat(GROW_PROPERTY, currentGrowthValue);
-
-            yield return new WaitForSeconds(_growthRate);
-        }
-
-        _isFullyGrown = Math.Abs(currentGrowthValue - _maxGrow) < .001F;
-
-        Debug.Log($"({gameObject.name})[{nameof(PlantController)}] {nameof(SetMaterialGrowth)}: reached maximum growth.");
+        ResumeGrowing(Growth, TimeSpan.FromSeconds(TimeInSeconds));
     }
-
-    // TEJAS: We may consolidate this method elsewhere more relevant! 
-    public void SetCreationDate(DateTime creationDate)
-    {
-        _creationDate = creationDate;
-    }
-
-    public void GrowBasedOnPassedTime()
-    {
-        StopGrowthCoroutines();
-
-        if (!_creationDate.HasValue)
-        {
-            Debug.LogError("Our plant doesn't have a creation date, so we can't grow based on real time");
-            return;
-        }
-
-        var timeSinceCreation = DateTime.Now - _creationDate;
-        var growthTarget = (_maxGrow - _minGrow) * (float)(timeSinceCreation / TimeSpan.FromDays(MAX_LIFE_SPAN_DAYS));
-        var clampedTarget = Mathf.Clamp(growthTarget, _minGrow, _maxGrow);
-        ResumeGrowing(clampedTarget);
-    }
-
-    // Helpful when we need to force-set a growth value on start
-    private void StopGrowthCoroutines()
-    {
-        if (_growMaterialRoutines.Count <= 0)
-            return;
-
-        _growMaterialRoutines.ForEach(StopCoroutine);
-        _growMaterialRoutines.Clear();
-    }
+#endif
 }

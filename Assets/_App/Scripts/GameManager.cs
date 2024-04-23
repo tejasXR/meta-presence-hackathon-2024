@@ -11,11 +11,18 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private float _gazingPositionThreshold = 0.01f;
     [SerializeField] private float _gazingTimeThreshold = 3f;
 
+    [Header(header: "Plants Growth Config")]
+    [SerializeField] private float _plantsGrowthFrequency = 0.01f;
+    [SerializeField] private float _plantsGrowthSpeed = 1f;
+
     [Space]
     [SerializeField] private PassthroughController _passthroughController;
 
     [Space]
     public UnityEvent<GameMode> OnGameModeChanged;
+
+    public float PlantsGrowthFrequency => _plantsGrowthFrequency;
+    public float PlantsGrowthSpeed => _plantsGrowthSpeed;
 
     private Transform _cameraTransform;
     private Vector3 _lastCameraPosition;

@@ -558,10 +558,10 @@
     "m_Guid": {
         "m_GuidSerialized": "82325177-cf2b-4ecb-9134-40452cce26dc"
     },
-    "m_Name": "Grow",
+    "m_Name": "Growth",
     "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "Grow",
-    "m_DefaultReferenceName": "_Grow",
+    "m_RefNameGeneratedByDisplayName": "Growth",
+    "m_DefaultReferenceName": "_Growth",
     "m_OverrideReferenceName": "",
     "m_GeneratePropertyBlock": true,
     "m_UseCustomSlotLabel": false,
@@ -1531,7 +1531,7 @@
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "9302be97139e4afcbe7af2efbf3780da",
     "m_Id": 0,
-    "m_DisplayName": "Grow",
+    "m_DisplayName": "Growth",
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "Out",

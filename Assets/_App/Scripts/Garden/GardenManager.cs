@@ -1,31 +1,15 @@
-using Meta.XR.MRUtilityKit;
 using UnityEngine;
 
 public class GardenManager : MonoBehaviour
 {
     [SerializeField] private GardenPersistenceManager _persistenceManager;
-    [SerializeField] private Plants plants;
+    [SerializeField] private Plants _plants;
 
-    void OnApplicationQuit()
-    {
-        Debug.Log($"[{nameof(GardenManager)}] {nameof(OnApplicationQuit)}");
+    void OnApplicationQuit() => _persistenceManager.SaveGardenState();
 
-        _persistenceManager.SaveGardenState();
-    }
+    public void InitGarden() => _persistenceManager.InitGarden();
 
-    public void InitGarden()
-    {
-        Debug.Log($"[{nameof(GardenManager)}] {nameof(InitGarden)}");
-
-        _persistenceManager.InitGarden();
-    }
-
-    public void DestroyGarden()
-    {
-        Debug.Log($"[{nameof(GardenManager)}] {nameof(DestroyGarden)}");
-
-        _persistenceManager.DestroyGarden();
-    }
+    public void DestroyGarden() => _persistenceManager.DestroyGarden();
 
     public Plants.PlantType GetPlantFrom(SeedController seed)
     {
@@ -33,29 +17,15 @@ public class GardenManager : MonoBehaviour
         return (Plants.PlantType)Random.Range(1, System.Enum.GetValues(typeof(Plants.PlantType)).Length);
     }
 
-    public bool TryGetPlantPrefab(Plants.PlantType plant, out GameObject prefab) => plants.TryGetPrefab(plant, out prefab);
+    public bool TryGetPlantPrefab(Plants.PlantType plant, out GameObject prefab) => _plants.TryGetPrefab(plant, out prefab);
 
     public void OnSeedPopped(SeedController seed)
     {
         Debug.Log($"[{nameof(GardenManager)}] {nameof(OnSeedPopped)}: {nameof(seed)}={seed.gameObject.name}, {nameof(seed.Plant)}={seed.Plant}, {nameof(seed.PlantTargetPosition)}={seed.PlantTargetPosition}");
 
-        if (plants.TryGetPrefab(seed.Plant, out GameObject prefab))
+        if (_plants.TryGetPrefab(seed.Plant, out GameObject prefab))
         {
             _persistenceManager.CreateNewPlant(prefab, seed.PlantTargetPosition, seed.PlantTargetRotation);
         }
-    }
-
-    public static System.Tuple<Vector3, Quaternion> GetValidPlantPosition(GameObject plantPrefab)
-    {
-        Debug.Log($"[{nameof(GardenManager)}] {nameof(GetValidPlantPosition)}: {nameof(plantPrefab)}={plantPrefab.name}");
-
-        System.Tuple<Vector3, Quaternion>[] validPositions = SpawnUtil.GetSpawnPositions(
-                objectBounds: Utilities.GetPrefabBounds(plantPrefab),
-                positionCount: 1,
-                spawnLocation: FindSpawnPositions.SpawnLocation.HangingDown,
-                labels: MRUKAnchor.SceneLabels.CEILING);
-
-        Debug.Assert(validPositions.Length > 0, $"[{nameof(GardenManager)}] {nameof(GetValidPlantPosition)} error: invalid {nameof(validPositions)} array.");
-        return validPositions[0];
     }
 }
