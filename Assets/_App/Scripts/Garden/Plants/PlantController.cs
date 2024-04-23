@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -48,7 +47,7 @@ public class PlantController : MonoBehaviour
     {
         ResumeGrowing(Random.Range(_minGrow, _maxGrow));
     }
-    
+
     [Button("Simulate 12 Hours Passing")]
     public void Simulate12HoursPassedButton()
     {
@@ -56,16 +55,16 @@ public class PlantController : MonoBehaviour
         {
             _creationDate = DateTime.Now;
         }
-        
+
         var creationDateValue = _creationDate.Value;
-         
+
         // Double checking we don't use a default value
         if (creationDateValue == default)
             creationDateValue = DateTime.Now;
 
         creationDateValue = creationDateValue.Subtract(TimeSpan.FromHours(12));
         _creationDate = creationDateValue;
-        
+
         SetCreationDate(_creationDate.Value);
         GrowBasedOnPassedTime();
     }
@@ -109,8 +108,8 @@ public class PlantController : MonoBehaviour
         while (currentGrowthValue < newGrowthValue)
         {
             if (currentGrowthValue > _maxGrow)
-                yield break; 
-                    
+                yield break;
+
             currentGrowthValue = Mathf.Clamp(currentGrowthValue + growthIncrement, _minGrow, _maxGrow);
             material.SetFloat(GROW_PROPERTY, currentGrowthValue);
 
@@ -118,7 +117,7 @@ public class PlantController : MonoBehaviour
         }
 
         _isFullyGrown = Math.Abs(currentGrowthValue - _maxGrow) < .001F;
-        
+
         Debug.Log($"({gameObject.name})[{nameof(PlantController)}] {nameof(SetMaterialGrowth)}: reached maximum growth.");
     }
 
@@ -151,25 +150,25 @@ public class PlantController : MonoBehaviour
     public void GrowBasedOnPassedTime()
     {
         StopGrowthCoroutines();
-        
+
         if (!_creationDate.HasValue)
         {
             Debug.LogError("Our plant doesn't have a creation date, so we can't grow based on real time");
             return;
         }
-        
+
         var timeSinceCreation = DateTime.Now - _creationDate;
         var growthTarget = (_maxGrow - _minGrow) * (float)(timeSinceCreation / TimeSpan.FromDays(MAX_LIFE_SPAN_DAYS));
         var clampedTarget = Mathf.Clamp(growthTarget, _minGrow, _maxGrow);
-        ResumeGrowing(clampedTarget); 
+        ResumeGrowing(clampedTarget);
     }
 
     // Helpful when we need to force-set a growth value on start
     private void StopGrowthCoroutines()
     {
-        if (_growMaterialRoutines.Count <= 0) 
+        if (_growMaterialRoutines.Count <= 0)
             return;
-        
+
         _growMaterialRoutines.ForEach(StopCoroutine);
         _growMaterialRoutines.Clear();
     }
