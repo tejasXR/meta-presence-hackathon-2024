@@ -1,8 +1,7 @@
 using System;
-using System.Runtime.CompilerServices;
 using Meta.XR.MRUtilityKit;
-using Sirenix.OdinInspector;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(GardenManager))]
 public class SeedSpawner : MonoBehaviour
@@ -16,7 +15,7 @@ public class SeedSpawner : MonoBehaviour
     [SerializeField] private float maxHeightToSpawn = 1.5F;
     [Space]
     [SerializeField] private bool enableRandomSeedPopping;
-    
+
     private GardenManager _gardenManager;
 
     private const float SurfaceClearingDistance = .75F;  // The clearance distance required in front of the surface in order for it to be considered a valid spawn position
@@ -44,7 +43,7 @@ public class SeedSpawner : MonoBehaviour
 #if UNITY_EDITOR
         if (Input.GetKeyDown(KeyCode.P))
         {
-            PopRandomSeed();
+            PopRandomSeed(force: true);
         }
 #endif
     }
@@ -54,22 +53,22 @@ public class SeedSpawner : MonoBehaviour
         _seedPooler.Initialize(InstantiateNewSeed, maxSeedsToSpawn);
         SpawnSeeds();
     }
-    
-    public void PopRandomSeed()
+
+    public void PopRandomSeed(bool force = false)
     {
-        if (!enableRandomSeedPopping)
+        if (!enableRandomSeedPopping && !force)
         {
             Debug.LogWarning($"Trying to pop random seed but the {nameof(enableRandomSeedPopping)} bool is set to false");
             return;
         }
-        
+
         if (_seedPooler.BorrowedCount == 0)
         {
             Debug.Log($"[{nameof(SeedSpawner)}] {nameof(PopRandomSeed)}: There are no seeds to pop!");
             return;
         }
-        
-        _seedPooler.BorrowedObjects[UnityEngine.Random.Range(0, _seedPooler.BorrowedCount - 1)].ReachedTargetDestination();
+
+        _seedPooler.BorrowedObjects[Random.Range(0, _seedPooler.BorrowedCount - 1)].FlungTowardsCeiling();
     }
 
     private void SpawnSeeds()
@@ -78,8 +77,8 @@ public class SeedSpawner : MonoBehaviour
         var entireRoomBounds = MRUK.Instance.GetCurrentRoom().GetRoomBounds();
         var keyWallAnchor = MRUK.Instance.GetCurrentRoom().GetKeyWall(out Vector2 keyWallScale);
         var keyWallCenter = keyWallAnchor.GetAnchorCenter();
-        var keyWallBounds = new Bounds(keyWallCenter, keyWallScale);  
-        
+        var keyWallBounds = new Bounds(keyWallCenter, keyWallScale);
+
         // Get spawn position information
         var getSpawnPositions = SpawnUtil.GetSpawnPositions
         (
@@ -88,20 +87,20 @@ public class SeedSpawner : MonoBehaviour
             // var spawnBounds = spawnSurfaceAccessibility == SpawnSurfaceAccessibilityEnum.SpawnNearAllWalls 
             //    ? GenerateBoundsFromReference(entireRoomBounds) : GenerateBoundsFromReference(keyWallBounds);
             // objectBounds: spawnBounds,
-            
+
             objectBounds: Utilities.GetPrefabBounds(seedPrefab.gameObject),
             positionCount: maxSeedsToSpawn,
-            spawnLocation:  spawnSurfaceAccessibility == SpawnSurfaceAccessibilityEnum.VerticalSurfaces ? FindSpawnPositions.SpawnLocation.AnySurface : FindSpawnPositions.SpawnLocation.Floating,
+            spawnLocation: spawnSurfaceAccessibility == SpawnSurfaceAccessibilityEnum.VerticalSurfaces ? FindSpawnPositions.SpawnLocation.AnySurface : FindSpawnPositions.SpawnLocation.Floating,
             labels: spawnSurfaces == SpawnSurfacesEnum.Walls ? MRUKAnchor.SceneLabels.WALL_FACE | MRUKAnchor.SceneLabels.WINDOW_FRAME | MRUKAnchor.SceneLabels.WALL_ART : ~(MRUKAnchor.SceneLabels)0,
             surfaceClearanceDistance: SurfaceClearingDistance
         );
-      
+
         // Generate pooled objects
         foreach (var tupleVector3Quaternion in getSpawnPositions)
         {
             var pooledSeed = _seedPooler.BorrowItem();
             pooledSeed.transform.SetParent(transform);
-            pooledSeed.transform.position = tupleVector3Quaternion.Item1; 
+            pooledSeed.transform.position = tupleVector3Quaternion.Item1;
         }
     }
 
@@ -111,12 +110,12 @@ public class SeedSpawner : MonoBehaviour
         var customCenter = referenceBound.center;
         customCenter.y = maxHeightToSpawn / 2;
         referenceBound.center = customCenter;
-        
+
         // Modify the size of the bounds to reflect max spawn height 
         var customSize = referenceBound.size;
         customSize.y = maxHeightToSpawn;
         referenceBound.size = customSize;
-        
+
         return referenceBound;
     }
 

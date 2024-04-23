@@ -22,7 +22,7 @@ public class GameManager : Singleton<GameManager>
     private float _gazingTimer = 0f;
 
 #if UNITY_EDITOR
-    private GameMode _lastValidatedGameMode = GameMode.Building;
+    private GameMode _lastValidatedGameMode = GameMode.Lobby;
 #endif
 
     void Start()
@@ -60,6 +60,9 @@ public class GameManager : Singleton<GameManager>
         _lastCameraPosition = _cameraTransform.position;
     }
 
+    /// <summary>
+    /// Called by Room Manager's game object <see cref="Meta.XR.MRUtilityKit.MRUKStart"/> component (see inspector).
+    /// </summary>
     public void Initialize() => GameModeChanged(GameMode.Building);
 
     private void GameModeChanged(GameMode mode)
