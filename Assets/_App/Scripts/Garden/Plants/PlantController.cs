@@ -121,26 +121,6 @@ public class PlantController : MonoBehaviour
         Debug.Log($"({gameObject.name})[{nameof(PlantController)}] {nameof(SetMaterialGrowth)}: reached maximum growth.");
     }
 
-    // TEJAS: Because we can now set a specific growth value, a dedicated Shrink method isn't needed
-    /*private IEnumerator Shrink(Material material)
-    {
-        _isFullyGrown = false;
-
-        float growValue = material.GetFloat(GROW_PROPERTY);
-        Debug.Log($"({gameObject.name})[{nameof(PlantController)}] {nameof(Shrink)}: value={growValue}");
-
-        while (growValue > _minGrow)
-        {
-            growValue -= 1 / (_lifeSpan / _growthRate);
-            material.SetFloat(GROW_PROPERTY, growValue);
-            // Debug.Log($"({gameObject.name})[{nameof(PlantController)}] {nameof(Shrink)}: value={growValue}");
-
-            yield return new WaitForSeconds(_growthRate);
-        }
-
-        Debug.Log($"({gameObject.name})[{nameof(PlantController)}] {nameof(Shrink)}: reached minimum growth.");
-    }*/
-
     // TEJAS: We may consolidate this method elsewhere more relevant! 
     public void SetCreationDate(DateTime creationDate)
     {
