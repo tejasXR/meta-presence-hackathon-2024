@@ -21,6 +21,10 @@ PrefabInstance:
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 9654764580692362, guid: f60a78919f9030b4bb14b4ff55cd643a, type: 3}
+      propertyPath: _growthRate
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 9654764580692362, guid: f60a78919f9030b4bb14b4ff55cd643a, type: 3}
       propertyPath: _meshRenderers.Array.size
       value: 1
       objectReference: {fileID: 0}
