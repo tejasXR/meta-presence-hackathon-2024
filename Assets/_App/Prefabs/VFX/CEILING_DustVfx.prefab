@@ -235,7 +235,7 @@ ParticleSystem:
         key6: {r: 0, g: 0, b: 0, a: 0}
         key7: {r: 0, g: 0, b: 0, a: 0}
         ctime0: 0
-        ctime1: 31997
+        ctime1: 27525
         ctime2: 65535
         ctime3: 0
         ctime4: 0
@@ -287,8 +287,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.035
-      minScalar: 0.02
+      scalar: 0.1
+      minScalar: 0.05
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -611,7 +611,7 @@ ParticleSystem:
     gravityModifier:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.001
+      scalar: 0.0015
       minScalar: 0
       maxCurve:
         serializedVersion: 2
