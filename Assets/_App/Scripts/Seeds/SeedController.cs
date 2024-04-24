@@ -81,7 +81,7 @@ public class SeedController : MonoBehaviour
 
         if (PlantTargetPosition.IsValid())
         {
-            transform.position = Vector3.Slerp(transform.position, PlantTargetPosition, _moveSpeed * Time.deltaTime);
+            transform.position = Vector3.Lerp(transform.position, PlantTargetPosition, _moveSpeed * Time.deltaTime);
 
             if (Vector3.Distance(transform.position, PlantTargetPosition) <= _distanceToTarget)
             {
