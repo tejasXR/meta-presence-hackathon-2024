@@ -47,7 +47,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CurrentGameMode: 0
   _gazingPositionThreshold: 0.01
-  _gazingTimeThreshold: 3
+  _gazingTimeThreshold: 5
+  _plantsGrowthFrequency: 0.01
+  _plantsGrowthSpeed: 1
   _passthroughController: {fileID: 4739196819939416867}
   OnGameModeChanged:
     m_PersistentCalls:
