@@ -13,7 +13,11 @@ public class GameManager : Singleton<GameManager>
 
     [Header(header: "Plants Growth Config")]
     [SerializeField] private float _plantsGrowthFrequency = 0.01f;
-    [SerializeField] private float _plantsGrowthSpeed = 1f;
+
+    [SerializeField] private float _awayPlantsGrowthSpeed = 0.25f;
+    [SerializeField] private float _lobbyPlantsGrowthSpeed = 0f;
+    [SerializeField] private float _buildingPlantsGrowthSpeed = 1f;
+    [SerializeField] private float _gazingPlantsGrowthSpeed = 10f;
 
     [Space]
     [SerializeField] private PassthroughController _passthroughController;
@@ -22,7 +26,14 @@ public class GameManager : Singleton<GameManager>
     public UnityEvent<GameMode> OnGameModeChanged;
 
     public float PlantsGrowthFrequency => _plantsGrowthFrequency;
-    public float PlantsGrowthSpeed => _plantsGrowthSpeed;
+    public float PlantsGrowthSpeed => CurrentGameMode switch
+    {
+        GameMode.Building => _buildingPlantsGrowthSpeed,
+        GameMode.Gazing => _gazingPlantsGrowthSpeed,
+        _ => _lobbyPlantsGrowthSpeed,
+    };
+
+    public float AwayPlantsGrowthSpeed => _awayPlantsGrowthSpeed;
 
     private Transform _cameraTransform;
     private Vector3 _lastCameraPosition;
