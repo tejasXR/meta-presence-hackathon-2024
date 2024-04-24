@@ -58,6 +58,7 @@ public class PassthroughController : MonoBehaviour
         if (_ovrPassthroughLayer == null)
         {
             Debug.LogError($"[{nameof(PassthroughController)}] {nameof(SetLut)}: Error: {nameof(OVRPassthroughLayer)} is null.");
+            return;
         }
 
         if (_lutDictionary.TryGetValue(lutId, out OVRPassthroughColorLut lut))
@@ -67,7 +68,7 @@ public class PassthroughController : MonoBehaviour
 
             if (!interpolate)
             {
-                Debug.Log($"[{nameof(PassthroughController)}] {nameof(SetLut)}: Setting LUT with {nameof(lutId)}={lutId}, {nameof(targetWeight)}={targetWeight}");
+                // Debug.Log($"[{nameof(PassthroughController)}] {nameof(SetLut)}: Setting LUT with {nameof(lutId)}={lutId}, {nameof(targetWeight)}={targetWeight}");
                 _ovrPassthroughLayer.SetColorLut(previousLut, _currentLut, targetWeight);
             }
             else
@@ -76,7 +77,7 @@ public class PassthroughController : MonoBehaviour
                     ref _lutCoroutine, 0f, targetWeight, _lutTransitionDuration,
                     weight =>
                     {
-                        Debug.Log($"[{nameof(PassthroughController)}] {nameof(SetLut)}: Setting LUT with {nameof(lutId)}={lutId}, {nameof(targetWeight)}={targetWeight}, {nameof(weight)}={weight}");
+                        // Debug.Log($"[{nameof(PassthroughController)}] {nameof(SetLut)}: Setting LUT with {nameof(lutId)}={lutId}, {nameof(targetWeight)}={targetWeight}, {nameof(weight)}={weight}");
                         _ovrPassthroughLayer.SetColorLut(previousLut, _currentLut, weight);
                     });
             }
