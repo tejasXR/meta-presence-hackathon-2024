@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Meta.XR.MRUtilityKit;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -51,7 +52,7 @@ public class SeedSpawner : MonoBehaviour
     public void Initialize()
     {
         _seedPooler.Initialize(InstantiateNewSeed, maxSeedsToSpawn);
-        SpawnSeeds();
+        SpawnSeedsOnRoomWalls();
     }
 
     public void PopRandomSeed(bool force = false)
@@ -68,10 +69,10 @@ public class SeedSpawner : MonoBehaviour
             return;
         }
 
-        _seedPooler.BorrowedObjects[Random.Range(0, _seedPooler.BorrowedCount - 1)].FlungTowardsCeiling();
+        _seedPooler.BorrowedObjects[Random.Range(0, _seedPooler.BorrowedCount)].FlungTowardsCeiling();
     }
 
-    private void SpawnSeeds()
+    private void SpawnSeedsOnRoomWalls()
     {
         // Generate bound information
         var entireRoomBounds = MRUK.Instance.GetCurrentRoom().GetRoomBounds();
@@ -89,7 +90,7 @@ public class SeedSpawner : MonoBehaviour
             // objectBounds: spawnBounds,
 
             objectBounds: Utilities.GetPrefabBounds(seedPrefab.gameObject),
-            positionCount: maxSeedsToSpawn,
+            positionCount: Random.Range(3, maxSeedsToSpawn + 1),
             spawnLocation: spawnSurfaceAccessibility == SpawnSurfaceAccessibilityEnum.VerticalSurfaces ? FindSpawnPositions.SpawnLocation.AnySurface : FindSpawnPositions.SpawnLocation.Floating,
             labels: spawnSurfaces == SpawnSurfacesEnum.Walls ? MRUKAnchor.SceneLabels.WALL_FACE | MRUKAnchor.SceneLabels.WINDOW_FRAME | MRUKAnchor.SceneLabels.WALL_ART : ~(MRUKAnchor.SceneLabels)0,
             surfaceClearanceDistance: SurfaceClearingDistance
@@ -101,6 +102,32 @@ public class SeedSpawner : MonoBehaviour
             var pooledSeed = _seedPooler.BorrowItem();
             pooledSeed.transform.SetParent(transform);
             pooledSeed.transform.position = tupleVector3Quaternion.Item1;
+        }
+    }
+
+    public void SpawnFullyGrownPlantSeeds(int minNumberOfSeeds, Transform seedSpawnPositionsRoot)
+    {
+        int numberOfSeeds = Random.Range(minNumberOfSeeds, seedSpawnPositionsRoot.childCount + 1);
+
+        List<Transform> randomSpawnPoints = new();
+        List<Transform> allSpawnPoints = new();
+        foreach (Transform child in seedSpawnPositionsRoot)
+        {
+            allSpawnPoints.Add(child);
+        }
+
+        for (int i = 0; i < numberOfSeeds; i++)
+        {
+            int randomIndex = Random.Range(0, allSpawnPoints.Count);
+            randomSpawnPoints.Add(allSpawnPoints[randomIndex]);
+            allSpawnPoints.RemoveAt(randomIndex);
+        }
+
+        foreach (Transform selectedTransform in randomSpawnPoints)
+        {
+            var pooledSeed = _seedPooler.BorrowItem();
+            pooledSeed.transform.SetParent(transform);
+            pooledSeed.transform.position = selectedTransform.position;
         }
     }
 

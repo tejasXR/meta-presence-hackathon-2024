@@ -105,19 +105,7 @@ public class GardenPersistenceManager : MonoBehaviour
         GardenDataManager.SaveGarden(_garden);
     }
 
-    public void RestoreGardenState(List<Guid> _)
-    {
-        PlantController[] plants = FindObjectsOfType<PlantController>();
-        foreach (PlantController plantController in plants)
-        {
-            if (plantController.TryGetComponent(out OVRSpatialAnchor anchor) && _garden.Map.TryGetValue(anchor.Uuid, out PlantData plantData))
-            {
-                plantController.ResumeGrowing(plantData.Growth, _garden.GetTimeSinceLastVisit());
-            }
-        }
-    }
-
-    public void SaveAndStartGrowingPlant(OVRSpatialAnchor anchor, OVRSpatialAnchor.OperationResult result)
+    public void SavePlant(OVRSpatialAnchor anchor, OVRSpatialAnchor.OperationResult result)
     {
         if (result != OVRSpatialAnchor.OperationResult.Success)
         {
@@ -127,12 +115,10 @@ public class GardenPersistenceManager : MonoBehaviour
         if (anchor.TryGetComponent(out PlantController plantController))
         {
             _garden.Map[anchor.Uuid] = new() { Uuid = anchor.Uuid, Type = plantController.Type.ToString() };
-
-            plantController.StartGrowing();
         }
     }
 
-    public void RemovePlantFromLocalStorage(Guid uuid, OVRSpatialAnchor.OperationResult result)
+    public void DeletePlant(Guid uuid, OVRSpatialAnchor.OperationResult result)
     {
         if (result != OVRSpatialAnchor.OperationResult.Success)
         {
@@ -145,7 +131,7 @@ public class GardenPersistenceManager : MonoBehaviour
         }
     }
 
-    public void RemoveAllPlantsFromLocalStorage(OVRSpatialAnchor.OperationResult result)
+    public void DeleteAllPlants(OVRSpatialAnchor.OperationResult result)
     {
         if (result != OVRSpatialAnchor.OperationResult.Success)
         {
@@ -155,4 +141,8 @@ public class GardenPersistenceManager : MonoBehaviour
         _garden.Map.Clear();
         GardenDataManager.SaveGarden(_garden);
     }
+
+    public bool TryGetPlantData(Guid plantId, out PlantData plantData) => _garden.Map.TryGetValue(plantId, out plantData);
+
+    public TimeSpan? TimeSinceLastGardenVisit => _garden.GetTimeSinceLastVisit();
 }

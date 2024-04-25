@@ -160,7 +160,19 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 21629832969808440}
         m_TargetAssemblyTypeName: GardenPersistenceManager, Assembly-CSharp
-        m_MethodName: SaveAndStartGrowingPlant
+        m_MethodName: SavePlant
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 3856094891259841689}
+        m_TargetAssemblyTypeName: GardenManager, Assembly-CSharp
+        m_MethodName: OnNewPlantCreated
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -173,9 +185,9 @@ MonoBehaviour:
   _onAnchorsLoadCompleted:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 21629832969808440}
-        m_TargetAssemblyTypeName: GardenPersistenceManager, Assembly-CSharp
-        m_MethodName: RestoreGardenState
+      - m_Target: {fileID: 3856094891259841689}
+        m_TargetAssemblyTypeName: GardenManager, Assembly-CSharp
+        m_MethodName: OnPlantsRestored
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -190,7 +202,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 21629832969808440}
         m_TargetAssemblyTypeName: GardenPersistenceManager, Assembly-CSharp
-        m_MethodName: RemoveAllPlantsFromLocalStorage
+        m_MethodName: DeleteAllPlants
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -205,7 +217,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 21629832969808440}
         m_TargetAssemblyTypeName: GardenPersistenceManager, Assembly-CSharp
-        m_MethodName: RemovePlantFromLocalStorage
+        m_MethodName: DeletePlant
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -264,6 +276,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _persistenceManager: {fileID: 21629832969808440}
+  _seedSpawner: {fileID: 8741356550316788430}
   _plants: {fileID: 11400000, guid: 5ea12fbbe2e31fa48bf9fb160ba15d3b, type: 2}
 --- !u!114 &8741356550316788430
 MonoBehaviour:
@@ -281,7 +294,7 @@ MonoBehaviour:
     type: 3}
   spawnSurfaces: 0
   spawnSurfaceAccessibility: 1
-  maxSeedsToSpawn: 10
+  maxSeedsToSpawn: 4
   maxHeightToSpawn: 1.5
   enableRandomSeedPopping: 0
 --- !u!114 &849419983189615845
