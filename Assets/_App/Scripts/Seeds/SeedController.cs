@@ -131,8 +131,13 @@ public class SeedController : MonoBehaviour
         IsAboutToBeAbsorbed = true;
     }
 
+    /// <summary>
+    /// Called by Seed's game object <see cref="FlingDetector"/> component (see inspector).
+    /// </summary>
     public void FlungTowardsCeiling()
     {
+        // TODO(anyone): Trigger flung VFX.
+        // https://github.com/tejasXR/meta-presence-hackathon-2024/issues/28
         OnSeedFlung?.Invoke(this);
     }
 
@@ -160,7 +165,8 @@ public class SeedController : MonoBehaviour
     private void Pop()
     {
         // Popping simply deactivates the seed for now.
-        // TODO(simran): Trigger pop VFX.
+        // TODO(anyone): Trigger pop VFX.
+        // https://github.com/tejasXR/meta-presence-hackathon-2024/issues/28
         gameObject.SetActive(false);
     }
 
