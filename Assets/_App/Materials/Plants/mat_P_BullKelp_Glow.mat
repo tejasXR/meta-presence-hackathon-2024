@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: mat_P_Blob_No4
+  m_Name: mat_P_BullKelp_Glow
   m_Shader: {fileID: -6465566751694194690, guid: c2f5846e7cc087648afc3117407f757a,
     type: 3}
   m_Parent: {fileID: 0}
@@ -25,11 +25,11 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _Albedo:
-        m_Texture: {fileID: 2800000, guid: aed6dc47b0df24149922853044243b51, type: 3}
+        m_Texture: {fileID: 2800000, guid: f2739f89a3ab0b44c8263af4bb58ad45, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ColorMap:
-        m_Texture: {fileID: 2800000, guid: 5f916b7273247de4da9a2377decfac40, type: 3}
+        m_Texture: {fileID: 2800000, guid: f2739f89a3ab0b44c8263af4bb58ad45, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Cubemap:
@@ -56,7 +56,7 @@ Material:
     m_Floats:
     - _Clip: 0.993
     - _Emissive: 0.5
-    - _Emissive_Strength: 0.5
+    - _Emissive_Strength: 1.5
     - _Grow: 1
     - _Growth: 1
     - _Metalic: 0
