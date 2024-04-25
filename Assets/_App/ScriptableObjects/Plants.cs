@@ -17,8 +17,11 @@ public class Plants : ScriptableObject
         Unknown,
         KelpBoa,
         KelpBull,
-        BranchA,
-        BranchTrumpet
+        KelpLongpipe,
+        Branchy,
+        BranchTrumpet,
+        Blob3,
+        Blob4
     }
 
     [SerializeField] private List<Plant> _plants;
