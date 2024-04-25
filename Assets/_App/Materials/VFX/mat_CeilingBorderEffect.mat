@@ -33,7 +33,7 @@ Material:
     - _StencilRef: 2
     m_Colors:
     - _CeilingColor: {r: 1, g: 0.7523585, b: 0.6462264, a: 1}
-    - _Color: {r: 0.10980392, g: 0.22745098, b: 0.34509805, a: 1}
+    - _Color: {r: 0.108134575, g: 0.47859558, b: 0.8490566, a: 1}
     - _EdgeColor: {r: 0.010130405, g: 1, b: 0, a: 1}
     - _EffectPosition: {r: 0, g: 1, b: 0, a: 1}
     - _FloorColor: {r: 0.3443396, g: 0.56641805, b: 1, a: 1}
