@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlantController : MonoBehaviour
 {
@@ -17,6 +18,13 @@ public class PlantController : MonoBehaviour
 
     [SerializeField] private float _growth;
 
+    [Header("LootConfig")]
+    public int MinLoot = 1;
+    public Transform LootSpawnPointsRoot;
+
+    [Space]
+    public UnityEvent<PlantController> OnFullyGrown;
+
     public Plants.PlantType Type => _type;
 
     private readonly List<Material> _materials = new();
@@ -30,14 +38,23 @@ public class PlantController : MonoBehaviour
         get => _growth;
         set
         {
-            // Debug.Log($"[{nameof(PlantController)}] {nameof(Growth)}: {nameof(value)}={value}");
+            Debug.Log($"[{nameof(PlantController)}] {nameof(Growth)}: {nameof(value)}={value}");
+            _growth = value;
+
             foreach (Material material in _materials)
             {
-                material.SetFloat(GROWTH_PROPERTY, value);
+                material.SetFloat(GROWTH_PROPERTY, _growth);
             }
-            _growth = value;
+
+            if (!_isFullyGrown && Mathf.Abs(_maxGrowth - _growth) < 0.001f)
+            {
+                _isFullyGrown = true;
+                OnFullyGrown?.Invoke(this);
+            }
         }
     }
+
+    private bool _isFullyGrown = false;
 
     void Awake()
     {
@@ -113,6 +130,15 @@ public class PlantController : MonoBehaviour
     public void SimulateTimePassedButton()
     {
         ResumeGrowing(Growth, TimeSpan.FromSeconds(TimeInSeconds));
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        foreach (Transform spawnPoint in LootSpawnPointsRoot)
+        {
+            Gizmos.DrawSphere(spawnPoint.position, 0.05f);
+        }
     }
 #endif
 }
