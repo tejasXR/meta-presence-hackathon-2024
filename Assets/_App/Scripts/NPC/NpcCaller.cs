@@ -9,7 +9,13 @@ public class NpcCaller : MonoBehaviour
     [SerializeField] private HandPosePoint leftHandPosePoint;
     [SerializeField] private HandPosePoint rightHandPosePoint;
 
-    private HandPosePoint _currentCallingPose;
+    public enum PoseOrientation
+    {
+        LeftHand,
+        RightHand
+    }
+    
+    private HandPosePoint _currentCallingPose = null;
     
     private void Awake()
     {
@@ -37,18 +43,23 @@ public class NpcCaller : MonoBehaviour
 
     private void OnPoseActivated(HandPosePoint handPosePoint, Transform callPoint)
     {
-        if (_currentCallingPose == handPosePoint)
+        if (_currentCallingPose != null && _currentCallingPose == handPosePoint)
         {
             return;
         }
 
         CancelNpcMovementToPlayer();
+
+        PoseOrientation orientation = handPosePoint == leftHandPosePoint ? PoseOrientation.LeftHand : PoseOrientation.RightHand;
+        npcController.SetDialogueOrientation(orientation);
         npcController.MoveToPoint(callPoint, NpcController.MovementTypeEnum.MovingToPlayer);
+
+        _currentCallingPose = handPosePoint;
     }
 
     private void OnPoseDeactivated(HandPosePoint handPosePoint)
     {
-        if (_currentCallingPose != handPosePoint)
+        if (_currentCallingPose != null && _currentCallingPose != handPosePoint)
             return;
 
         CancelNpcMovementToPlayer();
@@ -57,5 +68,6 @@ public class NpcCaller : MonoBehaviour
     private void CancelNpcMovementToPlayer(bool hideDialogueOptions = true)
     {
         npcController.CancelMovement(hideDialogueOptions);
+        _currentCallingPose = null;
     }
 }

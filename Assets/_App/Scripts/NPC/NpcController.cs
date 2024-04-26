@@ -2,9 +2,10 @@ using UnityEngine;
 
 public class NpcController : MonoBehaviour
 {
-    [SerializeField] private GameObject dialogueOptions;
+    [SerializeField] private GameObject leftDialogueOptions;
+    [SerializeField] private GameObject rightDialogueOptions;
     [SerializeField] private float moveSpeed;
-    
+
     public enum MovementTypeEnum
     {
         Idle,
@@ -12,35 +13,45 @@ public class NpcController : MonoBehaviour
         MovingToPlayer
     }
 
-    private const float MOVEMENT_THRESHOLD = .001F;
+    private const float SHOW_DIALOGUE_OPTION_DISTANCE_THRESHOLD = .025F;
     
     private MovementTypeEnum _movementType;
-    private Vector3 _destinationPosition;
-    private Quaternion _destinationRotation;
+    private GameObject _orientedDialogueOption;
+    private Transform _destinationTransform;
     private bool _shouldMove;
+    private Camera _mainCamera;
+
+    private void Awake()
+    {
+        _mainCamera = Camera.main;
+        SetDialogueOrientation(NpcCaller.PoseOrientation.LeftHand);
+    }
 
     private void Update()
     {
         if (_shouldMove)
         {
-            transform.position = Vector3.Lerp(transform.position, _destinationPosition, Time.deltaTime * moveSpeed);
-            if (Vector3.Distance(transform.position, _destinationPosition) < MOVEMENT_THRESHOLD)
+            transform.position = Vector3.Lerp(transform.position, _destinationTransform.position, Time.deltaTime * moveSpeed);
+            
+            if (_movementType == MovementTypeEnum.MovingToPlayer)
             {
-                if (_movementType == MovementTypeEnum.MovingToPlayer)
+                if (Vector3.Distance(transform.position, _destinationTransform.position) < SHOW_DIALOGUE_OPTION_DISTANCE_THRESHOLD)
+                {
                     ToggleDialogueOptions(true);
-                
-                CancelMovement(false);
+                }
             }
         }
         
-        transform.rotation = Quaternion.Lerp(transform.rotation, _destinationRotation, Time.deltaTime * moveSpeed);
+        // Currently, we have the NPC looking towards the player at all times
+        transform.LookAt(_mainCamera.transform);
     }
 
     public void MoveToPoint(Transform destPoint, MovementTypeEnum movementType)
     {
         _shouldMove = true;
-        _destinationPosition = destPoint.position;
+        _destinationTransform = destPoint;
         _movementType = movementType;
+        
         ToggleDialogueOptions(false);
     }
 
@@ -53,8 +64,21 @@ public class NpcController : MonoBehaviour
             ToggleDialogueOptions(false);
     }
 
+    public void SetDialogueOrientation(NpcCaller.PoseOrientation poseOrientation, bool toggleOnOptions = false)
+    {
+        ToggleDialogueOptions(false);
+        
+        _orientedDialogueOption = poseOrientation == NpcCaller.PoseOrientation.LeftHand
+            ? leftDialogueOptions
+            : rightDialogueOptions;
+
+        if (toggleOnOptions)
+            ToggleDialogueOptions(true);
+    }
+
     private void ToggleDialogueOptions(bool showDialogue)
     {
-        dialogueOptions.SetActive(showDialogue);
+        if (_orientedDialogueOption)
+            _orientedDialogueOption.SetActive(showDialogue);
     }
 }
