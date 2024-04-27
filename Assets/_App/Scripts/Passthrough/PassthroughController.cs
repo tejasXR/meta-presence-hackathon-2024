@@ -8,7 +8,6 @@ public class PassthroughController : MonoBehaviour
 {
     [SerializeField] private OVRPassthroughLayer _ovrPassthroughLayer;
     [SerializeField] private List<Texture2D> _lutTextures;
-    [SerializeField] private float _lutTransitionDuration = 1f;
 
     private readonly Dictionary<int, OVRPassthroughColorLut> _lutDictionary = new();
 
@@ -53,7 +52,7 @@ public class PassthroughController : MonoBehaviour
         }
     }
 
-    public void SetLut(int lutId, float targetWeight = 1f, bool interpolate = true)
+    public void SetLut(int lutId, float transitionDuration = 1f, float targetWeight = 1f, bool interpolate = true)
     {
         if (_ovrPassthroughLayer == null)
         {
@@ -74,7 +73,7 @@ public class PassthroughController : MonoBehaviour
             else
             {
                 StartInterpolation(
-                    ref _lutCoroutine, 0f, targetWeight, _lutTransitionDuration,
+                    ref _lutCoroutine, 0f, targetWeight, transitionDuration,
                     weight =>
                     {
                         // Debug.Log($"[{nameof(PassthroughController)}] {nameof(SetLut)}: Setting LUT with {nameof(lutId)}={lutId}, {nameof(targetWeight)}={targetWeight}, {nameof(weight)}={weight}");

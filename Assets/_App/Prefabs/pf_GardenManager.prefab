@@ -61,16 +61,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _buttonClickActions:
-  - Title: Pop Random Seed
-    Button: 1
-    ButtonMode: 0
+  - Title: Set Building Mode
+    Button: 3
+    ButtonMode: 1
     Callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 8741356550316788430}
-          m_TargetAssemblyTypeName: SeedSpawner, Assembly-CSharp
-          m_MethodName: PopRandomSeed
-          m_Mode: 6
+        - m_Target: {fileID: 0}
+          m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+          m_MethodName: SetBuildingMode
+          m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

@@ -9,6 +9,7 @@ public class CeilingVfxController : MonoBehaviour
 
     void Start()
     {
+        _dustVfx.gameObject.SetActive(GameManager.Instance.CurrentGameMode == GameMode.Gazing);
         GameManager.Instance.OnGameModeChanged.AddListener(OnGameModeChanged);
     }
 
