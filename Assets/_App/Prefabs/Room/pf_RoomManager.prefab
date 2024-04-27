@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: b9d9309f-2bf0-40ca-9cee-803aa6a91dae
-  instanceId: 2f409401-5a64-47c9-a07b-a7e94ef4c0ba
+  instanceId: 711dca26-6d6b-47b1-858d-6075a8beae2d
   version: 1
 --- !u!114 &9174035264968981385
 MonoBehaviour:
@@ -60,23 +60,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d607ba0c0320e446ba9d62671d9d7a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SpawnOnStart: 1
   PrefabsToSpawn:
-  - Labels: 8293
+  - Labels: 2
     Prefabs:
-    - {fileID: 3041248695010630580, guid: e17e4ea54c22c7940b6c82559f865343, type: 3}
+    - {fileID: 3041248695010630580, guid: ffed84eda134138449f9cdeeaf9a513d, type: 3}
     MatchAspectRatio: 1
     CalculateFacingDirection: 1
     Scaling: 0
     Alignment: 2
     IgnorePrefabSize: 0
-  - Labels: 8088
-    Prefabs:
-    - {fileID: 7065377858461432164, guid: 899924757f2cb0543877f621c99626c1, type: 3}
-    MatchAspectRatio: 0
-    CalculateFacingDirection: 0
-    Scaling: 0
-    Alignment: 2
-    IgnorePrefabSize: 1
+  SeedValue: 0
   onPrefabSpawned:
     m_PersistentCalls:
       m_Calls: []
@@ -92,7 +86,7 @@ GameObject:
   - component: {fileID: 162806962373725553}
   - component: {fileID: 4892992725986170316}
   m_Layer: 0
-  m_Name: '[BuildingBlock] Effect Mesh'
+  m_Name: '[BuildingBlock] (Global Mesh) Effect Mesh'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -126,7 +120,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 65c6e778-10b3-4490-89da-008a18aa116a
-  instanceId: 86e7c9d6-b396-4380-b382-2ac8cd70e4fd
+  instanceId: e50686cd-1630-4e15-94fa-810bd9566f30
   version: 1
 --- !u!114 &4892992725986170316
 MonoBehaviour:
@@ -140,15 +134,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e76943ac7e7394f3e969f0c048b26639, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MeshMaterial: {fileID: 2100000, guid: 599b01c5f1d17436c89b88cc04257314, type: 2}
-  BorderSize: 0.2
-  Colliders: 1
+  SpawnOnStart: 2
+  MeshMaterial: {fileID: 2100000, guid: 01069ca54128b3e489800b7831ae5e85, type: 2}
+  BorderSize: 0
+  Colliders: 0
+  CutHoles: 0
   castShadows: 1
   hideMesh: 0
   textureCoordinateModes:
-  - U: 0
-    V: 0
-  Labels: 2
+  - WallU: 0
+    WallV: 0
+    AnchorUV: 0
+  Labels: 16384
 --- !u!1 &5202302972805929993
 GameObject:
   m_ObjectHideFlags: 0
@@ -195,7 +192,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: d4413f4f-542f-451f-92ee-4801f27d676a
-  instanceId: 38a9bbd5-7aa3-48f6-8075-3a64a9705986
+  instanceId: 8cd0042e-8ab9-4054-af5e-b90f04b32922
   version: 1
 --- !u!114 &2755209629682363616
 MonoBehaviour:
@@ -211,16 +208,89 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SceneLoadedEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 9174035264968981385}
+        m_TargetAssemblyTypeName: Meta.XR.MRUtilityKit.AnchorPrefabSpawner, meta.xr.mrutilitykit
+        m_MethodName: SpawnPrefabs
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 4892992725986170316}
+        m_TargetAssemblyTypeName: Meta.XR.MRUtilityKit.EffectMesh, meta.xr.mrutilitykit
+        m_MethodName: CreateMesh
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 5112276206032731980}
+        m_TargetAssemblyTypeName: Meta.XR.MRUtilityKit.EffectMesh, meta.xr.mrutilitykit
+        m_MethodName: CreateMesh
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: SeedSpawner, Assembly-CSharp
+        m_MethodName: SpawnSeedsOnRoomWalls
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: GardenManager, Assembly-CSharp
+        m_MethodName: Initialize
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   RoomCreatedEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: Initialize
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   RoomUpdatedEvent:
     m_PersistentCalls:
       m_Calls: []
   RoomRemovedEvent:
     m_PersistentCalls:
       m_Calls: []
+  EnableWorldLock: 1
   SceneSettings:
     DataSource: 2
     RoomIndex: -1
@@ -247,6 +317,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5952963053858718230}
+  - component: {fileID: 407202595617376166}
   m_Layer: 0
   m_Name: Environmental Depth Initializer
   m_TagString: Untagged
@@ -269,6 +340,90 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7507975546397540767}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &407202595617376166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6293524925337064130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd46a30a85a71b440b6e5201eb9af3b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &6311403766416817911
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4818270365286685359}
+  - component: {fileID: 1235099434966630705}
+  - component: {fileID: 5112276206032731980}
+  m_Layer: 0
+  m_Name: '[BuildingBlock] (Ceiling) Effect Mesh'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4818270365286685359
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6311403766416817911}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7507975546397540767}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1235099434966630705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6311403766416817911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b023183069df224080314a560e6e1ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blockId: 65c6e778-10b3-4490-89da-008a18aa116a
+  instanceId: 7f4582c3-c7b5-4986-a408-466ec185538e
+  version: 1
+--- !u!114 &5112276206032731980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6311403766416817911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e76943ac7e7394f3e969f0c048b26639, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SpawnOnStart: 2
+  MeshMaterial: {fileID: 2100000, guid: 4ed58760d347cbb4f90da765d66bba73, type: 2}
+  BorderSize: 0.3
+  Colliders: 0
+  CutHoles: 0
+  castShadows: 1
+  hideMesh: 0
+  textureCoordinateModes:
+  - WallU: 0
+    WallV: 0
+    AnchorUV: 0
+  Labels: 2
 --- !u!1 &6965797732230555248
 GameObject:
   m_ObjectHideFlags: 0
@@ -278,7 +433,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7507975546397540767}
-  - component: {fileID: 4507381400064113020}
   m_Layer: 0
   m_Name: pf_RoomManager
   m_TagString: Untagged
@@ -302,54 +456,7 @@ Transform:
   - {fileID: 23802401904020283}
   - {fileID: 3342606486757060387}
   - {fileID: 2460880053104703083}
+  - {fileID: 4818270365286685359}
   - {fileID: 5952963053858718230}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4507381400064113020
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6965797732230555248}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c55c994d76dd43da9cfea6b3e8f32b6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneLoadedEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 9174035264968981385}
-        m_TargetAssemblyTypeName: Meta.XR.SceneToolkit.AnchorPrefabSpawner, meta.xr.scenetoolkit
-        m_MethodName: SpawnPrefabs
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 4892992725986170316}
-        m_TargetAssemblyTypeName: Meta.XR.MRUtilityKit.EffectMesh, meta.xr.mrutilitykit
-        m_MethodName: CreateMesh
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  roomCreatedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  roomUpdatedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  roomRemovedEvent:
-    m_PersistentCalls:
-      m_Calls: []

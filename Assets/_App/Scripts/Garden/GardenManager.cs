@@ -1,54 +1,66 @@
-using Meta.XR.MRUtilityKit;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class GardenManager : MonoBehaviour
 {
     [SerializeField] private GardenPersistenceManager _persistenceManager;
+    [SerializeField] private SeedSpawner _seedSpawner;
     [SerializeField] private Plants _plants;
 
-    void OnApplicationQuit()
-    {
-        Debug.Log($"[{nameof(GardenManager)}] {nameof(OnApplicationQuit)}");
+    void OnApplicationQuit() => _persistenceManager.SaveGardenState();
 
-        _persistenceManager.SaveGardenState();
+    public void Initialize() => _persistenceManager.InitGarden();
+
+    public void DestroyGarden() => _persistenceManager.DestroyGarden();
+
+    public Plants.PlantType GetPlantFrom(SeedController seed)
+    {
+        // TODO(yola): Seed > Plant correlation
+        return (Plants.PlantType)Random.Range(1, Enum.GetValues(typeof(Plants.PlantType)).Length);
     }
 
-    public void InitGarden()
-    {
-        Debug.Log($"[{nameof(GardenManager)}] {nameof(InitGarden)}");
-
-        _persistenceManager.InitGarden();
-    }
-
-    public void DestroyGarden()
-    {
-        Debug.Log($"[{nameof(GardenManager)}] {nameof(DestroyGarden)}");
-
-        _persistenceManager.DestroyGarden();
-    }
+    public bool TryGetPlantPrefab(Plants.PlantType plant, out GameObject prefab) => _plants.TryGetPrefab(plant, out prefab);
 
     public void OnSeedPopped(SeedController seed)
     {
-        Debug.Log($"[{nameof(GardenManager)}] {nameof(OnSeedPopped)}: {nameof(seed)}={seed.gameObject.name}");
+        Debug.Log($"[{nameof(GardenManager)}] {nameof(OnSeedPopped)}: {nameof(seed)}={seed.gameObject.name}, {nameof(seed.Plant)}={seed.Plant}, {nameof(seed.PlantTargetPosition)}={seed.PlantTargetPosition}");
 
-        // TODO(yola): Seed > Plant correlation
-        Plants.PlantType randomPlantType = (Plants.PlantType)Random.Range(1, System.Enum.GetValues(typeof(Plants.PlantType)).Length);
-        GameObject randomPlantPrefab = _plants.GetPrefab(randomPlantType);
-
-        _persistenceManager.CreateNewPlant(randomPlantPrefab, GetValidPlantPosition(randomPlantPrefab));
+        if (_plants.TryGetPrefab(seed.Plant, out GameObject prefab))
+        {
+            _persistenceManager.CreateNewPlant(prefab, seed.PlantTargetPosition, seed.PlantTargetRotation);
+        }
     }
 
-    private System.Tuple<Vector3, Quaternion> GetValidPlantPosition(GameObject plantPrefab)
+    public void OnNewPlantCreated(OVRSpatialAnchor anchor, OVRSpatialAnchor.OperationResult result)
     {
-        Debug.Log($"[{nameof(GardenManager)}] {nameof(GetValidPlantPosition)}: {nameof(plantPrefab)}={plantPrefab.name}");
+        if (result != OVRSpatialAnchor.OperationResult.Success)
+        {
+            return;
+        }
 
-        System.Tuple<Vector3, Quaternion>[] validPositions = SpawnUtil.GetSpawnPositions(
-                objectBounds: Utilities.GetPrefabBounds(plantPrefab),
-                positionCount: 1,
-                spawnLocation: FindSpawnPositions.SpawnLocation.HangingDown,
-                labels: MRUKAnchor.SceneLabels.CEILING);
+        if (anchor.TryGetComponent(out PlantController plantController))
+        {
+            plantController.OnFullyGrown.AddListener(OnPlantFullyGrown);
+            plantController.StartGrowing();
+        }
+    }
 
-        Debug.Assert(validPositions.Length > 0, $"[{nameof(GardenManager)}] {nameof(GetValidPlantPosition)} error: invalid {nameof(validPositions)} array.");
-        return validPositions[0];
+    public void OnPlantsRestored(List<OVRSpatialAnchor> anchors)
+    {
+        foreach (OVRSpatialAnchor anchor in anchors)
+        {
+            if (anchor.TryGetComponent(out PlantController plantController) && _persistenceManager.TryGetPlantData(anchor.Uuid, out PlantData plantData))
+            {
+                plantController.OnFullyGrown.AddListener(OnPlantFullyGrown);
+                plantController.ResumeGrowing(plantData.Growth, _persistenceManager.TimeSinceLastGardenVisit);
+            }
+        }
+    }
+
+    private void OnPlantFullyGrown(PlantController plant)
+    {
+        _seedSpawner.SpawnFullyGrownPlantSeeds(plant.MinLoot, plant.LootSpawnPointsRoot);
     }
 }

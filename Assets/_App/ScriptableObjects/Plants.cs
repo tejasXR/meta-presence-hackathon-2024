@@ -15,23 +15,37 @@ public class Plants : ScriptableObject
     public enum PlantType
     {
         Unknown,
-        BoaKelp
+        KelpBoa,
+        KelpBull,
+        KelpLongpipe,
+        Branchy,
+        BranchTrumpet,
+        Blob3,
+        Blob4
     }
 
     [SerializeField] private List<Plant> _plants;
 
     private Dictionary<PlantType, Plant> _plantsByType;
 
-    public GameObject GetPrefab(PlantType type)
+    public bool TryGetPrefab(PlantType type, out GameObject prefab)
     {
         if (_plantsByType == null)
         {
             _plantsByType = new();
-            foreach (var plant in _plants)
+            foreach (Plant newPlant in _plants)
             {
-                _plantsByType[plant.Type] = plant;
+                _plantsByType[newPlant.Type] = newPlant;
             }
         }
-        return _plantsByType[type].Prefab;
+        if (_plantsByType.TryGetValue(type, out Plant plant))
+        {
+            prefab = plant.Prefab;
+            return true;
+        }
+
+        Debug.LogWarning($"[{nameof(Plants)}] {nameof(TryGetPrefab)}: No prefab for plant of {nameof(type)} {type}");
+        prefab = null;
+        return false;
     }
 }

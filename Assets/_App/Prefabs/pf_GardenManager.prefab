@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 80aa2eb2-af2f-40a9-ad9e-18044ce65bee
-  instanceId: 5a73bedc-9728-4028-8633-ff22d7f15caf
+  instanceId: e36f7d58-199f-4062-af2c-26572232efe9
   version: 1
 --- !u!114 &1580426640877588158
 MonoBehaviour:
@@ -61,15 +61,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _buttonClickActions:
-  - Title: Pop Random Seed
-    Button: 1
-    ButtonMode: 0
+  - Title: Set Building Mode
+    Button: 3
+    ButtonMode: 1
     Callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 8741356550316788430}
-          m_TargetAssemblyTypeName: SeedSpawner, Assembly-CSharp
-          m_MethodName: PopRandomSeed
+        - m_Target: {fileID: 0}
+          m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+          m_MethodName: SetBuildingMode
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -142,7 +142,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7864ff6dba048d4dae1936cce6eb6fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _plants: {fileID: 11400000, guid: 5ea12fbbe2e31fa48bf9fb160ba15d3b, type: 2}
+  plants: {fileID: 11400000, guid: 5ea12fbbe2e31fa48bf9fb160ba15d3b, type: 2}
 --- !u!114 &9101491806516038968
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -160,7 +160,19 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 21629832969808440}
         m_TargetAssemblyTypeName: GardenPersistenceManager, Assembly-CSharp
-        m_MethodName: SaveAndStartGrowingPlant
+        m_MethodName: SavePlant
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 3856094891259841689}
+        m_TargetAssemblyTypeName: GardenManager, Assembly-CSharp
+        m_MethodName: OnNewPlantCreated
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -173,9 +185,9 @@ MonoBehaviour:
   _onAnchorsLoadCompleted:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 21629832969808440}
-        m_TargetAssemblyTypeName: GardenPersistenceManager, Assembly-CSharp
-        m_MethodName: RestoreGardenState
+      - m_Target: {fileID: 3856094891259841689}
+        m_TargetAssemblyTypeName: GardenManager, Assembly-CSharp
+        m_MethodName: OnPlantsRestored
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -190,7 +202,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 21629832969808440}
         m_TargetAssemblyTypeName: GardenPersistenceManager, Assembly-CSharp
-        m_MethodName: RemoveAllPlantsFromLocalStorage
+        m_MethodName: DeleteAllPlants
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -205,7 +217,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 21629832969808440}
         m_TargetAssemblyTypeName: GardenPersistenceManager, Assembly-CSharp
-        m_MethodName: RemovePlantFromLocalStorage
+        m_MethodName: DeletePlant
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -226,7 +238,6 @@ GameObject:
   - component: {fileID: 1658626597535816957}
   - component: {fileID: 3856094891259841689}
   - component: {fileID: 8741356550316788430}
-  - component: {fileID: 849419983189615845}
   m_Layer: 0
   m_Name: pf_GardenManager
   m_TagString: Untagged
@@ -264,6 +275,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _persistenceManager: {fileID: 21629832969808440}
+  _seedSpawner: {fileID: 8741356550316788430}
   _plants: {fileID: 11400000, guid: 5ea12fbbe2e31fa48bf9fb160ba15d3b, type: 2}
 --- !u!114 &8741356550316788430
 MonoBehaviour:
@@ -281,53 +293,6 @@ MonoBehaviour:
     type: 3}
   spawnSurfaces: 0
   spawnSurfaceAccessibility: 1
-  maxSeedsToSpawn: 10
+  maxSeedsToSpawn: 4
   maxHeightToSpawn: 1.5
---- !u!114 &849419983189615845
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8715495945399539160}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c55c994d76dd43da9cfea6b3e8f32b6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneLoadedEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3856094891259841689}
-        m_TargetAssemblyTypeName: GardenManager, Assembly-CSharp
-        m_MethodName: InitGarden
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 8741356550316788430}
-        m_TargetAssemblyTypeName: SeedSpawner, Assembly-CSharp
-        m_MethodName: Initialize
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  roomCreatedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  roomUpdatedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  roomRemovedEvent:
-    m_PersistentCalls:
-      m_Calls: []
+  enableRandomSeedPopping: 0

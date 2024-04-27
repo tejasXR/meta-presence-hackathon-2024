@@ -1,6 +1,8 @@
-using System;
 using Meta.XR.MRUtilityKit;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(GardenManager))]
 public class SeedSpawner : MonoBehaviour
@@ -14,7 +16,7 @@ public class SeedSpawner : MonoBehaviour
     [SerializeField] private float maxHeightToSpawn = 1.5F;
     [Space]
     [SerializeField] private bool enableRandomSeedPopping;
-    
+
     private GardenManager _gardenManager;
 
     private const float SurfaceClearingDistance = .75F;  // The clearance distance required in front of the surface in order for it to be considered a valid spawn position
@@ -42,38 +44,36 @@ public class SeedSpawner : MonoBehaviour
 #if UNITY_EDITOR
         if (Input.GetKeyDown(KeyCode.P))
         {
-            PopRandomSeed();
+            PopRandomSeed(force: true);
         }
 #endif
     }
 
-    public void Initialize()
+    public void PopRandomSeed(bool force = false)
     {
-        _seedPooler.Initialize(OnPoolerBorrowedItem, maxSeedsToSpawn);
-        SpawnSeeds();
-    }
-    
-    public void PopRandomSeed()
-    {
-        if (!enableRandomSeedPopping)
+        if (!enableRandomSeedPopping && !force)
+        {
+            Debug.LogWarning($"Trying to pop random seed but the {nameof(enableRandomSeedPopping)} bool is set to false");
             return;
-        
+        }
+
         if (_seedPooler.BorrowedCount == 0)
         {
             Debug.Log($"[{nameof(SeedSpawner)}] {nameof(PopRandomSeed)}: There are no seeds to pop!");
             return;
         }
-        _seedPooler.BorrowedObjects[UnityEngine.Random.Range(0, _seedPooler.BorrowedCount - 1)].Pop();
+
+        _seedPooler.BorrowedObjects[Random.Range(0, _seedPooler.BorrowedCount)].FlungTowardsCeiling();
     }
 
-    private void SpawnSeeds()
+    public void SpawnSeedsOnRoomWalls()
     {
         // Generate bound information
-        var entireRoomBounds = MRUK.Instance.GetCurrentRoom().GetRoomBounds();
-        var keyWallAnchor = MRUK.Instance.GetCurrentRoom().GetKeyWall(out Vector2 keyWallScale);
-        var keyWallCenter = keyWallAnchor.GetAnchorCenter();
-        var keyWallBounds = new Bounds(keyWallCenter, keyWallScale);  
-        
+        // var entireRoomBounds = MRUK.Instance.GetCurrentRoom().GetRoomBounds();
+        // var keyWallAnchor = MRUK.Instance.GetCurrentRoom().GetKeyWall(out Vector2 keyWallScale);
+        // var keyWallCenter = keyWallAnchor.GetAnchorCenter();
+        // var keyWallBounds = new Bounds(keyWallCenter, keyWallScale);
+
         // Get spawn position information
         var getSpawnPositions = SpawnUtil.GetSpawnPositions
         (
@@ -82,20 +82,54 @@ public class SeedSpawner : MonoBehaviour
             // var spawnBounds = spawnSurfaceAccessibility == SpawnSurfaceAccessibilityEnum.SpawnNearAllWalls 
             //    ? GenerateBoundsFromReference(entireRoomBounds) : GenerateBoundsFromReference(keyWallBounds);
             // objectBounds: spawnBounds,
-            
+
             objectBounds: Utilities.GetPrefabBounds(seedPrefab.gameObject),
-            positionCount: maxSeedsToSpawn,
-            spawnLocation:  spawnSurfaceAccessibility == SpawnSurfaceAccessibilityEnum.VerticalSurfaces ? FindSpawnPositions.SpawnLocation.AnySurface : FindSpawnPositions.SpawnLocation.Floating,
+            positionCount: Random.Range(3, maxSeedsToSpawn + 1),
+            spawnLocation: spawnSurfaceAccessibility == SpawnSurfaceAccessibilityEnum.VerticalSurfaces ? FindSpawnPositions.SpawnLocation.AnySurface : FindSpawnPositions.SpawnLocation.Floating,
             labels: spawnSurfaces == SpawnSurfacesEnum.Walls ? MRUKAnchor.SceneLabels.WALL_FACE | MRUKAnchor.SceneLabels.WINDOW_FRAME | MRUKAnchor.SceneLabels.WALL_ART : ~(MRUKAnchor.SceneLabels)0,
             surfaceClearanceDistance: SurfaceClearingDistance
         );
-      
+
         // Generate pooled objects
+        if (!_seedPooler.IsInitialized)
+        {
+            _seedPooler.Initialize(InstantiateNewSeed, maxSeedsToSpawn);
+        }
         foreach (var tupleVector3Quaternion in getSpawnPositions)
         {
             var pooledSeed = _seedPooler.BorrowItem();
             pooledSeed.transform.SetParent(transform);
-            pooledSeed.transform.position = tupleVector3Quaternion.Item1; 
+            pooledSeed.transform.position = tupleVector3Quaternion.Item1;
+        }
+    }
+
+    public void SpawnFullyGrownPlantSeeds(int minNumberOfSeeds, Transform seedSpawnPositionsRoot)
+    {
+        int numberOfSeeds = Random.Range(minNumberOfSeeds, seedSpawnPositionsRoot.childCount + 1);
+
+        List<Transform> randomSpawnPoints = new();
+        List<Transform> allSpawnPoints = new();
+        foreach (Transform child in seedSpawnPositionsRoot)
+        {
+            allSpawnPoints.Add(child);
+        }
+
+        for (int i = 0; i < numberOfSeeds; i++)
+        {
+            int randomIndex = Random.Range(0, allSpawnPoints.Count);
+            randomSpawnPoints.Add(allSpawnPoints[randomIndex]);
+            allSpawnPoints.RemoveAt(randomIndex);
+        }
+
+        if (!_seedPooler.IsInitialized)
+        {
+            _seedPooler.Initialize(InstantiateNewSeed, maxSeedsToSpawn);
+        }
+        foreach (Transform selectedTransform in randomSpawnPoints)
+        {
+            var pooledSeed = _seedPooler.BorrowItem();
+            pooledSeed.transform.SetParent(transform);
+            pooledSeed.transform.position = selectedTransform.position;
         }
     }
 
@@ -105,28 +139,52 @@ public class SeedSpawner : MonoBehaviour
         var customCenter = referenceBound.center;
         customCenter.y = maxHeightToSpawn / 2;
         referenceBound.center = customCenter;
-        
+
         // Modify the size of the bounds to reflect max spawn height 
         var customSize = referenceBound.size;
         customSize.y = maxHeightToSpawn;
         referenceBound.size = customSize;
-        
+
         return referenceBound;
     }
 
-    private SeedController OnPoolerBorrowedItem(int numberOfTotalItemsBorrowed)
+    private SeedController InstantiateNewSeed(int numberOfTotalItemsBorrowed)
     {
         SeedController seed = Instantiate(seedPrefab);
-        seed.SeedPopped += OnSeedPopped;
+        seed.OnSeedFlung.AddListener(OnSeedFlung);
+        seed.OnSeedPopped.AddListener(OnSeedPopped);
         return seed;
+    }
+
+    private void OnSeedFlung(SeedController seed)
+    {
+        Plants.PlantType plant = _gardenManager.GetPlantFrom(seed);
+        if (_gardenManager.TryGetPlantPrefab(plant, out GameObject prefab))
+        {
+            Tuple<Vector3, Quaternion> validPlantPosition = GetValidPositionForPlanting(prefab);
+            Quaternion randomYAxisRotation = Quaternion.Euler(0f, Random.Range(0f, 360f), 0f);
+
+            seed.SetPlant(plant, validPlantPosition.Item1, randomYAxisRotation * validPlantPosition.Item2);
+        }
     }
 
     private void OnSeedPopped(SeedController seed)
     {
         _gardenManager.OnSeedPopped(seed);
-
-        // Deactivate and return to pool.
-        seed.gameObject.SetActive(false);
         _seedPooler.ReturnItem(seed);
+    }
+
+    private Tuple<Vector3, Quaternion> GetValidPositionForPlanting(GameObject plantPrefab)
+    {
+        Debug.Log($"[{nameof(SeedSpawner)}] {nameof(GetValidPositionForPlanting)}: {nameof(plantPrefab)}={plantPrefab.name}");
+
+        Tuple<Vector3, Quaternion>[] validPositions = SpawnUtil.GetSpawnPositions(
+                objectBounds: Utilities.GetPrefabBounds(plantPrefab),
+                positionCount: 1,
+                spawnLocation: FindSpawnPositions.SpawnLocation.HangingDown,
+                labels: MRUKAnchor.SceneLabels.CEILING);
+
+        Debug.Assert(validPositions.Length > 0, $"[{nameof(GardenManager)}] {nameof(GetValidPositionForPlanting)} error: invalid {nameof(validPositions)} array.");
+        return validPositions[0];
     }
 }

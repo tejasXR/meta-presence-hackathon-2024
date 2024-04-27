@@ -5,17 +5,17 @@ using System.Collections.Generic;
 [Serializable]
 public class GardenData
 {
-    [Serializable]
-    public struct PlantData
-    {
-        public Guid Uuid;
-        public string Type;
-        public DateTime CreatedAt;
-        public float GrowValue;
-    }
-
     public Dictionary<Guid, PlantData> Map = new();
-    public DateTime TimeSinceLastVisit;
+    public string DateTimeOfLastVisit;
+
+    public TimeSpan? GetTimeSinceLastVisit()
+    {
+        DateTime.TryParse(DateTimeOfLastVisit, out DateTime parsedDateTime);
+        if (parsedDateTime == default)
+            return null;
+
+        return DateTime.Now - parsedDateTime;
+    }
 
     public string ToJson()
     {
@@ -25,5 +25,10 @@ public class GardenData
     public static GardenData LoadFromJson(string json)
     {
         return JsonConvert.DeserializeObject<GardenData>(json);
+    }
+
+    public override string ToString()
+    {
+        return $"Last garden visit was {GetTimeSinceLastVisit()?.ToString(@"d\.hh\:mm\:ss") ?? "N/A"}";
     }
 }

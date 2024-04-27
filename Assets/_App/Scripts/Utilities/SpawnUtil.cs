@@ -10,7 +10,7 @@ public static class SpawnUtil
     /// Allows for fast generation of valid (inside the room, outside furniture bounds) random positions for content spawning.
     /// Optional method to pin directly to surfaces.
     /// </summary>
-    /// <param name="SpawnObject">Prefab to be placed into the scene, or object in the scene to be moved around.</param>
+    /// <param name="objectBounds">Bounds of the prefab to be placed into the scene.</param>
     /// <param name="positionCount">Number of SpawnObject(s) to place into the scene, only applies to Prefabs.</param>
     /// <param name="spawnLocation">Attach content to scene surfaces.</param>
     /// <param name="labels">When using surface spawning, use this to filter which anchor labels should be included. Eg, spawn only on TABLE or OTHER.</param>

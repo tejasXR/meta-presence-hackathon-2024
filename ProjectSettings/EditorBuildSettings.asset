@@ -8,8 +8,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_App/Scenes/MainScene.unity
     guid: 8a1b862ba5588bc4ab2ee70a07e458cb
+  - enabled: 1
+    path: Assets/_App/Scenes/MainScene_PlantTestScene_VN.unity
+    guid: c648ac58556cd61499c3cf0884d5dcc3
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 2d52bf9796925a64e885dcc749b761fc,
       type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 5a0cbe584355a8d44838ba343f39e767,
+      type: 2}
+    com.unity.xr.openxr.settings4: {fileID: 11400000, guid: 622149c6733b4624696b8e9bc68dbee9,
       type: 2}
