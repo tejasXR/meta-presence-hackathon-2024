@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7796308365762698504}
-  - component: {fileID: 5854603780271174486}
   - component: {fileID: 261097428804083356}
   - component: {fileID: 5469971656069039701}
   - component: {fileID: 920503214852501937}
@@ -38,25 +37,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6830854556218966323}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5854603780271174486
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2554605352498088836}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 43f86b14a27b52f4f9298c33015b5c26, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _transferOnSecondSelection: 1
-  _addNewPointsToFront: 0
-  _forwardElement: {fileID: 0}
-  _oneGrabTransformer: {fileID: 0}
-  _twoGrabTransformer: {fileID: 0}
-  _targetTransform: {fileID: 6830854556218966323}
-  _maxGrabPoints: 1
 --- !u!114 &261097428804083356
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -73,7 +53,7 @@ MonoBehaviour:
   _maxInteractors: -1
   _maxSelectingInteractors: -1
   _data: {fileID: 0}
-  _pointableElement: {fileID: 5854603780271174486}
+  _pointableElement: {fileID: 6754994944486617804}
   _rigidbody: {fileID: 1653994964226470285}
   _physicsGrabbable: {fileID: 920503214852501937}
   _resetGrabOnGrabsUpdated: 1
@@ -112,7 +92,7 @@ MonoBehaviour:
   _maxInteractors: -1
   _maxSelectingInteractors: -1
   _data: {fileID: 0}
-  _pointableElement: {fileID: 5854603780271174486}
+  _pointableElement: {fileID: 6754994944486617804}
   _rigidbody: {fileID: 1653994964226470285}
   _grabSource: {fileID: 0}
   _resetGrabOnGrabsUpdated: 1
@@ -130,7 +110,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bedaac29a943f844a7074b53c8bdf9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pointable: {fileID: 5854603780271174486}
+  _pointable: {fileID: 6754994944486617804}
   _rigidbody: {fileID: 1653994964226470285}
   _scaleMassWithSize: 1
 --- !u!114 &9041434364244721842
