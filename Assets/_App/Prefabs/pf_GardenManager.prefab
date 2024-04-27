@@ -70,7 +70,7 @@ MonoBehaviour:
         - m_Target: {fileID: 8741356550316788430}
           m_TargetAssemblyTypeName: SeedSpawner, Assembly-CSharp
           m_MethodName: PopRandomSeed
-          m_Mode: 1
+          m_Mode: 6
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
