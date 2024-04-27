@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 80aa2eb2-af2f-40a9-ad9e-18044ce65bee
-  instanceId: d6ab5918-4636-456f-a628-491906380e5c
+  instanceId: e36f7d58-199f-4062-af2c-26572232efe9
   version: 1
 --- !u!114 &1580426640877588158
 MonoBehaviour:
@@ -238,7 +238,6 @@ GameObject:
   - component: {fileID: 1658626597535816957}
   - component: {fileID: 3856094891259841689}
   - component: {fileID: 8741356550316788430}
-  - component: {fileID: 849419983189615845}
   m_Layer: 0
   m_Name: pf_GardenManager
   m_TagString: Untagged
@@ -297,51 +296,3 @@ MonoBehaviour:
   maxSeedsToSpawn: 4
   maxHeightToSpawn: 1.5
   enableRandomSeedPopping: 0
---- !u!114 &849419983189615845
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8715495945399539160}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c55c994d76dd43da9cfea6b3e8f32b6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneLoadedEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3856094891259841689}
-        m_TargetAssemblyTypeName: GardenManager, Assembly-CSharp
-        m_MethodName: InitGarden
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 8741356550316788430}
-        m_TargetAssemblyTypeName: SeedSpawner, Assembly-CSharp
-        m_MethodName: Initialize
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  roomCreatedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  roomUpdatedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  roomRemovedEvent:
-    m_PersistentCalls:
-      m_Calls: []

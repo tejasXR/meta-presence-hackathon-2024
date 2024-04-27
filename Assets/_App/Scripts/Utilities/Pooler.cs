@@ -15,9 +15,11 @@ public class Pooler<T>
 
     public List<T> BorrowedObjects => _borrowedObjects;
 
+    public bool IsInitialized => PooledCount > 0;
+
     public void Initialize(System.Func<int, T> createCallback, int count)
     {
-        this._createCallback = createCallback;
+        _createCallback = createCallback;
 
         for (int i = 0; i < count; i++)
         {

@@ -11,7 +11,7 @@ public class GardenManager : MonoBehaviour
 
     void OnApplicationQuit() => _persistenceManager.SaveGardenState();
 
-    public void InitGarden() => _persistenceManager.InitGarden();
+    public void Initialize() => _persistenceManager.InitGarden();
 
     public void DestroyGarden() => _persistenceManager.DestroyGarden();
 
@@ -47,12 +47,11 @@ public class GardenManager : MonoBehaviour
         }
     }
 
-    public void OnPlantsRestored(List<Guid> _)
+    public void OnPlantsRestored(List<OVRSpatialAnchor> anchors)
     {
-        PlantController[] plants = FindObjectsOfType<PlantController>();
-        foreach (PlantController plantController in plants)
+        foreach (OVRSpatialAnchor anchor in anchors)
         {
-            if (plantController.TryGetComponent(out OVRSpatialAnchor anchor) && _persistenceManager.TryGetPlantData(anchor.Uuid, out PlantData plantData))
+            if (anchor.TryGetComponent(out PlantController plantController) && _persistenceManager.TryGetPlantData(anchor.Uuid, out PlantData plantData))
             {
                 plantController.OnFullyGrown.AddListener(OnPlantFullyGrown);
                 plantController.ResumeGrowing(plantData.Growth, _persistenceManager.TimeSinceLastGardenVisit);

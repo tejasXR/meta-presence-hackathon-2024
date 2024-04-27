@@ -118,14 +118,14 @@ public class GardenPersistenceManager : MonoBehaviour
         }
     }
 
-    public void DeletePlant(Guid uuid, OVRSpatialAnchor.OperationResult result)
+    public void DeletePlant(OVRSpatialAnchor anchor, OVRSpatialAnchor.OperationResult result)
     {
         if (result != OVRSpatialAnchor.OperationResult.Success)
         {
             return;
         }
 
-        if (_garden.Map.Remove(uuid))
+        if (_garden.Map.Remove(anchor.Uuid))
         {
             GardenDataManager.SaveGarden(_garden);
         }

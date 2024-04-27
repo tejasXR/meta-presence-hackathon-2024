@@ -1,6 +1,6 @@
+using Meta.XR.MRUtilityKit;
 using System;
 using System.Collections.Generic;
-using Meta.XR.MRUtilityKit;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -49,12 +49,6 @@ public class SeedSpawner : MonoBehaviour
 #endif
     }
 
-    public void Initialize()
-    {
-        _seedPooler.Initialize(InstantiateNewSeed, maxSeedsToSpawn);
-        SpawnSeedsOnRoomWalls();
-    }
-
     public void PopRandomSeed(bool force = false)
     {
         if (!enableRandomSeedPopping && !force)
@@ -72,13 +66,13 @@ public class SeedSpawner : MonoBehaviour
         _seedPooler.BorrowedObjects[Random.Range(0, _seedPooler.BorrowedCount)].FlungTowardsCeiling();
     }
 
-    private void SpawnSeedsOnRoomWalls()
+    public void SpawnSeedsOnRoomWalls()
     {
         // Generate bound information
-        var entireRoomBounds = MRUK.Instance.GetCurrentRoom().GetRoomBounds();
-        var keyWallAnchor = MRUK.Instance.GetCurrentRoom().GetKeyWall(out Vector2 keyWallScale);
-        var keyWallCenter = keyWallAnchor.GetAnchorCenter();
-        var keyWallBounds = new Bounds(keyWallCenter, keyWallScale);
+        // var entireRoomBounds = MRUK.Instance.GetCurrentRoom().GetRoomBounds();
+        // var keyWallAnchor = MRUK.Instance.GetCurrentRoom().GetKeyWall(out Vector2 keyWallScale);
+        // var keyWallCenter = keyWallAnchor.GetAnchorCenter();
+        // var keyWallBounds = new Bounds(keyWallCenter, keyWallScale);
 
         // Get spawn position information
         var getSpawnPositions = SpawnUtil.GetSpawnPositions
@@ -97,6 +91,10 @@ public class SeedSpawner : MonoBehaviour
         );
 
         // Generate pooled objects
+        if (!_seedPooler.IsInitialized)
+        {
+            _seedPooler.Initialize(InstantiateNewSeed, maxSeedsToSpawn);
+        }
         foreach (var tupleVector3Quaternion in getSpawnPositions)
         {
             var pooledSeed = _seedPooler.BorrowItem();
@@ -123,6 +121,10 @@ public class SeedSpawner : MonoBehaviour
             allSpawnPoints.RemoveAt(randomIndex);
         }
 
+        if (!_seedPooler.IsInitialized)
+        {
+            _seedPooler.Initialize(InstantiateNewSeed, maxSeedsToSpawn);
+        }
         foreach (Transform selectedTransform in randomSpawnPoints)
         {
             var pooledSeed = _seedPooler.BorrowItem();
