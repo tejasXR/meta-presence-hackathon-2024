@@ -25,6 +25,7 @@ public class PlantController : MonoBehaviour
     [Space]
     public UnityEvent<PlantController> OnFullyGrown;
 
+    public bool IsFullyGrown => _isFullyGrown;
     public Plants.PlantType Type => _type;
 
     private readonly List<Material> _materials = new();
@@ -54,6 +55,7 @@ public class PlantController : MonoBehaviour
         }
     }
 
+    
     private bool _isFullyGrown = false;
 
     void Awake()
