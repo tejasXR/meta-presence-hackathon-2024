@@ -558,41 +558,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 5862585288113116256, guid: d0e333ce16644a4489f02f1f960eba38,
-        type: 3}
-      propertyPath: _transformFeatureConfigs._values.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5862585288113116256, guid: d0e333ce16644a4489f02f1f960eba38,
-        type: 3}
-      propertyPath: _transformFeatureConfigs._values.Array.data[0]._state
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 5862585288113116256, guid: d0e333ce16644a4489f02f1f960eba38,
-        type: 3}
-      propertyPath: _transformFeatureConfigs._values.Array.data[1]._state
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 5862585288113116256, guid: d0e333ce16644a4489f02f1f960eba38,
-        type: 3}
-      propertyPath: _transformFeatureConfigs._values.Array.data[2]._state
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 5862585288113116256, guid: d0e333ce16644a4489f02f1f960eba38,
-        type: 3}
-      propertyPath: _transformFeatureConfigs._values.Array.data[0]._feature
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5862585288113116256, guid: d0e333ce16644a4489f02f1f960eba38,
-        type: 3}
-      propertyPath: _transformFeatureConfigs._values.Array.data[1]._feature
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5862585288113116256, guid: d0e333ce16644a4489f02f1f960eba38,
-        type: 3}
-      propertyPath: _transformFeatureConfigs._values.Array.data[2]._feature
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 8580994348159443414, guid: d0e333ce16644a4489f02f1f960eba38,
         type: 3}
       propertyPath: m_LocalPosition.x

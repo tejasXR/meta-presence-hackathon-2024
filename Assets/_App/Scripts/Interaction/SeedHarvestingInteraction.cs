@@ -68,8 +68,6 @@ public class SeedHarvestingInteraction : MonoBehaviour
     private void DetectPlant()
     {
         // TEJAS: purposefully not using CapsuleCastAllNonAlloc
-        
-        
         var raycastCapsuleHits = Physics.CapsuleCastAll(_cameraTransform.position, _cameraTransform.forward * raycastDistance,
             raycastRadius, _cameraTransform.forward, raycastDistance, plantMask, QueryTriggerInteraction.Collide);
 
