@@ -158,14 +158,7 @@ public class SeedSpawner : MonoBehaviour
 
     private void OnSeedFlung(SeedController seed)
     {
-        Plants.PlantType plant = _gardenManager.GetPlantFrom(seed);
-        if (_gardenManager.TryGetPlantPrefab(plant, out GameObject prefab))
-        {
-            Tuple<Vector3, Quaternion> validPlantPosition = GetValidPositionForPlanting(prefab);
-            Quaternion randomYAxisRotation = Quaternion.Euler(0f, Random.Range(0f, 360f), 0f);
-
-            seed.SetPlant(plant, validPlantPosition.Item1, randomYAxisRotation * validPlantPosition.Item2);
-        }
+        seed.SetTarget(_gardenManager.GetSeedTarget(seed));
     }
 
     private void OnSeedPopped(SeedController seed)

@@ -49,9 +49,7 @@ public class SeedController : MonoBehaviour
     private Color _destinationColor;
     private float _colorTransitionTime;
 
-    public Plants.PlantType Plant { get; private set; } = Plants.PlantType.KelpBoa;
-    public Vector3 PlantTargetPosition { get; private set; } = Vector3.negativeInfinity;
-    public Quaternion PlantTargetRotation { get; private set; } = Quaternion.identity;
+    public Target CurrentTarget { get; private set; } = Target.Invalid;
 
     private void Awake()
     {
@@ -79,11 +77,11 @@ public class SeedController : MonoBehaviour
             _colorTransitionTime += Time.deltaTime / ColorTransitionSpeed;
         }
 
-        if (PlantTargetPosition.IsValid())
+        if (CurrentTarget.IsValid)
         {
-            transform.position = Vector3.Lerp(transform.position, PlantTargetPosition, _moveSpeed * Time.deltaTime);
+            transform.position = Vector3.Lerp(transform.position, CurrentTarget.Position, _moveSpeed * Time.deltaTime);
 
-            if (Vector3.Distance(transform.position, PlantTargetPosition) <= _distanceToTarget)
+            if (Vector3.Distance(transform.position, CurrentTarget.Position) <= _distanceToTarget)
             {
                 ReachedTargetDestination();
             }
@@ -141,13 +139,11 @@ public class SeedController : MonoBehaviour
         OnSeedFlung?.Invoke(this);
     }
 
-    public void SetPlant(Plants.PlantType plant, Vector3 targetPosition, Quaternion targetRotation)
+    public void SetTarget(Target target)
     {
-        Plant = plant;
-        PlantTargetPosition = targetPosition;
-        PlantTargetRotation = targetRotation;
+        CurrentTarget = target;
 
-        bool isValid = PlantTargetPosition.IsValid();
+        bool isValid = CurrentTarget.IsValid;
         foreach (GameObject go in _deactivateOnFlung)
         {
             go.SetActive(!isValid);
@@ -170,5 +166,17 @@ public class SeedController : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    private void Reset() => SetPlant(Plants.PlantType.Unknown, Vector3.negativeInfinity, Quaternion.identity);
+    private void Reset() => SetTarget(Target.Invalid);
+
+    public struct Target
+    {
+        public GameObject Island;
+        public bool InstantiateIsland;
+        public GameObject Plant;
+        public Vector3 Position;
+        public Quaternion Rotation;
+
+        public readonly bool IsValid => Island != null && Position.IsValid();
+        public static Target Invalid => new() { Position = Vector3.negativeInfinity };
+    }
 }
