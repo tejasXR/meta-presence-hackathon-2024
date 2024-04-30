@@ -10,6 +10,8 @@ public class HandPoseActivator: MonoBehaviour
     [SerializeField] private ActiveStateSelector poseStateSelector;
     [SerializeField] private Transform posePoint;
     
+    public bool PoseActive { get; private set; }
+    
     private void Awake()
     {
         poseStateSelector.WhenSelected += ActivatePose;
@@ -27,11 +29,13 @@ public class HandPoseActivator: MonoBehaviour
 
     private void ActivatePose()
     {
+        PoseActive = true;
         PoseActivated?.Invoke(this, posePoint);
     }
 
     private void DeactivatePose()
     {
+        PoseActive = false;
         PoseDeactivated?.Invoke(this);
     }
 }

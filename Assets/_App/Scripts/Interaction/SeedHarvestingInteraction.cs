@@ -1,6 +1,4 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SeedHarvestingInteraction : MonoBehaviour
@@ -11,6 +9,13 @@ public class SeedHarvestingInteraction : MonoBehaviour
     [SerializeField] private LayerMask plantMask;
     [SerializeField] private float raycastDistance = 3F;
     [SerializeField] private float raycastRadius = .1F;
+    [Space]
+    [Range(0F, 5F)] [SerializeField] private float seedSpawnChargeSpeed = .3F;
+
+    private IEnumerator _chargePlantRoutine;
+    private PlantController _detectedPlant;
+    private Transform _cameraTransform;
+
 
     private void Awake()
     {
@@ -19,6 +24,8 @@ public class SeedHarvestingInteraction : MonoBehaviour
         
         leftFistPoseActivator.PoseDeactivated += OnPoseDeactivated;
         rightFistPoseActivator.PoseDeactivated += OnPoseDeactivated;
+        
+        _cameraTransform = Camera.main.transform;
     }
 
     private void OnDestroy()
@@ -38,19 +45,33 @@ public class SeedHarvestingInteraction : MonoBehaviour
 
     private void OnPoseActivated(HandPoseActivator handPoseActivator, Transform handPosePoint)
     {
-        DetectPlant(handPosePoint);
+        if (leftFistPoseActivator.PoseActive && rightFistPoseActivator.PoseActive)
+        {
+            _detectedPlant = null;
+            DetectPlant();
+        }
     }
 
     private void OnPoseDeactivated(HandPoseActivator handPoseActivator)
     {
-        // Nothing yet
+        if (_detectedPlant)
+        {
+            _detectedPlant.CancelSeedSpawnCharging();
+        }
+    
+        _detectedPlant = null;
+        
+        if (_chargePlantRoutine != null)
+            StopCoroutine(_chargePlantRoutine);
     }
 
-    private void DetectPlant(Transform originTransform)
+    private void DetectPlant()
     {
         // TEJAS: purposefully not using CapsuleCastAllNonAlloc
-        var raycastCapsuleHits = Physics.CapsuleCastAll(originTransform.position, originTransform.forward * raycastDistance,
-            raycastRadius, originTransform.forward, raycastDistance, plantMask, QueryTriggerInteraction.Collide);
+        
+        
+        var raycastCapsuleHits = Physics.CapsuleCastAll(_cameraTransform.position, _cameraTransform.forward * raycastDistance,
+            raycastRadius, _cameraTransform.forward, raycastDistance, plantMask, QueryTriggerInteraction.Collide);
 
         foreach (var hit in raycastCapsuleHits)
         {
@@ -62,10 +83,18 @@ public class SeedHarvestingInteraction : MonoBehaviour
             if (plantController == null)
                 continue;
 
-            if (plantController.IsFullyGrown)
-            {
-                Debug.Log("After me made our pose, we successfully detected a fully grown plant!");
-            }
+            _detectedPlant = plantController;
+            _chargePlantRoutine = ChargeUpPlantRoutine(plantController);
+            StartCoroutine(_chargePlantRoutine);
+        }
+    }
+
+    private IEnumerator ChargeUpPlantRoutine(PlantController plantController)
+    {
+        while (plantController.IsFullyGrown)
+        {
+            plantController.ChargeUpSeedSpawn(Time.deltaTime * seedSpawnChargeSpeed);
+            yield return new WaitForEndOfFrame();
         }
     }
 }
