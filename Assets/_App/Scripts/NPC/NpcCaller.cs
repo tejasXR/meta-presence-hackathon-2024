@@ -6,8 +6,8 @@ using UnityEngine;
 public class NpcCaller : MonoBehaviour
 {
     [SerializeField] private NpcController npcController;
-    [SerializeField] private HandPosePoint leftHandPosePoint;
-    [SerializeField] private HandPosePoint rightHandPosePoint;
+    [SerializeField] private HandPoseActivator leftHandPoseActivator;
+    [SerializeField] private HandPoseActivator rightHandPoseActivator;
 
     public enum PoseOrientation
     {
@@ -15,51 +15,51 @@ public class NpcCaller : MonoBehaviour
         RightHand
     }
     
-    private HandPosePoint _currentCallingPose = null;
+    private HandPoseActivator _currentCallingPose = null;
     
     private void Awake()
     {
-        leftHandPosePoint.PoseActivated += OnPoseActivated;
-        leftHandPosePoint.PoseDeactivated += OnPoseDeactivated;
+        leftHandPoseActivator.PoseActivated += OnPoseActivated;
+        leftHandPoseActivator.PoseDeactivated += OnPoseDeactivated;
         
-        rightHandPosePoint.PoseActivated += OnPoseActivated;
-        rightHandPosePoint.PoseDeactivated += OnPoseDeactivated;
+        rightHandPoseActivator.PoseActivated += OnPoseActivated;
+        rightHandPoseActivator.PoseDeactivated += OnPoseDeactivated;
     }
 
     private void OnDestroy()
     {
-        if (leftHandPosePoint)
+        if (leftHandPoseActivator)
         {
-            leftHandPosePoint.PoseActivated -= OnPoseActivated;
-            leftHandPosePoint.PoseDeactivated -= OnPoseDeactivated;
+            leftHandPoseActivator.PoseActivated -= OnPoseActivated;
+            leftHandPoseActivator.PoseDeactivated -= OnPoseDeactivated;
         }
 
-        if (rightHandPosePoint)
+        if (rightHandPoseActivator)
         {
-            rightHandPosePoint.PoseActivated -= OnPoseActivated;
-            rightHandPosePoint.PoseDeactivated -= OnPoseDeactivated;
+            rightHandPoseActivator.PoseActivated -= OnPoseActivated;
+            rightHandPoseActivator.PoseDeactivated -= OnPoseDeactivated;
         }
     }
 
-    private void OnPoseActivated(HandPosePoint handPosePoint, Transform callPoint)
+    private void OnPoseActivated(HandPoseActivator handPoseActivator, Transform callPoint)
     {
-        if (_currentCallingPose != null && _currentCallingPose == handPosePoint)
+        if (_currentCallingPose != null && _currentCallingPose == handPoseActivator)
         {
             return;
         }
 
         CancelNpcMovementToPlayer();
 
-        PoseOrientation orientation = handPosePoint == leftHandPosePoint ? PoseOrientation.LeftHand : PoseOrientation.RightHand;
+        PoseOrientation orientation = handPoseActivator == leftHandPoseActivator ? PoseOrientation.LeftHand : PoseOrientation.RightHand;
         npcController.SetDialogueOrientation(orientation);
         npcController.MoveToPoint(callPoint, NpcController.MovementTypeEnum.MovingToPlayer);
 
-        _currentCallingPose = handPosePoint;
+        _currentCallingPose = handPoseActivator;
     }
 
-    private void OnPoseDeactivated(HandPosePoint handPosePoint)
+    private void OnPoseDeactivated(HandPoseActivator handPoseActivator)
     {
-        if (_currentCallingPose != null && _currentCallingPose != handPosePoint)
+        if (_currentCallingPose != null && _currentCallingPose != handPoseActivator)
             return;
 
         CancelNpcMovementToPlayer();

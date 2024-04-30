@@ -42,7 +42,7 @@ public class GardenManager : MonoBehaviour
 
         if (anchor.TryGetComponent(out PlantController plantController))
         {
-            plantController.OnFullyGrown.AddListener(OnPlantFullyGrown);
+            plantController.SeedSpawningTriggered.AddListener(OnPlantFullyGrown);
             plantController.StartGrowing();
         }
     }
@@ -53,7 +53,7 @@ public class GardenManager : MonoBehaviour
         {
             if (anchor.TryGetComponent(out PlantController plantController) && _persistenceManager.TryGetPlantData(anchor.Uuid, out PlantData plantData))
             {
-                plantController.OnFullyGrown.AddListener(OnPlantFullyGrown);
+                plantController.SeedSpawningTriggered.AddListener(OnPlantFullyGrown);
                 plantController.ResumeGrowing(plantData.Growth, _persistenceManager.TimeSinceLastGardenVisit);
             }
         }

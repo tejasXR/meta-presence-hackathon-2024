@@ -360,6 +360,16 @@ PrefabInstance:
       propertyPath: rightHandPosePoint
       value: 
       objectReference: {fileID: 1513084593966617943}
+    - target: {fileID: 8172349110778605713, guid: e65fcf223de2503438d552497171da16,
+        type: 3}
+      propertyPath: leftHandPoseActivator
+      value: 
+      objectReference: {fileID: 451672335}
+    - target: {fileID: 8172349110778605713, guid: e65fcf223de2503438d552497171da16,
+        type: 3}
+      propertyPath: rightHandPoseActivator
+      value: 
+      objectReference: {fileID: 1513084593966617943}
     - target: {fileID: 8253894461744035928, guid: e65fcf223de2503438d552497171da16,
         type: 3}
       propertyPath: m_Materials.Array.data[0]

@@ -2,13 +2,15 @@
 using Oculus.Interaction;
 using UnityEngine;
 
-public class HandPosePoint: MonoBehaviour
+public class HandPoseActivator: MonoBehaviour
 {
-    public event Action<HandPosePoint, Transform> PoseActivated;
-    public event Action<HandPosePoint> PoseDeactivated;
+    public event Action<HandPoseActivator, Transform> PoseActivated;
+    public event Action<HandPoseActivator> PoseDeactivated;
 
     [SerializeField] private ActiveStateSelector poseStateSelector;
     [SerializeField] private Transform posePoint;
+    
+    public bool PoseActive { get; private set; }
     
     private void Awake()
     {
@@ -27,11 +29,13 @@ public class HandPosePoint: MonoBehaviour
 
     private void ActivatePose()
     {
+        PoseActive = true;
         PoseActivated?.Invoke(this, posePoint);
     }
 
     private void DeactivatePose()
     {
+        PoseActive = false;
         PoseDeactivated?.Invoke(this);
     }
 }
