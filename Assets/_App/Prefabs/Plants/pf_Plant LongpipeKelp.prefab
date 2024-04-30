@@ -1,5 +1,98 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2954618196788767754
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4078890670047218366}
+  m_Layer: 10
+  m_Name: SpawnPoint4
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4078890670047218366
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2954618196788767754}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.227, y: 0.544, z: 0.086}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8296105560873810171}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4540564043058735043
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4853260943981582942}
+  m_Layer: 10
+  m_Name: SpawnPoint2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4853260943981582942
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4540564043058735043}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.085, y: 0.357, z: 0.298}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8296105560873810171}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5583849413802452070
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 452492130713429966}
+  m_Layer: 10
+  m_Name: SpawnPoint3
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &452492130713429966
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5583849413802452070}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.129, y: 0.673, z: -0.319}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8296105560873810171}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1069577496550705736
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20,6 +113,11 @@ PrefabInstance:
       propertyPath: _meshRenderers.Array.data[0]
       value: 
       objectReference: {fileID: 4774970134203972987}
+    - target: {fileID: 2102579003606113766, guid: f60a78919f9030b4bb14b4ff55cd643a,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.546
+      objectReference: {fileID: 0}
     - target: {fileID: 3030546091100231466, guid: f60a78919f9030b4bb14b4ff55cd643a,
         type: 3}
       propertyPath: m_Name
@@ -82,6 +180,18 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 5913005126000068116}
+    - targetCorrespondingSourceObject: {fileID: 9076537883135750835, guid: f60a78919f9030b4bb14b4ff55cd643a,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4853260943981582942}
+    - targetCorrespondingSourceObject: {fileID: 9076537883135750835, guid: f60a78919f9030b4bb14b4ff55cd643a,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 452492130713429966}
+    - targetCorrespondingSourceObject: {fileID: 9076537883135750835, guid: f60a78919f9030b4bb14b4ff55cd643a,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4078890670047218366}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 3030546091100231466, guid: f60a78919f9030b4bb14b4ff55cd643a,
         type: 3}
@@ -118,6 +228,12 @@ BoxCollider:
 --- !u!4 &5718210620929235063 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4723375868237468223, guid: f60a78919f9030b4bb14b4ff55cd643a,
+    type: 3}
+  m_PrefabInstance: {fileID: 1069577496550705736}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &8296105560873810171 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 9076537883135750835, guid: f60a78919f9030b4bb14b4ff55cd643a,
     type: 3}
   m_PrefabInstance: {fileID: 1069577496550705736}
   m_PrefabAsset: {fileID: 0}

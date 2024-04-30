@@ -1,98 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &774324025963686451
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8540016518446537309}
-  m_Layer: 0
-  m_Name: SpawnPoint4
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8540016518446537309
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 774324025963686451}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.122999996, y: 2.019, z: -0.57}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 6456830301069212241}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &2929412836792396149
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1202427303690641855}
-  m_Layer: 0
-  m_Name: SpawnPoint3
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1202427303690641855
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2929412836792396149}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.219, y: 2.091, z: -0.457}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 6456830301069212241}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &3011044135305008204
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3459773495143324630}
-  m_Layer: 0
-  m_Name: SpawnPoint7
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &3459773495143324630
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3011044135305008204}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.259, y: 2.019, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 6456830301069212241}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4522073548874283910
 GameObject:
   m_ObjectHideFlags: 0
@@ -103,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 671747691258148556}
   m_Layer: 0
-  m_Name: SpawnPoint8
+  m_Name: SpawnPoint4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -118,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 4522073548874283910}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.43199998, y: 1.829, z: -0.18}
+  m_LocalPosition: {x: 0.164, y: 1.951, z: 0.01}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -134,7 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 482886615528016376}
   m_Layer: 0
-  m_Name: SpawnPoint6
+  m_Name: SpawnPoint3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -149,7 +56,7 @@ Transform:
   m_GameObject: {fileID: 6711022125497750182}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.084, y: 1.655, z: 0.354}
+  m_LocalPosition: {x: -0.037, y: 1.879, z: -0.127}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -165,7 +72,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6157707120127913822}
   m_Layer: 0
-  m_Name: SpawnPoint5
+  m_Name: SpawnPoint2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -180,38 +87,7 @@ Transform:
   m_GameObject: {fileID: 6723616616690632005}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.17999999, y: 1.7839999, z: 0.251}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 6456830301069212241}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &7607909260217345913
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2998626040343618964}
-  m_Layer: 0
-  m_Name: SpawnPoint2
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2998626040343618964
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7607909260217345913}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.084, y: 2.176, z: 0}
+  m_LocalPosition: {x: 0.013, y: 1.819, z: 0.156}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -324,27 +200,11 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 9076537883135750835, guid: f60a78919f9030b4bb14b4ff55cd643a,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2998626040343618964}
-    - targetCorrespondingSourceObject: {fileID: 9076537883135750835, guid: f60a78919f9030b4bb14b4ff55cd643a,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1202427303690641855}
-    - targetCorrespondingSourceObject: {fileID: 9076537883135750835, guid: f60a78919f9030b4bb14b4ff55cd643a,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 8540016518446537309}
-    - targetCorrespondingSourceObject: {fileID: 9076537883135750835, guid: f60a78919f9030b4bb14b4ff55cd643a,
-        type: 3}
-      insertIndex: -1
       addedObject: {fileID: 6157707120127913822}
     - targetCorrespondingSourceObject: {fileID: 9076537883135750835, guid: f60a78919f9030b4bb14b4ff55cd643a,
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 482886615528016376}
-    - targetCorrespondingSourceObject: {fileID: 9076537883135750835, guid: f60a78919f9030b4bb14b4ff55cd643a,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 3459773495143324630}
     - targetCorrespondingSourceObject: {fileID: 9076537883135750835, guid: f60a78919f9030b4bb14b4ff55cd643a,
         type: 3}
       insertIndex: -1
