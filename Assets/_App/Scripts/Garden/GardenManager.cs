@@ -1,5 +1,6 @@
 using Meta.XR.MRUtilityKit;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -9,6 +10,8 @@ public class GardenManager : MonoBehaviour
     [SerializeField] private SeedSpawner _seedSpawner;
     [SerializeField] private Islands _islands;
     [SerializeField] private Plants _plants;
+
+    private readonly List<Transform> _availablePlantSpawnPoints = new();
 
     void OnApplicationQuit() => _persistenceManager.SaveGardenState();
 
@@ -38,8 +41,6 @@ public class GardenManager : MonoBehaviour
         return SeedController.Target.Invalid;
     }
 
-    public bool TryGetPlantPrefab(Plants.PlantType plant, out GameObject prefab) => _plants.TryGetPrefab(plant, out prefab);
-
     public void OnSeedPopped(SeedController seed)
     {
         if (seed.CurrentTarget.IsValid)
@@ -49,21 +50,24 @@ public class GardenManager : MonoBehaviour
             {
                 _persistenceManager.CreateNewIsland(seed.CurrentTarget.Island, seed.CurrentTarget.Position, randomYAxisRotation * seed.CurrentTarget.Rotation);
             }
-
-            _persistenceManager.CreateNewPlant(seed.CurrentTarget.Plant, seed.CurrentTarget.Position, randomYAxisRotation * seed.CurrentTarget.Rotation);
         }
     }
 
-    public void OnNewIslandCreated(IslandData _, IslandController __)
+    public void OnNewIslandCreated(IslandData _, IslandController controller)
     {
-        //controller.SeedSpawningTriggered.AddListener(OnPlantFullyGrown);
-        //controller.StartGrowing();
+        _availablePlantSpawnPoints.AddRange(controller.PlantSpawnPoints);
+
+        // TODO(yola): Seed > Plant correlation
+        if (_plants.TryGetPrefab(GetPlantFrom(null), out GameObject plantPrefab))
+        {
+            Transform plantSpawnPoint = controller.GetAvailableSpawnPoint();
+            _persistenceManager.CreateNewPlant(plantPrefab, plantSpawnPoint.position, plantSpawnPoint.rotation);
+        }
     }
 
-    public void OnIslandLoaded(IslandData _, IslandController __)
+    public void OnIslandLoaded(IslandData _, IslandController controller)
     {
-        // controller.SeedSpawningTriggered.AddListener(OnPlantFullyGrown);
-        // controller.ResumeGrowing(data.Growth, _persistenceManager.TimeSinceLastGardenVisit);
+        _availablePlantSpawnPoints.AddRange(controller.PlantSpawnPoints);
     }
 
     public void OnNewPlantCreated(PlantData _, PlantController controller)
