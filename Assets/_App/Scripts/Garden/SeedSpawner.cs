@@ -184,7 +184,7 @@ public class SeedSpawner : MonoBehaviour
                 spawnLocation: FindSpawnPositions.SpawnLocation.HangingDown,
                 labels: MRUKAnchor.SceneLabels.CEILING);
 
-        Debug.Assert(validPositions.Length > 0, $"[{nameof(GardenManager)}] {nameof(GetValidPositionForPlanting)} error: invalid {nameof(validPositions)} array.");
+        Debug.Assert(validPositions.Length > 0, $"[{nameof(SeedSpawner)}] {nameof(GetValidPositionForPlanting)} error: invalid {nameof(validPositions)} array.");
         return validPositions[0];
     }
 }
