@@ -4,6 +4,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
+public struct Planting
+{
+    public SeedController Seed;
+    public GameObject PlantPrefab;
+    public Vector3 PlantSpawnPosition;
+    public Quaternion PlantSpawnRotation;
+
+    public readonly bool IsValid => PlantPrefab != null && PlantSpawnPosition.IsValid();
+    public static Planting Invalid => new() { PlantSpawnPosition = Vector3.negativeInfinity };
+
+    public override readonly string ToString() => $"{nameof(Planting)}[ {nameof(Seed.Uuid)}={Seed.Uuid}, {nameof(PlantPrefab)}={PlantPrefab.name}, {nameof(PlantSpawnPosition)}={PlantSpawnPosition}, {nameof(PlantSpawnRotation)}={PlantSpawnRotation} ]";
+}
+
 public class GardenManager : MonoBehaviour
 {
     [SerializeField] private GardenPersistenceManager _persistenceManager;
@@ -11,7 +24,7 @@ public class GardenManager : MonoBehaviour
     [SerializeField] private Islands _islands;
     [SerializeField] private Plants _plants;
 
-    private readonly List<Transform> _availablePlantSpawnPoints = new();
+    private readonly Dictionary<Guid, Planting> _plantingMap = new();
 
     void OnApplicationQuit() => _persistenceManager.SaveGardenState();
 
@@ -19,55 +32,62 @@ public class GardenManager : MonoBehaviour
 
     public void DestroyGarden() => _persistenceManager.DestroyGarden();
 
-    public SeedController.Target GetSeedTarget(SeedController seed)
+    public bool TryAndCreateNewPlanting(SeedController seed, out Vector3 seedTargetDestination)
     {
-        // TODO(yola): Implement logic to select existing island or create new one based on probability.
-        Islands.IslandType randomIslandType = (Islands.IslandType)Random.Range(1, Enum.GetValues(typeof(Islands.IslandType)).Length);
-        if (_islands.TryGetPrefab(randomIslandType, out GameObject islandPrefab))
+        seedTargetDestination = Vector3.negativeInfinity;
+        Planting planting = Planting.Invalid;
+
+        if (_plants.TryGetPrefab(GetPlantFrom(seed), out GameObject plantPrefab))
         {
-            if (_plants.TryGetPrefab(GetPlantFrom(seed), out GameObject plantPrefab))
+            Tuple<Vector3, Quaternion> validPlantSpawnPoint = GetValidPlantSpawnPoint(plantPrefab);
+            seedTargetDestination = validPlantSpawnPoint.Item1;
+
+            planting = new()
             {
-                Tuple<Vector3, Quaternion> islandPosition = GetValidPlantPosition(plantPrefab);
-                return new()
-                {
-                    Island = islandPrefab,
-                    InstantiateIsland = true,
-                    Plant = plantPrefab,
-                    Position = islandPosition.Item1,
-                    Rotation = islandPosition.Item2
-                };
-            }
+                Seed = seed,
+                PlantPrefab = plantPrefab,
+                PlantSpawnPosition = validPlantSpawnPoint.Item1,
+                PlantSpawnRotation = validPlantSpawnPoint.Item2,
+            };
+            _plantingMap[seed.Uuid] = planting;
+
+            Debug.Log($"[{nameof(GardenManager)}] {nameof(TryAndCreateNewPlanting)} New {nameof(Planting)} created: {planting}");
         }
-        return SeedController.Target.Invalid;
+        return planting.IsValid;
     }
 
     public void OnSeedPopped(SeedController seed)
     {
-        if (seed.CurrentTarget.IsValid)
+        if (_plantingMap.TryGetValue(seed.Uuid, out Planting planting))
         {
-            Quaternion randomYAxisRotation = Quaternion.Euler(0f, Random.Range(0f, 360f), 0f);
-            if (seed.CurrentTarget.InstantiateIsland)
+            if (planting.IsValid)
             {
-                _persistenceManager.CreateNewIsland(seed.CurrentTarget.Island, seed.CurrentTarget.Position, randomYAxisRotation * seed.CurrentTarget.Rotation);
+                // TODO(yola): Check if island already exists at planting position.
+                Quaternion randomYAxisRotation = Quaternion.Euler(0f, Random.Range(0f, 360f), 0f);
+                Islands.IslandType randomIslandType = (Islands.IslandType)Random.Range(1, Enum.GetValues(typeof(Islands.IslandType)).Length);
+                if (_islands.TryGetPrefab(randomIslandType, out GameObject islandPrefab))
+                {
+                    _persistenceManager.CreateNewIsland(islandPrefab, planting.PlantSpawnPosition, randomYAxisRotation * planting.PlantSpawnRotation);
+                }
             }
         }
     }
 
     public void OnNewIslandCreated(IslandData _, IslandController controller)
     {
-        _availablePlantSpawnPoints.AddRange(controller.PlantSpawnPoints);
+        // _availablePlantSpawnPoints.AddRange(controller.PlantSpawnPoints);
 
-        // TODO(yola): Seed > Plant correlation
-        if (_plants.TryGetPrefab(GetPlantFrom(null), out GameObject plantPrefab))
-        {
-            Transform plantSpawnPoint = controller.GetAvailableSpawnPoint();
-            _persistenceManager.CreateNewPlant(plantPrefab, plantSpawnPoint.position, plantSpawnPoint.rotation);
-        }
+        // // TODO(yola): Seed > Plant correlation
+        // if (_plants.TryGetPrefab(GetPlantFrom(null), out GameObject plantPrefab))
+        // {
+        //     Transform plantSpawnPoint = controller.GetAvailableSpawnPoint();
+        //     _persistenceManager.CreateNewPlant(plantPrefab, plantSpawnPoint.position, plantSpawnPoint.rotation);
+        // }
     }
 
     public void OnIslandLoaded(IslandData _, IslandController controller)
     {
-        _availablePlantSpawnPoints.AddRange(controller.PlantSpawnPoints);
+        // _availablePlantSpawnPoints.AddRange(controller.PlantSpawnPoints);
     }
 
     public void OnNewPlantCreated(PlantData _, PlantController controller)
@@ -87,7 +107,7 @@ public class GardenManager : MonoBehaviour
         _seedSpawner.SpawnFullyGrownPlantSeeds(plant.MinLoot, plant.LootSpawnPointsRoot);
     }
 
-    private Tuple<Vector3, Quaternion> GetValidPlantPosition(GameObject prefab)
+    private Tuple<Vector3, Quaternion> GetValidPlantSpawnPoint(GameObject prefab)
     {
         Tuple<Vector3, Quaternion>[] validPositions = SpawnUtil.GetSpawnPositions(
             objectBounds: Utilities.GetPrefabBounds(prefab),
@@ -95,7 +115,7 @@ public class GardenManager : MonoBehaviour
             spawnLocation: FindSpawnPositions.SpawnLocation.HangingDown,
             labels: MRUKAnchor.SceneLabels.CEILING);
 
-        Debug.Assert(validPositions.Length > 0, $"[{nameof(GardenDataManager)}] {nameof(GetValidPlantPosition)} error: invalid {nameof(validPositions)} array.");
+        Debug.Assert(validPositions.Length > 0, $"[{nameof(GardenDataManager)}] {nameof(GetValidPlantSpawnPoint)} error: invalid {nameof(validPositions)} array.");
         return validPositions[0];
     }
 

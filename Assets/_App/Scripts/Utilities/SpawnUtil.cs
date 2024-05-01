@@ -132,7 +132,7 @@ public static class SpawnUtil
                     }
                 }
 
-                spawnPositions[i] = Tuple.Create(spawnPosition, spawnRotation);
+                spawnPositions[i] = new(spawnPosition, spawnRotation);
                 break;
             }
         }

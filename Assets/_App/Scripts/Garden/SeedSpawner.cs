@@ -158,7 +158,15 @@ public class SeedSpawner : MonoBehaviour
 
     private void OnSeedFlung(SeedController seed)
     {
-        seed.SetTarget(_gardenManager.GetSeedTarget(seed));
+        if (_gardenManager.TryAndCreateNewPlanting(seed, out Vector3 seedTargetDestination))
+        {
+            Debug.Log($"[{nameof(SeedSpawner)}] {nameof(OnSeedFlung)}: {nameof(_gardenManager.TryAndCreateNewPlanting)} succeeded, set seed target desintation.");
+            seed.SetTargetDestination(seedTargetDestination);
+        }
+        else
+        {
+            Debug.LogWarning($"[{nameof(SeedSpawner)}] {nameof(OnSeedFlung)}: {nameof(_gardenManager.TryAndCreateNewPlanting)} failed.");
+        }
     }
 
     private void OnSeedPopped(SeedController seed)

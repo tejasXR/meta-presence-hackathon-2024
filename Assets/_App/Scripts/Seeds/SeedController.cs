@@ -49,7 +49,20 @@ public class SeedController : MonoBehaviour
     private Color _destinationColor;
     private float _colorTransitionTime;
 
-    public Target CurrentTarget { get; private set; } = Target.Invalid;
+    private Vector3 _targetDestination = Vector3.negativeInfinity;
+
+    private Guid _uuid = Guid.Empty;
+    public Guid Uuid
+    {
+        get
+        {
+            if (_uuid == Guid.Empty)
+            {
+                _uuid = Guid.NewGuid();
+            }
+            return _uuid;
+        }
+    }
 
     private void Awake()
     {
@@ -77,11 +90,11 @@ public class SeedController : MonoBehaviour
             _colorTransitionTime += Time.deltaTime / ColorTransitionSpeed;
         }
 
-        if (CurrentTarget.IsValid)
+        if (_targetDestination.IsValid())
         {
-            transform.position = Vector3.Lerp(transform.position, CurrentTarget.Position, _moveSpeed * Time.deltaTime);
+            transform.position = Vector3.Lerp(transform.position, _targetDestination, _moveSpeed * Time.deltaTime);
 
-            if (Vector3.Distance(transform.position, CurrentTarget.Position) <= _distanceToTarget)
+            if (Vector3.Distance(transform.position, _targetDestination) <= _distanceToTarget)
             {
                 ReachedTargetDestination();
             }
@@ -139,18 +152,18 @@ public class SeedController : MonoBehaviour
         OnSeedFlung?.Invoke(this);
     }
 
-    public void SetTarget(Target target)
+    public void SetTargetDestination(Vector3 targetDestination)
     {
-        CurrentTarget = target;
+        _targetDestination = targetDestination;
 
-        bool isValid = CurrentTarget.IsValid;
+        bool isValid = _targetDestination.IsValid();
         foreach (GameObject go in _deactivateOnFlung)
         {
             go.SetActive(!isValid);
         }
     }
 
-    public void ReachedTargetDestination()
+    private void ReachedTargetDestination()
     {
         OnSeedPopped?.Invoke(this);
 
@@ -166,17 +179,5 @@ public class SeedController : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    private void Reset() => SetTarget(Target.Invalid);
-
-    public struct Target
-    {
-        public GameObject Island;
-        public bool InstantiateIsland;
-        public GameObject Plant;
-        public Vector3 Position;
-        public Quaternion Rotation;
-
-        public readonly bool IsValid => Island != null && Position.IsValid();
-        public static Target Invalid => new() { Position = Vector3.negativeInfinity };
-    }
+    private void Reset() => SetTargetDestination(Vector3.negativeInfinity);
 }
