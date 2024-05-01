@@ -809,8 +809,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64a2a2d37c5ec9b42bf8447733655c19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gazingModeLockedString: Unlock Building Mode
-  _buildindModeUnlockedString: Lock Gazing Mode
+  _gazingModeLockedString: Set To Building Mode
+  _buildingModeUnlockedString: Set To Gazing Mode
   _buttonText: {fileID: 3096785592102213606}
 --- !u!114 &2063865254075525858 stripped
 MonoBehaviour:
