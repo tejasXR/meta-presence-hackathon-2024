@@ -51,7 +51,7 @@ public class NpcCaller : MonoBehaviour
         CancelNpcMovementToPlayer();
 
         PoseOrientation orientation = handPoseActivator == leftHandPoseActivator ? PoseOrientation.LeftHand : PoseOrientation.RightHand;
-        npcController.SetDialogueOrientation(orientation);
+        npcController.SetNpcMenuOrientation(orientation);
         npcController.MoveToPoint(callPoint, NpcController.MovementTypeEnum.MovingToPlayer);
 
         _currentCallingPose = handPoseActivator;

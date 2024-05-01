@@ -1,9 +1,9 @@
+using System;
 using UnityEngine;
 
 public class NpcController : MonoBehaviour
 {
-    [SerializeField] private GameObject leftDialogueOptions;
-    [SerializeField] private GameObject rightDialogueOptions;
+    [SerializeField] private NpcOptionsMenu optionsMenu;
     [SerializeField] private float moveSpeed;
 
     public enum MovementTypeEnum
@@ -13,18 +13,19 @@ public class NpcController : MonoBehaviour
         MovingToPlayer
     }
 
-    private const float SHOW_DIALOGUE_OPTION_DISTANCE_THRESHOLD = .025F;
+    private const float SHOW_NPC_OPTION_DISTANCE_THRESHOLD = .025F;
     
     private MovementTypeEnum _movementType;
     private GameObject _orientedDialogueOption;
     private Transform _destinationTransform;
     private bool _shouldMove;
     private Camera _mainCamera;
+    private NpcCaller.PoseOrientation _currentPoseOrientation;
 
     private void Awake()
     {
         _mainCamera = Camera.main;
-        SetDialogueOrientation(NpcCaller.PoseOrientation.LeftHand);
+        SetNpcMenuOrientation(NpcCaller.PoseOrientation.LeftHand);
     }
 
     private void Update()
@@ -35,9 +36,9 @@ public class NpcController : MonoBehaviour
             
             if (_movementType == MovementTypeEnum.MovingToPlayer)
             {
-                if (Vector3.Distance(transform.position, _destinationTransform.position) < SHOW_DIALOGUE_OPTION_DISTANCE_THRESHOLD)
+                if (Vector3.Distance(transform.position, _destinationTransform.position) < SHOW_NPC_OPTION_DISTANCE_THRESHOLD)
                 {
-                    ToggleDialogueOptions(true);
+                    optionsMenu.Show(_currentPoseOrientation);
                 }
             }
         }
@@ -52,7 +53,7 @@ public class NpcController : MonoBehaviour
         _destinationTransform = destPoint;
         _movementType = movementType;
         
-        ToggleDialogueOptions(false);
+        optionsMenu.Hide();
     }
 
     public void CancelMovement(bool hideDialogueOptions)
@@ -61,24 +62,18 @@ public class NpcController : MonoBehaviour
         _movementType = MovementTypeEnum.Idle;
         
         if (hideDialogueOptions)
-            ToggleDialogueOptions(false);
+            optionsMenu.Hide();
     }
 
-    public void SetDialogueOrientation(NpcCaller.PoseOrientation poseOrientation, bool toggleOnOptions = false)
+    public void SetNpcMenuOrientation(NpcCaller.PoseOrientation poseOrientation, bool toggleOnOptions = false)
     {
-        ToggleDialogueOptions(false);
-        
-        _orientedDialogueOption = poseOrientation == NpcCaller.PoseOrientation.LeftHand
-            ? leftDialogueOptions
-            : rightDialogueOptions;
+        optionsMenu.Hide();
 
         if (toggleOnOptions)
-            ToggleDialogueOptions(true);
-    }
+            optionsMenu.Show(poseOrientation);
 
-    private void ToggleDialogueOptions(bool showDialogue)
-    {
-        if (_orientedDialogueOption)
-            _orientedDialogueOption.SetActive(showDialogue);
+        _currentPoseOrientation = poseOrientation;
     }
 }
+
+
