@@ -57,13 +57,13 @@ public class SeedSpawner : MonoBehaviour
             return;
         }
 
-        if (_seedPooler.BorrowedCount == 0)
-        {
-            Debug.Log($"[{nameof(SeedSpawner)}] {nameof(PopRandomSeed)}: There are no seeds to pop!");
-            return;
-        }
+        // if (_seedPooler.BorrowedCount == 0)
+        // {
+        //     Debug.Log($"[{nameof(SeedSpawner)}] {nameof(PopRandomSeed)}: There are no seeds to pop!");
+        //     return;
+        // }
 
-        _seedPooler.BorrowedObjects[Random.Range(0, _seedPooler.BorrowedCount)].FlungTowardsCeiling();
+        _seedPooler.BorrowItem().FlungTowardsCeiling();
     }
 
     public void SpawnSeedsOnRoomWalls()
@@ -158,20 +158,20 @@ public class SeedSpawner : MonoBehaviour
 
     private void OnSeedFlung(SeedController seed)
     {
-        if (_gardenManager.TryAndCreateNewPlanting(seed, out Vector3 seedTargetDestination))
+        if (_gardenManager.TryCreateNewPlant(seed, out Vector3 seedTargetDestination))
         {
-            Debug.Log($"[{nameof(SeedSpawner)}] {nameof(OnSeedFlung)}: {nameof(_gardenManager.TryAndCreateNewPlanting)} succeeded, set seed target desintation.");
+            Debug.Log($"[{nameof(SeedSpawner)}] {nameof(OnSeedFlung)}: {nameof(_gardenManager.TryCreateNewPlant)} succeeded, set seed target destination.");
             seed.SetTargetDestination(seedTargetDestination);
         }
         else
         {
-            Debug.LogWarning($"[{nameof(SeedSpawner)}] {nameof(OnSeedFlung)}: {nameof(_gardenManager.TryAndCreateNewPlanting)} failed.");
+            Debug.LogWarning($"[{nameof(SeedSpawner)}] {nameof(OnSeedFlung)}: {nameof(_gardenManager.TryCreateNewPlant)} failed.");
         }
     }
 
-    private void OnSeedPopped(SeedController seed)
+    private void OnSeedPopped(SeedController seed, Vector3 position, bool isIsland)
     {
-        _gardenManager.OnSeedPopped(seed);
+        _gardenManager.OnSeedPopped(seed, position, isIsland);
         _seedPooler.ReturnItem(seed);
     }
 

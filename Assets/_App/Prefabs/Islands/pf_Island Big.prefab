@@ -55,6 +55,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3151093410528320438, guid: 65570d298f0249045bfec0059bb0f7e8,
         type: 3}
+      propertyPath: _meshFilter
+      value: 
+      objectReference: {fileID: 6935870574873951449}
+    - target: {fileID: 3151093410528320438, guid: 65570d298f0249045bfec0059bb0f7e8,
+        type: 3}
+      propertyPath: _spawnAreaYThreshold
+      value: 0.23
+      objectReference: {fileID: 0}
+    - target: {fileID: 3151093410528320438, guid: 65570d298f0249045bfec0059bb0f7e8,
+        type: 3}
       propertyPath: _plantSpawnPointsRoot
       value: 
       objectReference: {fileID: 0}
@@ -76,7 +86,7 @@ PrefabInstance:
     - target: {fileID: 3444736589141516463, guid: 65570d298f0249045bfec0059bb0f7e8,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.1
+      value: -0.18
       objectReference: {fileID: 0}
     - target: {fileID: 3444736589141516463, guid: 65570d298f0249045bfec0059bb0f7e8,
         type: 3}
@@ -169,3 +179,9 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 65570d298f0249045bfec0059bb0f7e8, type: 3}
+--- !u!33 &6935870574873951449 stripped
+MeshFilter:
+  m_CorrespondingSourceObject: {fileID: 8606290486637198333, guid: 65570d298f0249045bfec0059bb0f7e8,
+    type: 3}
+  m_PrefabInstance: {fileID: 1670419929148901156}
+  m_PrefabAsset: {fileID: 0}

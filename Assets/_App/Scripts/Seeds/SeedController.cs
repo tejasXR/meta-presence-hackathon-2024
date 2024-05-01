@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -13,13 +14,14 @@ public class SeedController : MonoBehaviour
     [Range(.1F, .3F)][SerializeField] private float maxStartingScale;
 
     [SerializeField] private float _moveSpeed = 1.3f;
-    [SerializeField] private float _distanceToTarget = 0.01f;
+    [SerializeField] private float _ascendSpeed = 1.3f;
+    [SerializeField] private float _spinSpeed = 1.3f;
 
     [SerializeField] private List<GameObject> _deactivateOnFlung;
 
     [Space]
     public UnityEvent<SeedController> OnSeedFlung;
-    public UnityEvent<SeedController> OnSeedPopped;
+    public UnityEvent<SeedController, Vector3, bool> OnSeedPopped;
 
     public Color MaterialColor
     {
@@ -50,6 +52,7 @@ public class SeedController : MonoBehaviour
     private float _colorTransitionTime;
 
     private Vector3 _targetDestination = Vector3.negativeInfinity;
+    private bool _isAscending = false;
 
     private Guid _uuid = Guid.Empty;
     public Guid Uuid
@@ -93,12 +96,43 @@ public class SeedController : MonoBehaviour
         if (_targetDestination.IsValid())
         {
             transform.position = Vector3.Lerp(transform.position, _targetDestination, _moveSpeed * Time.deltaTime);
-
-            if (Vector3.Distance(transform.position, _targetDestination) <= _distanceToTarget)
-            {
-                ReachedTargetDestination();
-            }
         }
+    }
+
+    void OnTriggerEnter(Collider collider)
+    {
+        Debug.Log($"[{nameof(SeedController)}] {nameof(OnTriggerEnter)}: {nameof(collider.name)}={collider.name}, {nameof(collider.tag)}={collider.tag}");
+
+        Vector3 collisionPoint = Vector3.negativeInfinity;
+        bool isIsland = false;
+        if (collider.CompareTag("Ceiling"))
+        {
+            collisionPoint = GetCollisionPoint(collider);
+        }
+        else if (collider.CompareTag("Island"))
+        {
+            OnSeedPopped?.Invoke(this, collider.transform.position, true);
+
+            collisionPoint = GetCollisionPoint(collider);
+            isIsland = true;
+        }
+
+        if (collisionPoint.IsValid())
+        {
+            OnSeedPopped?.Invoke(this, collider.transform.position, isIsland);
+            Pop();
+            Reset();
+        }
+    }
+
+    private Vector3 GetCollisionPoint(Collider other)
+    {
+        if (Physics.Raycast(transform.position, Vector3.up, out RaycastHit hit, Mathf.Infinity))
+        {
+            Debug.Log($"yola: Hit! {hit.collider.tag}");
+            return hit.point;
+        }
+        return Vector3.negativeInfinity;
     }
     
     private void ConfigureVariation()
@@ -161,14 +195,6 @@ public class SeedController : MonoBehaviour
         {
             go.SetActive(!isValid);
         }
-    }
-
-    private void ReachedTargetDestination()
-    {
-        OnSeedPopped?.Invoke(this);
-
-        Pop();
-        Reset();
     }
 
     private void Pop()
