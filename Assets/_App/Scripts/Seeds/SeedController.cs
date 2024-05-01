@@ -101,40 +101,36 @@ public class SeedController : MonoBehaviour
 
     void OnTriggerEnter(Collider collider)
     {
-        Debug.Log($"[{nameof(SeedController)}] {nameof(OnTriggerEnter)}: {nameof(collider.name)}={collider.name}, {nameof(collider.tag)}={collider.tag}");
-
-        Vector3 collisionPoint = Vector3.negativeInfinity;
+        bool isCollisionValid = false;
         bool isIsland = false;
         if (collider.CompareTag("Ceiling"))
         {
-            collisionPoint = GetCollisionPoint(collider);
+            Debug.Log($"[{nameof(SeedController)}] {nameof(OnTriggerEnter)}: CEILING COLLISION");
+            isCollisionValid = true;
         }
         else if (collider.CompareTag("Island"))
         {
-            OnSeedPopped?.Invoke(this, collider.transform.position, true);
-
-            collisionPoint = GetCollisionPoint(collider);
+            Debug.Log($"[{nameof(SeedController)}] {nameof(OnTriggerEnter)}: ISLAND COLLISION");
+            isCollisionValid = true;
             isIsland = true;
         }
 
-        if (collisionPoint.IsValid())
+        if (isCollisionValid)
         {
-            OnSeedPopped?.Invoke(this, collider.transform.position, isIsland);
-            Pop();
-            Reset();
+            if (Physics.Raycast(transform.position, (_targetDestination - transform.position).normalized, out RaycastHit hit, Mathf.Infinity))
+            {
+                Debug.Log($"yola: Hit! {hit.collider.tag}");
+                OnSeedPopped?.Invoke(this, hit.point, isIsland);
+                Pop();
+                Reset();
+            }
+            else
+            {
+                Debug.LogError($"[{nameof(SeedController)}] {nameof(OnTriggerEnter)}: FAILED TO FIND COLLISION POINT");
+            }
         }
     }
 
-    private Vector3 GetCollisionPoint(Collider other)
-    {
-        if (Physics.Raycast(transform.position, Vector3.up, out RaycastHit hit, Mathf.Infinity))
-        {
-            Debug.Log($"yola: Hit! {hit.collider.tag}");
-            return hit.point;
-        }
-        return Vector3.negativeInfinity;
-    }
-    
     private void ConfigureVariation()
     {
         // Color
@@ -206,4 +202,15 @@ public class SeedController : MonoBehaviour
     }
 
     private void Reset() => SetTargetDestination(Vector3.negativeInfinity);
+
+#if UNITY_EDITOR
+    private void OnDrawGizmos()
+    {
+        if (_targetDestination.IsValid())
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawLine(transform.position, _targetDestination);
+        }
+    }
+#endif
 }
