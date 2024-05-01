@@ -4730,7 +4730,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 316c5b1d-a5e4-49f2-a663-15fd22dbcba9
-  instanceId: c5a062fa-13a3-429f-8775-f159e3bdef94
+  instanceId: 68147c78-4dfb-4ea1-b161-3d6c62100f26
   version: 1
 --- !u!114 &8044682605406657417
 MonoBehaviour:
@@ -9284,7 +9284,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 8b26b298-7bf4-490e-b245-a039c0184303
-  instanceId: d2800fac-7588-4f63-b5be-1b227405f950
+  instanceId: 27033b0b-fd61-4cac-adbd-f366442dd49b
   version: 1
 --- !u!114 &7354074966128072981
 MonoBehaviour:
@@ -10281,7 +10281,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: f0540b20-dfd6-420e-b20d-c270f88dc77e
-  instanceId: 2f1c99ff-9e30-4e36-bb56-f60f18ce7cf0
+  instanceId: 9d3d3dcb-75aa-47d8-8260-5077238c0afc
   version: 1
 --- !u!114 &8884395806638410722
 MonoBehaviour:
@@ -17821,7 +17821,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 5817f7c0-f2a5-45f9-a5ca-64264e0166e8
-  instanceId: 8a972ae3-be72-4010-a80b-a33c7339d44b
+  instanceId: b7f6a3aa-424b-4d34-9b8c-da3f6ab6595c
   version: 1
 --- !u!114 &246473943236323533
 MonoBehaviour:
@@ -17927,7 +17927,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 6b67162c-2460-4766-a931-980388647573
-  instanceId: df6e2003-f15d-49c9-bb12-dd6d2f7ae419
+  instanceId: bec0d028-0587-479e-af2f-255fd838cb3e
   version: 1
 --- !u!114 &2591306135782827510
 MonoBehaviour:
@@ -18534,7 +18534,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 0393ca30-f2a9-4865-a40f-f9a68d01c3a9
-  instanceId: bab341ef-8e23-43f1-86fe-be5eff3ccaca
+  instanceId: 304b035f-428c-4922-9d89-f79a4b354357
   version: 1
 --- !u!114 &4926169802912567821
 MonoBehaviour:
@@ -23463,7 +23463,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 5817f7c0-f2a5-45f9-a5ca-64264e0166e8
-  instanceId: 61c31af0-465a-4d29-9db5-6248867c5083
+  instanceId: b241365e-0050-49ad-ba8c-15807571c810
   version: 1
 --- !u!114 &6601701461773203778
 MonoBehaviour:
@@ -27891,7 +27891,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 81f55626-5fad-45e9-a1df-184f330da7ba
-  instanceId: 51c6218d-8e5c-44d0-9b85-ce282af3ce57
+  instanceId: 876cdb73-4271-400b-b718-078edc9016c6
   version: 1
 --- !u!114 &6112401889999348692
 MonoBehaviour:
@@ -28459,7 +28459,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 6b67162c-2460-4766-a931-980388647573
-  instanceId: c5f2ceb8-891f-4206-9709-075f00412efe
+  instanceId: 85de3c05-4a2d-4dbc-aabc-4de50cdc718d
   version: 1
 --- !u!114 &1647568006094785049
 MonoBehaviour:
@@ -31443,7 +31443,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 8b26b298-7bf4-490e-b245-a039c0184303
-  instanceId: 0e9dc6a7-355b-475d-946d-9b30945840fc
+  instanceId: 2ca60822-bc62-47ca-9199-0e5c53cf1021
   version: 1
 --- !u!114 &7335431785716577588
 MonoBehaviour:
@@ -32085,7 +32085,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 316c5b1d-a5e4-49f2-a663-15fd22dbcba9
-  instanceId: a4ddf199-10c3-4468-966e-98ff771dbd73
+  instanceId: 90c11c03-a022-4092-b635-3057e21946f2
   version: 1
 --- !u!114 &5631334115237263288
 MonoBehaviour:
@@ -32830,7 +32830,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: e47682b9-c270-40b1-b16d-90b627a5ce1b
-  instanceId: 7ac0488c-cbe0-4586-835e-adfa7b0132f4
+  instanceId: 418dee8b-98bc-4990-b830-f472f97a82e5
   version: 1
 --- !u!114 &433376283547223316
 MonoBehaviour:
@@ -32914,8 +32914,8 @@ MonoBehaviour:
   usePositionTracking: 1
   useRotationTracking: 1
   useIPDInPositionTracking: 1
-  resetTrackerOnLoad: 0
-  AllowRecenter: 1
+  resetTrackerOnLoad: 1
+  AllowRecenter: 0
   LateControllerUpdate: 1
   LateLatching: 0
   controllerDrivenHandPosesType: 0
