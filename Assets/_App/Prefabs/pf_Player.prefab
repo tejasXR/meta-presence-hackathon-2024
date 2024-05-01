@@ -234,6 +234,7 @@ GameObject:
   - component: {fileID: 2289688170436121190}
   - component: {fileID: 7194061965855250695}
   - component: {fileID: 6144265659279370428}
+  - component: {fileID: 4130016719466330412}
   m_Layer: 0
   m_Name: DistanceHandGrabInteractor
   m_TagString: Untagged
@@ -368,6 +369,49 @@ MonoBehaviour:
   _hand: {fileID: 4023076774122305321}
   _bufferLengthSeconds: 0.1
   _sampleFrequency: 90
+--- !u!114 &4130016719466330412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 71422048821109538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 747277cef77345d4fb8fa84835874129, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activeStateSelector: {fileID: 3071930831460818153}
+  stateSelectionActive:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6843235393876163804}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  stateSelectionInactive:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6843235393876163804}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!1 &96409062386326405
 GameObject:
   m_ObjectHideFlags: 0
@@ -4686,7 +4730,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 316c5b1d-a5e4-49f2-a663-15fd22dbcba9
-  instanceId: bb07b6fa-a653-45e8-a817-082d411c7b25
+  instanceId: c5a062fa-13a3-429f-8775-f159e3bdef94
   version: 1
 --- !u!114 &8044682605406657417
 MonoBehaviour:
@@ -9240,7 +9284,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 8b26b298-7bf4-490e-b245-a039c0184303
-  instanceId: 79c497a6-4119-48ef-a46a-bd6577d6cede
+  instanceId: d2800fac-7588-4f63-b5be-1b227405f950
   version: 1
 --- !u!114 &7354074966128072981
 MonoBehaviour:
@@ -10237,7 +10281,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: f0540b20-dfd6-420e-b20d-c270f88dc77e
-  instanceId: 904de012-49ff-420a-8a1e-f5aa52372d9a
+  instanceId: 2f1c99ff-9e30-4e36-bb56-f60f18ce7cf0
   version: 1
 --- !u!114 &8884395806638410722
 MonoBehaviour:
@@ -11242,7 +11286,7 @@ MonoBehaviour:
     PositionOffset: {x: 0, y: 0, z: 0}
     RotationOffset: {x: 0, y: 0, z: 0}
     UpVectorType: 2
-    FeatureThresholds: {fileID: 11400000, guid: 039cf5a7424e1e046b79287e9375cf09,
+    FeatureThresholds: {fileID: 11400000, guid: 916c95f266529e34189b65d7c63084b7,
       type: 2}
 --- !u!1 &3054468104603520367
 GameObject:
@@ -16537,6 +16581,7 @@ GameObject:
   - component: {fileID: 2761163441549280518}
   - component: {fileID: 4447982560467255539}
   - component: {fileID: 2976750402765903266}
+  - component: {fileID: 1984970966439732584}
   m_Layer: 0
   m_Name: DistanceHandGrabInteractor
   m_TagString: Untagged
@@ -16671,6 +16716,49 @@ MonoBehaviour:
   _hand: {fileID: 7274880142456962558}
   _bufferLengthSeconds: 0.1
   _sampleFrequency: 90
+--- !u!114 &1984970966439732584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4510628870950949504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 747277cef77345d4fb8fa84835874129, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activeStateSelector: {fileID: 2890074985079623439}
+  stateSelectionActive:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1540102968762145637}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  stateSelectionInactive:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1540102968762145637}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!1 &4511559475867942471
 GameObject:
   m_ObjectHideFlags: 0
@@ -17733,7 +17821,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 5817f7c0-f2a5-45f9-a5ca-64264e0166e8
-  instanceId: 6acc2743-06d3-490b-9fe5-6f6b7e4b8295
+  instanceId: 8a972ae3-be72-4010-a80b-a33c7339d44b
   version: 1
 --- !u!114 &246473943236323533
 MonoBehaviour:
@@ -17839,7 +17927,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 6b67162c-2460-4766-a931-980388647573
-  instanceId: fb253187-c1f6-444f-816a-f3c9bacd644d
+  instanceId: df6e2003-f15d-49c9-bb12-dd6d2f7ae419
   version: 1
 --- !u!114 &2591306135782827510
 MonoBehaviour:
@@ -18446,7 +18534,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 0393ca30-f2a9-4865-a40f-f9a68d01c3a9
-  instanceId: df453380-d29f-437d-9f27-556518efc829
+  instanceId: bab341ef-8e23-43f1-86fe-be5eff3ccaca
   version: 1
 --- !u!114 &4926169802912567821
 MonoBehaviour:
@@ -20353,7 +20441,7 @@ MonoBehaviour:
     PositionOffset: {x: 0, y: 0, z: 0}
     RotationOffset: {x: 0, y: 0, z: 0}
     UpVectorType: 0
-    FeatureThresholds: {fileID: 11400000, guid: 039cf5a7424e1e046b79287e9375cf09,
+    FeatureThresholds: {fileID: 11400000, guid: 916c95f266529e34189b65d7c63084b7,
       type: 2}
 --- !u!1 &5692769742789091132
 GameObject:
@@ -20544,7 +20632,7 @@ MonoBehaviour:
     PositionOffset: {x: 0, y: 0, z: 0}
     RotationOffset: {x: 0, y: 0, z: 0}
     UpVectorType: 0
-    FeatureThresholds: {fileID: 11400000, guid: 039cf5a7424e1e046b79287e9375cf09,
+    FeatureThresholds: {fileID: 11400000, guid: 916c95f266529e34189b65d7c63084b7,
       type: 2}
 --- !u!1 &5733280933490409886
 GameObject:
@@ -23375,7 +23463,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 5817f7c0-f2a5-45f9-a5ca-64264e0166e8
-  instanceId: 59229397-90d0-43a8-80d6-0198a4befb27
+  instanceId: 61c31af0-465a-4d29-9db5-6248867c5083
   version: 1
 --- !u!114 &6601701461773203778
 MonoBehaviour:
@@ -26755,7 +26843,7 @@ MonoBehaviour:
     PositionOffset: {x: 0, y: 0, z: 0}
     RotationOffset: {x: 0, y: 0, z: 0}
     UpVectorType: 2
-    FeatureThresholds: {fileID: 11400000, guid: 039cf5a7424e1e046b79287e9375cf09,
+    FeatureThresholds: {fileID: 11400000, guid: 916c95f266529e34189b65d7c63084b7,
       type: 2}
 --- !u!1 &7380814102777006886
 GameObject:
@@ -27803,7 +27891,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 81f55626-5fad-45e9-a1df-184f330da7ba
-  instanceId: 6c585530-3fc8-4b61-9d3c-ff4ee79e67ad
+  instanceId: 51c6218d-8e5c-44d0-9b85-ce282af3ce57
   version: 1
 --- !u!114 &6112401889999348692
 MonoBehaviour:
@@ -28371,7 +28459,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 6b67162c-2460-4766-a931-980388647573
-  instanceId: ef49845b-4900-4ccc-871f-ba52a69d2d0c
+  instanceId: c5f2ceb8-891f-4206-9709-075f00412efe
   version: 1
 --- !u!114 &1647568006094785049
 MonoBehaviour:
@@ -31355,7 +31443,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 8b26b298-7bf4-490e-b245-a039c0184303
-  instanceId: 85eb2d7c-1063-4aa6-a567-63f6b3f2a7e1
+  instanceId: 0e9dc6a7-355b-475d-946d-9b30945840fc
   version: 1
 --- !u!114 &7335431785716577588
 MonoBehaviour:
@@ -31997,7 +32085,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 316c5b1d-a5e4-49f2-a663-15fd22dbcba9
-  instanceId: 1272cbc4-3490-4e70-9b75-58cbcfa3277e
+  instanceId: a4ddf199-10c3-4468-966e-98ff771dbd73
   version: 1
 --- !u!114 &5631334115237263288
 MonoBehaviour:
@@ -32742,7 +32830,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: e47682b9-c270-40b1-b16d-90b627a5ce1b
-  instanceId: 85f1bf24-4a0a-47e3-9458-39ef081b0d91
+  instanceId: 7ac0488c-cbe0-4586-835e-adfa7b0132f4
   version: 1
 --- !u!114 &433376283547223316
 MonoBehaviour:
