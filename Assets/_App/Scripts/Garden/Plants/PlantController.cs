@@ -42,8 +42,8 @@ public class PlantController : MonoBehaviour
         get => _growth;
         set
         {
-            Debug.Log($"[{nameof(PlantController)}] {nameof(Growth)}: {nameof(value)}={value}");
             
+            // Debug.Log($"[{nameof(PlantController)}] {nameof(Growth)}: {nameof(value)}={value}");
             _growth = value;
 
             foreach (Material material in _materials)

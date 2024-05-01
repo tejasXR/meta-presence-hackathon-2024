@@ -57,13 +57,13 @@ public class SeedSpawner : MonoBehaviour
             return;
         }
 
-        if (_seedPooler.BorrowedCount == 0)
-        {
-            Debug.Log($"[{nameof(SeedSpawner)}] {nameof(PopRandomSeed)}: There are no seeds to pop!");
-            return;
-        }
+        // if (_seedPooler.BorrowedCount == 0)
+        // {
+        //     Debug.Log($"[{nameof(SeedSpawner)}] {nameof(PopRandomSeed)}: There are no seeds to pop!");
+        //     return;
+        // }
 
-        _seedPooler.BorrowedObjects[Random.Range(0, _seedPooler.BorrowedCount)].FlungTowardsCeiling();
+        _seedPooler.BorrowItem().FlungTowardsCeiling();
     }
 
     public void SpawnSeedsOnRoomWalls()
@@ -158,19 +158,20 @@ public class SeedSpawner : MonoBehaviour
 
     private void OnSeedFlung(SeedController seed)
     {
-        Plants.PlantType plant = _gardenManager.GetPlantFrom(seed);
-        if (_gardenManager.TryGetPlantPrefab(plant, out GameObject prefab))
+        if (_gardenManager.TryCreateNewPlant(seed, out Vector3 seedTargetDestination))
         {
-            Tuple<Vector3, Quaternion> validPlantPosition = GetValidPositionForPlanting(prefab);
-            Quaternion randomYAxisRotation = Quaternion.Euler(0f, Random.Range(0f, 360f), 0f);
-
-            seed.SetPlant(plant, validPlantPosition.Item1, randomYAxisRotation * validPlantPosition.Item2);
+            Debug.Log($"[{nameof(SeedSpawner)}] {nameof(OnSeedFlung)}: {nameof(_gardenManager.TryCreateNewPlant)} succeeded, set seed target destination.");
+            seed.SetTargetDestination(seedTargetDestination);
+        }
+        else
+        {
+            Debug.LogWarning($"[{nameof(SeedSpawner)}] {nameof(OnSeedFlung)}: {nameof(_gardenManager.TryCreateNewPlant)} failed.");
         }
     }
 
-    private void OnSeedPopped(SeedController seed)
+    private void OnSeedPopped(SeedController seed, Vector3 position, bool isIsland)
     {
-        _gardenManager.OnSeedPopped(seed);
+        _gardenManager.OnSeedPopped(seed, position, isIsland);
         _seedPooler.ReturnItem(seed);
     }
 
@@ -184,7 +185,7 @@ public class SeedSpawner : MonoBehaviour
                 spawnLocation: FindSpawnPositions.SpawnLocation.HangingDown,
                 labels: MRUKAnchor.SceneLabels.CEILING);
 
-        Debug.Assert(validPositions.Length > 0, $"[{nameof(GardenManager)}] {nameof(GetValidPositionForPlanting)} error: invalid {nameof(validPositions)} array.");
+        Debug.Assert(validPositions.Length > 0, $"[{nameof(SeedSpawner)}] {nameof(GetValidPositionForPlanting)} error: invalid {nameof(validPositions)} array.");
         return validPositions[0];
     }
 }

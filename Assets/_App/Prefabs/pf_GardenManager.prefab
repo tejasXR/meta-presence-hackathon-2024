@@ -124,7 +124,68 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7864ff6dba048d4dae1936cce6eb6fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  plants: {fileID: 11400000, guid: 5ea12fbbe2e31fa48bf9fb160ba15d3b, type: 2}
+  _islands: {fileID: 11400000, guid: 6b07d5c3ccd7dd44ba00886ef76d5595, type: 2}
+  _plants: {fileID: 11400000, guid: 5ea12fbbe2e31fa48bf9fb160ba15d3b, type: 2}
+  OnNewIslandCreated:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3856094891259841689}
+        m_TargetAssemblyTypeName: GardenManager, Assembly-CSharp
+        m_MethodName: OnNewIslandCreated
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnIslandLoaded:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3856094891259841689}
+        m_TargetAssemblyTypeName: GardenManager, Assembly-CSharp
+        m_MethodName: OnIslandLoaded
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnNewPlantCreated:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3856094891259841689}
+        m_TargetAssemblyTypeName: GardenManager, Assembly-CSharp
+        m_MethodName: OnNewPlantCreated
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnPlantLoaded:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3856094891259841689}
+        m_TargetAssemblyTypeName: GardenManager, Assembly-CSharp
+        m_MethodName: OnPlantLoaded
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &9101491806516038968
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -142,19 +203,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 21629832969808440}
         m_TargetAssemblyTypeName: GardenPersistenceManager, Assembly-CSharp
-        m_MethodName: SavePlant
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 3856094891259841689}
-        m_TargetAssemblyTypeName: GardenManager, Assembly-CSharp
-        m_MethodName: OnNewPlantCreated
+        m_MethodName: OnAchorCreateCompleted
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -167,9 +216,9 @@ MonoBehaviour:
   _onAnchorsLoadCompleted:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3856094891259841689}
-        m_TargetAssemblyTypeName: GardenManager, Assembly-CSharp
-        m_MethodName: OnPlantsRestored
+      - m_Target: {fileID: 21629832969808440}
+        m_TargetAssemblyTypeName: GardenPersistenceManager, Assembly-CSharp
+        m_MethodName: OnAnchorsLoadCompleted
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -184,7 +233,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 21629832969808440}
         m_TargetAssemblyTypeName: GardenPersistenceManager, Assembly-CSharp
-        m_MethodName: DeleteAllPlants
+        m_MethodName: OnAnchorsEraseAllCompleted
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -199,7 +248,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 21629832969808440}
         m_TargetAssemblyTypeName: GardenPersistenceManager, Assembly-CSharp
-        m_MethodName: DeletePlant
+        m_MethodName: OnAnchorEraseCompleted
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -258,6 +307,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _persistenceManager: {fileID: 21629832969808440}
   _seedSpawner: {fileID: 8741356550316788430}
+  _islands: {fileID: 11400000, guid: 6b07d5c3ccd7dd44ba00886ef76d5595, type: 2}
   _plants: {fileID: 11400000, guid: 5ea12fbbe2e31fa48bf9fb160ba15d3b, type: 2}
 --- !u!114 &8741356550316788430
 MonoBehaviour:

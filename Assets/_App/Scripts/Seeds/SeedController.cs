@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -13,13 +14,14 @@ public class SeedController : MonoBehaviour
     [Range(.1F, .3F)][SerializeField] private float maxStartingScale;
 
     [SerializeField] private float _moveSpeed = 1.3f;
-    [SerializeField] private float _distanceToTarget = 0.01f;
+    [SerializeField] private float _ascendSpeed = 1.3f;
+    [SerializeField] private float _spinSpeed = 1.3f;
 
     [SerializeField] private List<GameObject> _deactivateOnFlung;
 
     [Space]
     public UnityEvent<SeedController> OnSeedFlung;
-    public UnityEvent<SeedController> OnSeedPopped;
+    public UnityEvent<SeedController, Vector3, bool> OnSeedPopped;
 
     public Color MaterialColor
     {
@@ -49,9 +51,21 @@ public class SeedController : MonoBehaviour
     private Color _destinationColor;
     private float _colorTransitionTime;
 
-    public Plants.PlantType Plant { get; private set; } = Plants.PlantType.KelpBoa;
-    public Vector3 PlantTargetPosition { get; private set; } = Vector3.negativeInfinity;
-    public Quaternion PlantTargetRotation { get; private set; } = Quaternion.identity;
+    private Vector3 _targetDestination = Vector3.negativeInfinity;
+    private bool _isAscending = false;
+
+    private Guid _uuid = Guid.Empty;
+    public Guid Uuid
+    {
+        get
+        {
+            if (_uuid == Guid.Empty)
+            {
+                _uuid = Guid.NewGuid();
+            }
+            return _uuid;
+        }
+    }
 
     private void Awake()
     {
@@ -79,17 +93,44 @@ public class SeedController : MonoBehaviour
             _colorTransitionTime += Time.deltaTime / ColorTransitionSpeed;
         }
 
-        if (PlantTargetPosition.IsValid())
+        if (_targetDestination.IsValid())
         {
-            transform.position = Vector3.Lerp(transform.position, PlantTargetPosition, _moveSpeed * Time.deltaTime);
+            transform.position = Vector3.Lerp(transform.position, _targetDestination, _moveSpeed * Time.deltaTime);
+        }
+    }
 
-            if (Vector3.Distance(transform.position, PlantTargetPosition) <= _distanceToTarget)
+    void OnTriggerEnter(Collider collider)
+    {
+        bool isCollisionValid = false;
+        bool isIsland = false;
+        if (collider.CompareTag("Ceiling"))
+        {
+            Debug.Log($"[{nameof(SeedController)}] {nameof(OnTriggerEnter)}: CEILING COLLISION");
+            isCollisionValid = true;
+        }
+        else if (collider.CompareTag("Island"))
+        {
+            Debug.Log($"[{nameof(SeedController)}] {nameof(OnTriggerEnter)}: ISLAND COLLISION");
+            isCollisionValid = true;
+            isIsland = true;
+        }
+
+        if (isCollisionValid)
+        {
+            if (Physics.Raycast(transform.position, (_targetDestination - transform.position).normalized, out RaycastHit hit, Mathf.Infinity))
             {
-                ReachedTargetDestination();
+                Debug.Log($"yola: Hit! {hit.collider.tag}");
+                OnSeedPopped?.Invoke(this, hit.point, isIsland);
+                Pop();
+                Reset();
+            }
+            else
+            {
+                Debug.LogError($"[{nameof(SeedController)}] {nameof(OnTriggerEnter)}: FAILED TO FIND COLLISION POINT");
             }
         }
     }
-    
+
     private void ConfigureVariation()
     {
         // Color
@@ -141,25 +182,15 @@ public class SeedController : MonoBehaviour
         OnSeedFlung?.Invoke(this);
     }
 
-    public void SetPlant(Plants.PlantType plant, Vector3 targetPosition, Quaternion targetRotation)
+    public void SetTargetDestination(Vector3 targetDestination)
     {
-        Plant = plant;
-        PlantTargetPosition = targetPosition;
-        PlantTargetRotation = targetRotation;
+        _targetDestination = targetDestination;
 
-        bool isValid = PlantTargetPosition.IsValid();
+        bool isValid = _targetDestination.IsValid();
         foreach (GameObject go in _deactivateOnFlung)
         {
             go.SetActive(!isValid);
         }
-    }
-
-    public void ReachedTargetDestination()
-    {
-        OnSeedPopped?.Invoke(this);
-
-        Pop();
-        Reset();
     }
 
     private void Pop()
@@ -170,5 +201,16 @@ public class SeedController : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    private void Reset() => SetPlant(Plants.PlantType.Unknown, Vector3.negativeInfinity, Quaternion.identity);
+    private void Reset() => SetTargetDestination(Vector3.negativeInfinity);
+
+#if UNITY_EDITOR
+    private void OnDrawGizmos()
+    {
+        if (_targetDestination.IsValid())
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawLine(transform.position, _targetDestination);
+        }
+    }
+#endif
 }
