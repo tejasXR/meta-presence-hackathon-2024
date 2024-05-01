@@ -212,8 +212,18 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 27888527038383675, guid: cbdee6f620a264940a2d0bd80ddb7655,
         type: 3}
+      propertyPath: _gazingModeLockedString
+      value: Unlock Gaze Mode
+      objectReference: {fileID: 0}
+    - target: {fileID: 27888527038383675, guid: cbdee6f620a264940a2d0bd80ddb7655,
+        type: 3}
       propertyPath: _buildindModeUnlockedString
       value: Set To Gazing Mode
+      objectReference: {fileID: 0}
+    - target: {fileID: 27888527038383675, guid: cbdee6f620a264940a2d0bd80ddb7655,
+        type: 3}
+      propertyPath: _buildingModeUnlockedString
+      value: Lock Gaze Mode
       objectReference: {fileID: 0}
     - target: {fileID: 9071285656473715324, guid: cbdee6f620a264940a2d0bd80ddb7655,
         type: 3}
