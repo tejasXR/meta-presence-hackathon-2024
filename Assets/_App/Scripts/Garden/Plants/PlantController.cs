@@ -118,6 +118,9 @@ public class PlantController : MonoBehaviour
 
     public IEnumerator CancelSeedSpawnCharging()
     {
+        if (Math.Abs(_currentPlantCharge - MAX_PLANT_CHARGE) < .001F)
+            yield break;
+        
         while (_currentPlantCharge > 0)
         {
             _currentPlantCharge -= plantCancelChargeSpeed * Time.deltaTime;
@@ -170,21 +173,11 @@ public class PlantController : MonoBehaviour
     }
 
 #if UNITY_EDITOR
-    [Sirenix.OdinInspector.Button("Set Random Growth For Plant")]
-    public void RandomGrowthButton()
+    [Sirenix.OdinInspector.Button("Start Growing Plant")]
+    public void StartGrowingButton()
     {
-        ResumeGrowing(UnityEngine.Random.Range(_minGrowth, _maxGrowth), null);
+        StartGrowing();
     }
-
-    [Sirenix.OdinInspector.LabelText("Time In Seconds")]
-    public int TimeInSeconds = 120;
-
-    [Sirenix.OdinInspector.Button("Simulate Time Passed")]
-    public void SimulateTimePassedButton()
-    {
-        ResumeGrowing(BasePlantGrowth, TimeSpan.FromSeconds(TimeInSeconds));
-    }
-
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;

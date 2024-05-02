@@ -328,6 +328,6 @@ MonoBehaviour:
     type: 3}
   spawnSurfaces: 0
   spawnSurfaceAccessibility: 1
-  maxSeedsToSpawn: 4
+  maxSeedsToSpawn: 10
   maxHeightToSpawn: 1.5
   enableRandomSeedPopping: 0
