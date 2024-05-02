@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _islands:
   - Type: 1
-    Prefab: {fileID: 3390009467087927506, guid: 9fb6779a638b13944a262d8110482326,
+    Prefab: {fileID: 5502558050960062699, guid: ee37b249e88ab324cb32c78f02df0e87,
       type: 3}

@@ -382,7 +382,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: df827e520db88db4caa3a4e471c8cc24, type: 2}
+  - {fileID: 2100000, guid: 74ae5e9b2bdcdd445bf3472dd15027f4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -486,7 +486,10 @@ MonoBehaviour:
   OnSeedFlung:
     m_PersistentCalls:
       m_Calls: []
-  OnSeedPopped:
+  OnSeedPoppedOnTheCeiling:
+    m_PersistentCalls:
+      m_Calls: []
+  OnSeedPoppedOnAnIsland:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &7766479633320254590
@@ -595,6 +598,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Trail Particle
+      objectReference: {fileID: 0}
+    - target: {fileID: 8281812687265640477, guid: a26e11d8812e10f4dad409b0409c913e,
+        type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 0.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
