@@ -12,6 +12,7 @@ public class SeedHarvestingInteraction : MonoBehaviour
     [Space]
 
     private IEnumerator _chargePlantRoutine;
+    private IEnumerator _cancelChargePlantRoutine;
     private PlantController _detectedPlant;
     private Transform _cameraTransform;
 
@@ -57,7 +58,8 @@ public class SeedHarvestingInteraction : MonoBehaviour
         
         if (_detectedPlant)
         {
-            StartCoroutine(_detectedPlant.CancelSeedSpawnCharging());
+            _cancelChargePlantRoutine = _detectedPlant.CancelSeedSpawnCharging();
+            StartCoroutine(_cancelChargePlantRoutine);
         }
     
         _detectedPlant = null;
@@ -79,6 +81,9 @@ public class SeedHarvestingInteraction : MonoBehaviour
             if (plantController == null)
                 continue;
 
+            if (_cancelChargePlantRoutine != null)
+                StopCoroutine(_cancelChargePlantRoutine);
+            
             _detectedPlant = plantController;
             _chargePlantRoutine = plantController.ChargeUpPlantForSeedSpawn();
             StartCoroutine(_chargePlantRoutine);
