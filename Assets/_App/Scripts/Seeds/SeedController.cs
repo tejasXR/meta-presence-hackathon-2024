@@ -9,6 +9,7 @@ public class SeedController : MonoBehaviour
 {
     [SerializeField] private List<Color> startingColors;
     [SerializeField] private List<Texture2D> startingPatterns;
+    [SerializeField] private ParticleSystem trailParticles;
     [Space]
     [Range(.075F, .15F)][SerializeField] private float minStartingScale;
     [Range(.1F, .3F)][SerializeField] private float maxStartingScale;
@@ -89,7 +90,17 @@ public class SeedController : MonoBehaviour
         
         if (_colorTransitionTime < 1)
         {
+            // Renderer color
             _meshRenderer.material.color = Color.Lerp(MaterialColor, _destinationColor, _colorTransitionTime);
+            
+            // Particle color
+            var main = trailParticles.main;
+            var particleAlpha = main.startColor.colorMax.a;
+            var particleColor = MaterialColor;
+            
+            particleColor.a = particleAlpha;
+            main.startColor = particleColor;
+            
             _colorTransitionTime += Time.deltaTime / ColorTransitionSpeed;
         }
 
