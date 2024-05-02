@@ -115,8 +115,9 @@ MonoBehaviour:
   _minGrowth: 0
   _maxGrowth: 1
   _plantFullyGrownParticles: {fileID: 3451807819498174044}
-  plantChargeSpeed: 0.3
-  _seedBloomEmissionTransitionSpeed: 1.5
+  plantChargeSpeed: 0.1
+  plantCancelChargeSpeed: 0.5
+  _seedBloomEmissionTransitionSpeed: 7
   MinLoot: 1
   LootSpawnPointsRoot: {fileID: 9076537883135750835}
   SeedSpawningTriggered:
