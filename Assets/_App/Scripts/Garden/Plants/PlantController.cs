@@ -13,7 +13,8 @@ public class PlantController : MonoBehaviour
     [Space] 
  
     [SerializeField] private ParticleSystem _plantFullyGrownParticles;
-    [Range(0F, 2F)] [SerializeField] private float plantChargeSpeed = .3F;
+    [Range(0F, 2F)] [SerializeField] private float plantChargeSpeed = .1F;
+    [Range(0F, 2F)] [SerializeField] private float plantCancelChargeSpeed = .5F;
     [SerializeField] private float _seedBloomEmissionTransitionSpeed = 1.5F;
     [Header("LootConfig")]
     public int MinLoot = 1;
@@ -24,16 +25,13 @@ public class PlantController : MonoBehaviour
 
     public bool IsPlantBaseFullyGrown => Mathf.Abs(_maxGrowth - _basePlantGrowth) < 0.001f;
     public Plants.PlantType Type => _type;
-
-    private readonly List<Material> _materials = new();
-
+    
     private const float MAX_PLANT_CHARGE = 1F; 
-    private const float SEED_BLOOM_EMISSIVE_ADDITION = 1.5F; 
+    private const float SEED_BLOOM_EMISSIVE_ADDITION = 7F; 
     private const string EMISSIVE_STRENGTH_PROPERTY = "_Emissive_Strength";
     private const string GROWTH_PROPERTY = "_Growth";
 
     private Coroutine _growthCoroutine;
-    private bool _isPlantCharging;
     private float _currentPlantCharge;
     private float _basePlantGrowth;
     private float _seedBloomPlantGrowth;
@@ -79,6 +77,7 @@ public class PlantController : MonoBehaviour
         _plantBloomMaterial = meshRenderers[0].materials[1];
         
         BasePlantGrowth = _minGrowth;
+        SeedBloomPlantGrowth = 0;
     }
 
     public void StartGrowing() => ResumeGrowing(_minGrowth, null);
@@ -105,33 +104,26 @@ public class PlantController : MonoBehaviour
     {
         if (!IsPlantBaseFullyGrown)
             yield break;
-
-        _isPlantCharging = true;
-
+        
         while (_currentPlantCharge < MAX_PLANT_CHARGE)
         {
             _currentPlantCharge += plantChargeSpeed * Time.deltaTime;
             SeedBloomPlantGrowth = _currentPlantCharge;
-            
-            if (_currentPlantCharge > MAX_PLANT_CHARGE)
-            {
-                StartCoroutine(TriggerSeedSpawning());
-                yield break;
-            }
-
             yield return new WaitForEndOfFrame();
         }
+        
+        StartCoroutine(TriggerSeedSpawning());
+        _currentPlantCharge = MAX_PLANT_CHARGE;
     }
 
     public IEnumerator CancelSeedSpawnCharging()
     {
-        while (!_isPlantCharging && _currentPlantCharge != 0)
+        while (_currentPlantCharge > 0)
         {
-            _currentPlantCharge -= plantChargeSpeed;
+            _currentPlantCharge -= plantCancelChargeSpeed * Time.deltaTime;
+            SeedBloomPlantGrowth = _currentPlantCharge;
             yield return new WaitForEndOfFrame();
         }
-
-        _currentPlantCharge = 0;
     }
 
     private IEnumerator TriggerSeedSpawning()
@@ -140,7 +132,7 @@ public class PlantController : MonoBehaviour
         var seedBloomDestinationEmission = seedBloomMaterialEmission + SEED_BLOOM_EMISSIVE_ADDITION;
         while (seedBloomMaterialEmission < seedBloomDestinationEmission)
         {
-            seedBloomMaterialEmission += Time.deltaTime * _seedBloomEmissionTransitionSpeed;
+            seedBloomMaterialEmission += _seedBloomEmissionTransitionSpeed * Time.deltaTime;
             _plantBloomMaterial.SetFloat(EMISSIVE_STRENGTH_PROPERTY, seedBloomMaterialEmission);
             yield return new WaitForEndOfFrame();
         }
@@ -149,6 +141,7 @@ public class PlantController : MonoBehaviour
         _plantFullyGrownParticles.Stop();
         
         // TEJAS: As a placeholder function, we deactivate this object
+        // TODO: We need to properly destroy the anchor via GardenPersistenceManager.cs
         gameObject.SetActive(false);
     }
 
