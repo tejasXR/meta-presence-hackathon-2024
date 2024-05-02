@@ -309,6 +309,9 @@ MonoBehaviour:
   _seedSpawner: {fileID: 8741356550316788430}
   _islands: {fileID: 11400000, guid: 6b07d5c3ccd7dd44ba00886ef76d5595, type: 2}
   _plants: {fileID: 11400000, guid: 5ea12fbbe2e31fa48bf9fb160ba15d3b, type: 2}
+  _islandLayerMask:
+    serializedVersion: 2
+    m_Bits: 2048
 --- !u!114 &8741356550316788430
 MonoBehaviour:
   m_ObjectHideFlags: 0

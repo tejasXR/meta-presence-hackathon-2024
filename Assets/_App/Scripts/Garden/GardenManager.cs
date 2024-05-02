@@ -44,7 +44,7 @@ public class GardenManager : MonoBehaviour
             Tuple<Vector3, Quaternion> validPlantSpawnPoint = GetValidPlantSpawnPoint(plantPrefab);
             if (validPlantSpawnPoint == null)
             {
-                Debug.LogError($"[{nameof(GardenManager)}] {nameof(TryCreateNewPlant)} failed: couldn't find a valid spawn point.");
+                Debug.LogError($"[{nameof(GardenManager)}] {nameof(TryCreateNewPlant)} failed: couldn't find a valid spawn point for {nameof(plantPrefab)}={plantPrefab.name}");
                 return false;
             }
 
@@ -101,7 +101,7 @@ public class GardenManager : MonoBehaviour
         {
             Vector3 raycastOrigin = new(controller.transform.position.x, 0f, controller.transform.position.z);
 
-            if (Physics.Raycast(raycastOrigin, Vector3.up, out RaycastHit hit, Mathf.Infinity, ~0 & ~_islandLayerMask)) // Ignore everything expect islands.
+            if (Physics.Raycast(raycastOrigin, Vector3.up, out RaycastHit hit, Mathf.Infinity, ~_islandLayerMask)) // Ignore everything expect islands.
             {
                 if (hit.collider.CompareTag("Island"))
                 {
@@ -109,6 +109,7 @@ public class GardenManager : MonoBehaviour
                     Quaternion randomYAxisRotation = Quaternion.Euler(0f, Random.Range(0f, 360f), 0f);
                     _persistenceManager.CreateNewPlant(planting.PlantPrefab, hit.point, randomYAxisRotation * planting.PlantSpawnRotation);
                 }
+                else Debug.LogError($"[{nameof(GardenManager)}] {nameof(OnNewIslandCreated)} Island spawned successfully, but raycast hit something else: {nameof(hit.collider.name)}={hit.collider.name}");
             }
             else Debug.LogError($"[{nameof(GardenManager)}] {nameof(OnNewIslandCreated)} Island spawned successfully, but raycast failed!");
         }
