@@ -11,11 +11,14 @@ public class FlingDetector : MonoBehaviour
     public UnityEvent OnFling;
 
     private Rigidbody _rigidbody;
+    private Collider _collider;
     private bool _flung;
 
     void Start()
     {
-        _rigidbody = gameObject.GetComponent<Rigidbody>();
+        _rigidbody = GetComponent<Rigidbody>();
+        _collider = GetComponent<Collider>();
+        
         _flingDirection = _flingDirection.normalized;
     }
 
@@ -26,6 +29,9 @@ public class FlingDetector : MonoBehaviour
         {
             if (velocityInFlingDirection <= _flingDecelerateVelocity)
             {
+                _rigidbody.isKinematic = true;
+                _collider.isTrigger = true;
+                
                 OnFling?.Invoke();
                 _flung = false;
             }
