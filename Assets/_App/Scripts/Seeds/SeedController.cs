@@ -22,7 +22,8 @@ public class SeedController : MonoBehaviour
 
     [Space]
     public UnityEvent<SeedController> OnSeedFlung;
-    public UnityEvent<SeedController, Vector3, bool> OnSeedPopped;
+    public UnityEvent<SeedController, Vector3> OnSeedPoppedOnTheCeiling;
+    public UnityEvent<SeedController, Vector3, Vector3> OnSeedPoppedOnAnIsland;
 
     public Color MaterialColor
     {
@@ -112,32 +113,32 @@ public class SeedController : MonoBehaviour
 
     void OnTriggerEnter(Collider collider)
     {
-        bool isCollisionValid = false;
-        bool isIsland = false;
         if (collider.CompareTag("Ceiling"))
         {
-            Debug.Log($"[{nameof(SeedController)}] {nameof(OnTriggerEnter)}: CEILING COLLISION");
-            isCollisionValid = true;
-        }
-        else if (collider.CompareTag("Island"))
-        {
-            Debug.Log($"[{nameof(SeedController)}] {nameof(OnTriggerEnter)}: ISLAND COLLISION");
-            isCollisionValid = true;
-            isIsland = true;
-        }
-
-        if (isCollisionValid)
-        {
+            // Raycast from the seed center upwards 
             if (Physics.Raycast(transform.position, (_targetDestination - transform.position).normalized, out RaycastHit hit, Mathf.Infinity))
             {
-                Debug.Log($"yola: Hit! {hit.collider.tag}");
-                OnSeedPopped?.Invoke(this, hit.point, isIsland);
+                OnSeedPoppedOnTheCeiling?.Invoke(this, hit.point);
                 Pop();
                 Reset();
             }
             else
             {
-                Debug.LogError($"[{nameof(SeedController)}] {nameof(OnTriggerEnter)}: FAILED TO FIND COLLISION POINT");
+                Debug.LogError($"[{nameof(SeedController)}] {nameof(OnTriggerEnter)}: FAILED TO FIND CEILING COLLISION POINT");
+            }
+        }
+        else if (collider.CompareTag("Island"))
+        {
+            // Raycast from the seed center upwards 
+            if (Physics.Raycast(transform.position, (_targetDestination - transform.position).normalized, out RaycastHit hit, Mathf.Infinity))
+            {
+                OnSeedPoppedOnAnIsland?.Invoke(this, hit.point, hit.normal);
+                Pop();
+                Reset();
+            }
+            else
+            {
+                Debug.LogError($"[{nameof(SeedController)}] {nameof(OnTriggerEnter)}: FAILED TO FIND ISLAND COLLISION POINT");
             }
         }
     }
