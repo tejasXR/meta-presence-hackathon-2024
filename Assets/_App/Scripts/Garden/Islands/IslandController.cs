@@ -1,7 +1,5 @@
-using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(MeshCollider))]
 public class IslandController : MonoBehaviour
 {
     [SerializeField] private Islands.IslandType _type;
@@ -12,14 +10,6 @@ public class IslandController : MonoBehaviour
     public Islands.IslandType Type => _type;
 
     private Mesh SharedMesh => _meshFilter != null ? _meshFilter.sharedMesh : null;
-
-    void Awake()
-    {
-        if (SharedMesh != null)
-        {
-            GetComponent<MeshCollider>().sharedMesh = SharedMesh;
-        }
-    }
 
 #if UNITY_EDITOR
     private void OnDrawGizmos()

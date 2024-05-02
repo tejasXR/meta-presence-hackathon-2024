@@ -99,18 +99,20 @@ public class GardenManager : MonoBehaviour
     {
         if (_newPlantQueue.Count > 0)
         {
-            Quaternion randomYAxisRotation = Quaternion.Euler(0f, Random.Range(0f, 360f), 0f);
-
             Vector3 raycastOrigin = new(controller.transform.position.x, 0f, controller.transform.position.z);
-            if (Physics.Raycast(raycastOrigin, Vector3.up, out RaycastHit hit, Mathf.Infinity))
+
+            if (Physics.Raycast(raycastOrigin, Vector3.up, out RaycastHit hit, Mathf.Infinity, ~0 & ~_islandLayerMask)) // Ignore everything expect islands.
             {
-                if (hit.transform.TryGetComponent(out IslandController islandController))
+                if (hit.collider.CompareTag("Island"))
                 {
                     Planting planting = _newPlantQueue.Dequeue();
+                    Quaternion randomYAxisRotation = Quaternion.Euler(0f, Random.Range(0f, 360f), 0f);
                     _persistenceManager.CreateNewPlant(planting.PlantPrefab, hit.point, randomYAxisRotation * planting.PlantSpawnRotation);
                 }
             }
+            else Debug.LogError($"[{nameof(GardenManager)}] {nameof(OnNewIslandCreated)} Island spawned successfully, but raycast failed!");
         }
+        else Debug.LogError($"[{nameof(GardenManager)}] {nameof(OnNewIslandCreated)} Island spawned successfully, but planting queue is empty!");
     }
 
     public void OnIslandLoaded(IslandData _, IslandController __) { }
