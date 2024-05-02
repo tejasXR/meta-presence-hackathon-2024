@@ -3,20 +3,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.UIElements;
 
 public class PlantController : MonoBehaviour
 {
     [SerializeField] private Plants.PlantType _type;
     [SerializeField] private float _lifeSpan = 5f;
-    [SerializeField] private List<MeshRenderer> _meshRenderers;
-    
     [Range(0f, 1f)] [SerializeField] private float _minGrowth = 0f;
     [Range(0f, 1f)] [SerializeField] private float _maxGrowth = 1f;
-    [SerializeField] private float _growth;
     [Space] 
-    [Range(0f, 1f)] [SerializeField] private float _additionalEmissiveStrength = .5F;
-    
+ 
+    [SerializeField] private ParticleSystem _plantFullyGrownParticles;
+    [Range(0F, 2F)] [SerializeField] private float plantChargeSpeed = .3F;
+    [SerializeField] private float _seedBloomEmissionTransitionSpeed = 1.5F;
     [Header("LootConfig")]
     public int MinLoot = 1;
     public Transform LootSpawnPointsRoot;
@@ -24,46 +22,63 @@ public class PlantController : MonoBehaviour
     [Space]
     public UnityEvent<PlantController> SeedSpawningTriggered;
 
-    public bool IsFullyGrown => Mathf.Abs(_maxGrowth - _growth) < 0.001f;
+    public bool IsPlantBaseFullyGrown => Mathf.Abs(_maxGrowth - _basePlantGrowth) < 0.001f;
     public Plants.PlantType Type => _type;
 
     private readonly List<Material> _materials = new();
 
-    private const float MAX_SEED_SPAWN_CHARGE = 1F; 
+    private const float MAX_PLANT_CHARGE = 1F; 
+    private const float SEED_BLOOM_EMISSIVE_ADDITION = 1.5F; 
     private const string EMISSIVE_STRENGTH_PROPERTY = "_Emissive_Strength";
     private const string GROWTH_PROPERTY = "_Growth";
 
     private Coroutine _growthCoroutine;
-    private float _seedSpawnCharge;
-    private Dictionary<Material, float> _originalMaterialEmission = new();
-
-    public float Growth
+    private bool _isPlantCharging;
+    private float _currentPlantCharge;
+    private float _basePlantGrowth;
+    private float _seedBloomPlantGrowth;
+    
+    private Material _basePlantMaterial;
+    private Material _plantBloomMaterial;
+    
+    public float BasePlantGrowth
     {
-        get => _growth;
+        get => _basePlantGrowth;
         set
         {
-            
-            // Debug.Log($"[{nameof(PlantController)}] {nameof(Growth)}: {nameof(value)}={value}");
-            _growth = value;
-
-            foreach (Material material in _materials)
-            {
-                material.SetFloat(GROWTH_PROPERTY, _growth);
-            }
+            _basePlantGrowth = Mathf.Clamp(value, _minGrowth, _maxGrowth);
+            _basePlantMaterial.SetFloat(GROWTH_PROPERTY, _basePlantGrowth);
         }
     }
 
-    void Awake()
+    public float SeedBloomPlantGrowth
     {
-        InitializeMaterials();
-
-        foreach (var material in _materials)
+        get => _seedBloomPlantGrowth;
+        set
         {
-            var currentEmission = material.GetFloat(EMISSIVE_STRENGTH_PROPERTY);
-            _originalMaterialEmission.Add(material, currentEmission);
+            _seedBloomPlantGrowth = Mathf.Clamp01(value);
+            _plantBloomMaterial.SetFloat(GROWTH_PROPERTY, _seedBloomPlantGrowth);
         }
+    }
+
+    private void Awake()
+    {
+        var meshRenderers = GetComponentsInChildren<MeshRenderer>();
+        if (meshRenderers.Length > 1)
+        {
+            Debug.LogError(
+                $"More than one mesh renderer on plant {gameObject.name}." +
+                $" Due to how our materials work, we can only have 1 mesh with two materials");
+        }
+        else if (meshRenderers.Length == 0)
+        {
+            Debug.LogError($"Didn't find any mesh renderers on the plant {gameObject.name}");
+        }
+
+        _basePlantMaterial = meshRenderers[0].materials[0];
+        _plantBloomMaterial = meshRenderers[0].materials[1];
         
-        Growth = _minGrowth;
+        BasePlantGrowth = _minGrowth;
     }
 
     public void StartGrowing() => ResumeGrowing(_minGrowth, null);
@@ -80,39 +95,61 @@ public class PlantController : MonoBehaviour
             Debug.Log($"[{nameof(PlantController)}] {nameof(ResumeGrowing)}: Plant grew {growthDifference} in the last {lastRecordedGrowthTimespan.Value:d\\.hh\\:mm\\:ss}");
         }
 
-        Growth = Math.Min(lastRecordedGrowthValue + growthDifference, _maxGrowth);
-        Debug.Log($"[{nameof(PlantController)}] {nameof(ResumeGrowing)}: {nameof(Growth)}={Growth}");
+        BasePlantGrowth = Math.Min(lastRecordedGrowthValue + growthDifference, _maxGrowth);
+        Debug.Log($"[{nameof(PlantController)}] {nameof(ResumeGrowing)}: {nameof(BasePlantGrowth)}={BasePlantGrowth}");
 
         StartGrowthCoroutine(ref _growthCoroutine);
     }
 
-    public void ChargeUpSeedSpawn(float incrementalChargeValue)
+    public IEnumerator ChargeUpPlantForSeedSpawn()
     {
-        if (!IsFullyGrown)
-            return;
-        
-        _seedSpawnCharge += incrementalChargeValue;
+        if (!IsPlantBaseFullyGrown)
+            yield break;
 
-        AddToOriginalEmissiveStrength(_additionalEmissiveStrength);
-        
-        if (_seedSpawnCharge > MAX_SEED_SPAWN_CHARGE)
+        _isPlantCharging = true;
+
+        while (_currentPlantCharge < MAX_PLANT_CHARGE)
         {
-            TriggerSeedSpawning();
-            CancelSeedSpawnCharging();
+            _currentPlantCharge += plantChargeSpeed * Time.deltaTime;
+            SeedBloomPlantGrowth = _currentPlantCharge;
+            
+            if (_currentPlantCharge > MAX_PLANT_CHARGE)
+            {
+                StartCoroutine(TriggerSeedSpawning());
+                yield break;
+            }
+
+            yield return new WaitForEndOfFrame();
         }
     }
 
-    public void CancelSeedSpawnCharging()
+    public IEnumerator CancelSeedSpawnCharging()
     {
-        _seedSpawnCharge = 0;
-        ResetEmissiveStrengthToOriginal();
+        while (!_isPlantCharging && _currentPlantCharge != 0)
+        {
+            _currentPlantCharge -= plantChargeSpeed;
+            yield return new WaitForEndOfFrame();
+        }
+
+        _currentPlantCharge = 0;
     }
 
-    private void TriggerSeedSpawning()
+    private IEnumerator TriggerSeedSpawning()
     {
-        // TEJAS: As a placeholder visual, we reset the growth of this plant
-        StartGrowing();
+        var seedBloomMaterialEmission = _plantBloomMaterial.GetFloat(EMISSIVE_STRENGTH_PROPERTY);
+        var seedBloomDestinationEmission = seedBloomMaterialEmission + SEED_BLOOM_EMISSIVE_ADDITION;
+        while (seedBloomMaterialEmission < seedBloomDestinationEmission)
+        {
+            seedBloomMaterialEmission += Time.deltaTime * _seedBloomEmissionTransitionSpeed;
+            _plantBloomMaterial.SetFloat(EMISSIVE_STRENGTH_PROPERTY, seedBloomMaterialEmission);
+            yield return new WaitForEndOfFrame();
+        }
+        
         SeedSpawningTriggered?.Invoke(this);
+        _plantFullyGrownParticles.Stop();
+        
+        // TEJAS: As a placeholder function, we deactivate this object
+        gameObject.SetActive(false);
     }
 
     private void StartGrowthCoroutine(ref Coroutine coroutine)
@@ -126,45 +163,17 @@ public class PlantController : MonoBehaviour
 
     private IEnumerator Grow()
     {
-        while (Growth < _maxGrowth)
+        while (BasePlantGrowth < _maxGrowth)
         {
-            Growth += 1 / (_lifeSpan / GameManager.Instance.PlantsGrowthFrequency) * GameManager.Instance.PlantsGrowthSpeed;
+            BasePlantGrowth += 1 / (_lifeSpan / GameManager.Instance.PlantsGrowthFrequency) * GameManager.Instance.PlantsGrowthSpeed;
             yield return new WaitForSeconds(GameManager.Instance.PlantsGrowthFrequency);
         }
 
-        Growth = _maxGrowth;
-    }
-
-    private void InitializeMaterials()
-    {
-        foreach (MeshRenderer meshRenderer in _meshRenderers)
-        {
-            foreach (Material material in meshRenderer.materials)
-            {
-                if (material.HasProperty(GROWTH_PROPERTY) && material.HasProperty(EMISSIVE_STRENGTH_PROPERTY))
-                {
-                    _materials.Add(material);
-                }
-            }
-        }
-    }
-
-    private void AddToOriginalEmissiveStrength(float emissionValue)
-    {
-        foreach (Material material in _materials)
-        {
-            _originalMaterialEmission.TryGetValue(material, out var originalEmissiveStrength);
-            material.SetFloat(EMISSIVE_STRENGTH_PROPERTY,  originalEmissiveStrength + emissionValue);
-        }
-    }
-
-    private void ResetEmissiveStrengthToOriginal()
-    {
-        foreach (Material material in _materials)
-        {
-            _originalMaterialEmission.TryGetValue(material, out var originalEmissiveStrength);
-            material.SetFloat(EMISSIVE_STRENGTH_PROPERTY, originalEmissiveStrength);
-        }
+        // Fully grown
+        BasePlantGrowth = _maxGrowth;
+        
+        if (!_plantFullyGrownParticles.isPlaying)
+            _plantFullyGrownParticles.Play();
     }
 
 #if UNITY_EDITOR
@@ -180,7 +189,7 @@ public class PlantController : MonoBehaviour
     [Sirenix.OdinInspector.Button("Simulate Time Passed")]
     public void SimulateTimePassedButton()
     {
-        ResumeGrowing(Growth, TimeSpan.FromSeconds(TimeInSeconds));
+        ResumeGrowing(BasePlantGrowth, TimeSpan.FromSeconds(TimeInSeconds));
     }
 
     private void OnDrawGizmos()

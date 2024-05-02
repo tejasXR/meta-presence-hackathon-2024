@@ -10,12 +10,10 @@ public class SeedHarvestingInteraction : MonoBehaviour
     [SerializeField] private float raycastDistance = 3F;
     [SerializeField] private float raycastRadius = .1F;
     [Space]
-    [Range(0F, 5F)] [SerializeField] private float seedSpawnChargeSpeed = .3F;
 
     private IEnumerator _chargePlantRoutine;
     private PlantController _detectedPlant;
     private Transform _cameraTransform;
-
 
     private void Awake()
     {
@@ -54,15 +52,15 @@ public class SeedHarvestingInteraction : MonoBehaviour
 
     private void OnPoseDeactivated(HandPoseActivator handPoseActivator)
     {
+        if (_chargePlantRoutine != null)
+            StopCoroutine(_chargePlantRoutine);
+        
         if (_detectedPlant)
         {
-            _detectedPlant.CancelSeedSpawnCharging();
+            StartCoroutine(_detectedPlant.CancelSeedSpawnCharging());
         }
     
         _detectedPlant = null;
-        
-        if (_chargePlantRoutine != null)
-            StopCoroutine(_chargePlantRoutine);
     }
 
     private void DetectPlant()
@@ -82,17 +80,8 @@ public class SeedHarvestingInteraction : MonoBehaviour
                 continue;
 
             _detectedPlant = plantController;
-            _chargePlantRoutine = ChargeUpPlantRoutine(plantController);
+            _chargePlantRoutine = plantController.ChargeUpPlantForSeedSpawn();
             StartCoroutine(_chargePlantRoutine);
-        }
-    }
-
-    private IEnumerator ChargeUpPlantRoutine(PlantController plantController)
-    {
-        while (plantController.IsFullyGrown)
-        {
-            plantController.ChargeUpSeedSpawn(Time.deltaTime * seedSpawnChargeSpeed);
-            yield return new WaitForEndOfFrame();
         }
     }
 }

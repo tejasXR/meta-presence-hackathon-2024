@@ -59,7 +59,7 @@ public class GardenPersistenceManager : MonoBehaviour
                 {
                     Uuid = anchor.Uuid,
                     Type = plantController.Type.ToString(),
-                    Growth = plantController.Growth
+                    Growth = plantController.BasePlantGrowth
                 };
             }
         }
