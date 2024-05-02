@@ -67,44 +67,34 @@ public class GardenManager : MonoBehaviour
 
     public void OnSeedPoppedOnTheCeiling(SeedController seed, Vector3 position)
     {
-        if (_plantingMap.TryGetValue(seed.Uuid, out Planting planting))
+        if (_plantingMap.TryGetValue(seed.Uuid, out Planting planting) && planting.IsValid)
         {
-            if (planting.IsValid)
+            Islands.IslandType randomIslandType = (Islands.IslandType)Random.Range(1, Enum.GetValues(typeof(Islands.IslandType)).Length);
+            if (_islands.TryGetPrefab(randomIslandType, out GameObject islandPrefab))
             {
-                Islands.IslandType randomIslandType = (Islands.IslandType)Random.Range(1, Enum.GetValues(typeof(Islands.IslandType)).Length);
-                if (_islands.TryGetPrefab(randomIslandType, out GameObject islandPrefab))
-                {
-                    Debug.Log($"[{nameof(GardenManager)}] {nameof(OnSeedPoppedOnTheCeiling)}: Spawn a new island!");
+                Debug.Log($"[{nameof(GardenManager)}] {nameof(OnSeedPoppedOnTheCeiling)}: Spawn a new island!");
 
-                    Quaternion randomYAxisRotation = Quaternion.Euler(0f, Random.Range(0f, 360f), 0f);
-                    _persistenceManager.CreateNewIsland(islandPrefab, position, randomYAxisRotation * planting.PlantSpawnRotation);
+                Quaternion randomYAxisRotation = Quaternion.Euler(0f, Random.Range(0f, 360f), 0f);
+                _persistenceManager.CreateNewIsland(islandPrefab, position, randomYAxisRotation * planting.PlantSpawnRotation);
 
-                    // Update spawn position to use as reference to spawn the plant on the island.
-                    planting.PlantSpawnPosition = position;
-                    _newPlantQueue.Enqueue(planting);
+                // Update spawn position to use as reference to spawn the plant on the island.
+                planting.PlantSpawnPosition = position;
+                _newPlantQueue.Enqueue(planting);
 
-                    _plantingMap.Remove(seed.Uuid);
-                    return;
-                }
+                _plantingMap.Remove(seed.Uuid);
             }
         }
-
-        Debug.LogError($"[{nameof(GardenManager)}] {nameof(OnSeedPoppedOnTheCeiling)} but something went wrong.");
+        else Debug.LogError($"[{nameof(GardenManager)}] {nameof(OnSeedPoppedOnTheCeiling)} but something went wrong.");
     }
 
     public void OnSeedPoppedOnIsland(SeedController seed, Vector3 position, Vector3 normal)
     {
-        if (_plantingMap.TryGetValue(seed.Uuid, out Planting planting))
+        if (_plantingMap.TryGetValue(seed.Uuid, out Planting planting) && planting.IsValid)
         {
-            if (planting.IsValid)
-            {
-                Quaternion randomYAxisRotation = Quaternion.Euler(0f, Random.Range(0f, 360f), 0f);
-                _persistenceManager.CreateNewPlant(planting.PlantPrefab, position, randomYAxisRotation * planting.PlantSpawnRotation);
-                return;
-            }
+            Quaternion randomYAxisRotation = Quaternion.Euler(0f, Random.Range(0f, 360f), 0f);
+            _persistenceManager.CreateNewPlant(planting.PlantPrefab, position, randomYAxisRotation * planting.PlantSpawnRotation);
         }
-
-        Debug.LogError($"[{nameof(GardenManager)}] {nameof(OnSeedPoppedOnIsland)} but something went wrong.");
+        else Debug.LogError($"[{nameof(GardenManager)}] {nameof(OnSeedPoppedOnIsland)}: but something went wrong.");
     }
 
     public void OnNewIslandCreated(IslandData _, IslandController island)
@@ -113,12 +103,8 @@ public class GardenManager : MonoBehaviour
         {
             Planting planting = _newPlantQueue.Dequeue();
 
-            // Find a position on the new island using the original spawn position as reference.
-            island.GetValidSpawnPoint(planting.PlantSpawnPosition, (islandPosition, islandRotation) =>
-            {
-                Quaternion randomYAxisRotation = Quaternion.Euler(0f, Random.Range(0f, 360f), 0f);
-                _persistenceManager.CreateNewPlant(planting.PlantPrefab, islandPosition, randomYAxisRotation * planting.PlantSpawnRotation);
-            });
+            Quaternion randomYAxisRotation = Quaternion.Euler(0f, Random.Range(0f, 360f), 0f);
+            _persistenceManager.CreateNewPlant(planting.PlantPrefab, island.OriginSpawnPoint.position, randomYAxisRotation * planting.PlantSpawnRotation);
         }
         else Debug.LogError($"[{nameof(GardenManager)}] {nameof(OnNewIslandCreated)} Island spawned successfully, but planting queue is empty!");
     }
