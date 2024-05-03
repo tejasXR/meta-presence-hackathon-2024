@@ -50,7 +50,7 @@ Material:
     - _Emissive: 1.6
     - _Emissive_Strength: 1.5
     - _Grow: 1
-    - _Growth: 1
+    - _Growth: 0
     - _Metalic: 0
     - _QueueControl: 0
     - _QueueOffset: 0
