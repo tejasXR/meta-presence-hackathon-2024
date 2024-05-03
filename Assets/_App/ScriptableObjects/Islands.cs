@@ -15,7 +15,9 @@ public class Islands : ScriptableObject
     public enum IslandType
     {
         Unknown,
-        BigIsland
+        Variation1,
+        Variation2,
+        Variation3
     }
 
     [SerializeField] private List<Island> _islands;
