@@ -178,13 +178,14 @@ public class PlantController : MonoBehaviour
     {
         StartGrowing();
     }
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.green;
-        foreach (Transform spawnPoint in LootSpawnPointsRoot)
-        {
-            Gizmos.DrawSphere(spawnPoint.position, 0.05f);
-        }
-    }
+
+    // private void OnDrawGizmos()
+    // {
+    //     Gizmos.color = Color.green;
+    //     foreach (Transform spawnPoint in LootSpawnPointsRoot)
+    //     {
+    //         Gizmos.DrawSphere(spawnPoint.position, 0.05f);
+    //     }
+    // }
 #endif
 }
