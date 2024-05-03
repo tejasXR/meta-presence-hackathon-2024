@@ -22,7 +22,7 @@ public class PokeInteractableGameModeController : MonoBehaviour
                 GameManager.Instance.SetGazingMode(locked: true);
                 break;
             case GameMode.Gazing:
-                GameManager.Instance.SetBuildingMode();
+                GameManager.Instance.SetBuildingMode(force: true);
                 break;
         }
     }

@@ -103,8 +103,10 @@ public class GameManager : Singleton<GameManager>
     /// </summary>
     public void Initialize() => SetBuildingMode();
 
-    public void SetBuildingMode()
+    public void SetBuildingMode(bool force = false)
     {
+        if (!force && _gazingModeLocked) return;
+
         _gazingTimer = 0f;
         _gazingModeLocked = false;
 
