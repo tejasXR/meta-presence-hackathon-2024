@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -7,9 +6,10 @@ using Random = UnityEngine.Random;
 
 public class SeedController : MonoBehaviour
 {
-    [SerializeField] private List<Color> startingColors;
-    [SerializeField] private List<Texture2D> startingPatterns;
+    [SerializeField]  [ColorUsageAttribute(true, true)] private List<Color> startingColors;
     [SerializeField] private ParticleSystem trailParticles;
+    [SerializeField] private TrailRenderer trailRenderer;
+    [SerializeField] private MeshRenderer nucleus;
     [Space]
     [Range(.075F, .15F)][SerializeField] private float minStartingScale;
     [Range(.1F, .3F)][SerializeField] private float maxStartingScale;
@@ -25,38 +25,16 @@ public class SeedController : MonoBehaviour
     public UnityEvent<SeedController, Vector3> OnSeedPoppedOnTheCeiling;
     public UnityEvent<SeedController, Vector3, Vector3> OnSeedPoppedOnAnIsland;
 
-    public Color MaterialColor
+    public Color SeedColor
     {
-        get
+        get => _seedMaterial.GetColor(BASE_COLOR_PROPERTY);
+        private set
         {
-            // TEJAS: Dupe code from Awake, okay for now
-            _meshRenderer = GetComponentInChildren<MeshRenderer>();
-            if (!_meshRenderer)
-            {
-                throw new ApplicationException($"No MeshRenderer component found on {name}");
-            }
-
-            return _meshRenderer.material.color;
-        }
-        private set => value = MaterialColor;
+            _seedMaterial.SetColor(BASE_COLOR_PROPERTY, value);  
+            _seedMaterial.SetColor(MAIN_GLOW_PROPERTY, value);
+        } 
     }
-
-  
-    public Vector3 Size => _destinationScale;
-    public bool IsAboutToBeAbsorbed { get; private set; }
-
-    private const float ScaleTransitionSpeed = 4F;
-    private const float ColorTransitionSpeed = 3F;
-
-    private MeshRenderer _meshRenderer;
-    private Vector3 _destinationScale;
-    private Color _destinationColor;
-    private float _colorTransitionTime;
-
-    private Vector3 _targetDestination = Vector3.negativeInfinity;
-    private bool _isAscending = false;
-
-    private Guid _uuid = Guid.Empty;
+    
     public Guid Uuid
     {
         get
@@ -69,40 +47,72 @@ public class SeedController : MonoBehaviour
         }
     }
 
+  
+    public Vector3 Size => _destinationScale;
+    public bool IsAboutToBeAbsorbed { get; private set; }
+
+    private const float SCALE_TRANSITION_SPEED = 4F;
+    private const float COLOR_TRANSITION_SEED = 3F;
+    
+    private const string BASE_COLOR_PROPERTY = "_BaseColor";
+    private const string MAIN_GLOW_PROPERTY = "_MainGlow";
+    private const string DISSOLVE_LEVEL_PROPERTY = "_DissolveLevel";
+
+    private Material _seedMaterial;
+    private Vector3 _destinationScale;
+    private Color _destinationColor;
+    private float _colorTransitionTime;
+
+    private Vector3 _targetDestination = Vector3.negativeInfinity;
+    private bool _isAscending = false;
+
+    private Guid _uuid = Guid.Empty;
+    
     private void Awake()
     {
-        _meshRenderer = GetComponentInChildren<MeshRenderer>();
-        if (!_meshRenderer)
+        var meshRenderer = GetComponentInChildren<MeshRenderer>();
+        if (!meshRenderer)
         {
             throw new ApplicationException($"No MeshRenderer component found on {name}");
         }
 
+        _seedMaterial = meshRenderer.material;
+
         ConfigureVariation();
         
-        MaterialColor = _meshRenderer.material.color;
         _destinationScale = transform.localScale;
-        _destinationColor = MaterialColor;
+        _destinationColor = SeedColor;
     }
 
     private void Update()
     {
         if (_destinationScale.magnitude - transform.localScale.magnitude > .01F)
-            transform.localScale = Vector3.Lerp(transform.localScale, _destinationScale, ScaleTransitionSpeed);
+            transform.localScale = Vector3.Lerp(transform.localScale, _destinationScale, SCALE_TRANSITION_SPEED);
         
         if (_colorTransitionTime < 1)
         {
-            // Renderer color
-            _meshRenderer.material.color = Color.Lerp(MaterialColor, _destinationColor, _colorTransitionTime);
+            // Seed material color
+            SeedColor = Color.Lerp(SeedColor, _destinationColor, _colorTransitionTime);
+            
+            // Trail color
+            var trailColor = SeedColor;
+            trailColor.a = trailRenderer.material.color.a;
+            trailRenderer.material.color = trailColor;
+            
+            // Nucleus Color
+            var nucleusColor = SeedColor;
+            nucleusColor.a = nucleus.material.color.a;
+            nucleus.material.color = SeedColor;
             
             // Particle color
             var main = trailParticles.main;
             var particleAlpha = main.startColor.colorMax.a;
-            var particleColor = MaterialColor;
+            var particleColor = SeedColor;
             
             particleColor.a = particleAlpha;
             main.startColor = particleColor;
             
-            _colorTransitionTime += Time.deltaTime / ColorTransitionSpeed;
+            _colorTransitionTime += Time.deltaTime / COLOR_TRANSITION_SEED;
         }
 
         if (_targetDestination.IsValid())
@@ -146,12 +156,8 @@ public class SeedController : MonoBehaviour
     private void ConfigureVariation()
     {
         // Color
-        var randomColor = startingColors[Random.Range(0, startingColors.Count)];
-        _meshRenderer.material.color = randomColor;
-        
-        // Pattern
-        var randomPattern = startingPatterns[Random.Range(0, startingPatterns.Count)];
-        _meshRenderer.material.mainTexture = randomPattern;
+        var seedStartingColor = startingColors[Random.Range(0, startingColors.Count)];
+        SeedColor = seedStartingColor;
         
         // Rotation
         transform.rotation = Quaternion.Euler(Random.Range(0F, 360F), Random.Range(0F, 360F), Random.Range(0F, 360F));
@@ -165,17 +171,23 @@ public class SeedController : MonoBehaviour
         transform.localScale = Vector3.one * Random.Range(minStartingScale, maxStartingScale);
     }
 
-    public void ChangeScale(Vector3 newScale)
+    public void SetScale(Vector3 newScale)
     {
         _destinationScale = newScale;
+        trailRenderer.startWidth = nucleus.transform.lossyScale.magnitude;
     }
     
     // TEJAS: Keep in mind changing the color will no longer make the material be GPU Instanced
-    public void ChangeColor(Color newColor)
+    public void SetColor(Color newColor)
     {
         _destinationColor = newColor;
         _colorTransitionTime = 0;
     }
+
+    /*private void LerpToDestinationColor(float time)
+    {
+        SeedColor = Color.Lerp(SeedColor, _destinationColor, time);
+    }*/
     
     // TEJAS: May refactor this method later to avoid race-conditions or move method to a more appropriate place
     // Used to prevent race-conditions when two blobs are trying to absorb each other in the same frame
@@ -226,3 +238,11 @@ public class SeedController : MonoBehaviour
     }
 #endif
 }
+
+/*[Serializable]
+public struct SeedColorData
+{
+    public Color baseColor;
+    public Color mainGlowColor;
+    [ColorUsageAttribute(true, true)] public Color edgeGlowColor;
+}*/
