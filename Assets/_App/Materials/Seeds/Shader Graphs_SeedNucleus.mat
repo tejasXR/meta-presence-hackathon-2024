@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Shader Graphs_Seed
+  m_Name: Shader Graphs_SeedNucleus
   m_Shader: {fileID: -6465566751694194690, guid: fee1569941321754ca80a36d381e1150,
     type: 3}
   m_Parent: {fileID: 0}
@@ -59,7 +59,7 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:
-    - _BaseColor: {r: 0.7372549, g: 0.19215688, b: 0.19215688, a: 1}
-    - _EdgeColor: {r: 1, g: 1, b: 1, a: 1}
-    - _MainGlow: {r: 0.5, g: 0.03066039, b: 0.03066039, a: 0}
+    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _EdgeColor: {r: 0.24313718, g: 0.6969515, b: 1.4980391, a: 0}
+    - _MainGlow: {r: 1, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
