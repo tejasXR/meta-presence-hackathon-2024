@@ -103,11 +103,11 @@ public class SeedMorph : MonoBehaviour
             // TEJAS: We may want to use lossy scale in the future and then convert to local scales
             // Using local scales should be fine for now
             var combinedScale = _seedController.Size + seedToAbsorb.Size;
-            _seedController.ChangeScale(combinedScale);
+            _seedController.SetScale(combinedScale);
         
             // CHANGE COLOR
-            var combinedColor = CombineColors(_seedController.MaterialColor, seedToAbsorb.MaterialColor);
-            _seedController.ChangeColor(combinedColor);
+            var combinedColor = CombineColors(_seedController.SeedColor, seedToAbsorb.SeedColor);
+            _seedController.SetColor(combinedColor);
         
             Destroy(seedToAbsorb.gameObject);
             return;
