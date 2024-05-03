@@ -4730,7 +4730,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 316c5b1d-a5e4-49f2-a663-15fd22dbcba9
-  instanceId: 68147c78-4dfb-4ea1-b161-3d6c62100f26
+  instanceId: 6fe7b519-b1ba-45ba-b7ee-7dac50377304
   version: 1
 --- !u!114 &8044682605406657417
 MonoBehaviour:
@@ -9284,7 +9284,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 8b26b298-7bf4-490e-b245-a039c0184303
-  instanceId: 27033b0b-fd61-4cac-adbd-f366442dd49b
+  instanceId: b06e07fe-c1f8-48c0-8761-05b6c83bb638
   version: 1
 --- !u!114 &7354074966128072981
 MonoBehaviour:
@@ -10281,7 +10281,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: f0540b20-dfd6-420e-b20d-c270f88dc77e
-  instanceId: 9d3d3dcb-75aa-47d8-8260-5077238c0afc
+  instanceId: 22588afc-bb8f-4266-80b4-a56acd8964bb
   version: 1
 --- !u!114 &8884395806638410722
 MonoBehaviour:
@@ -11214,6 +11214,8 @@ GameObject:
   - component: {fileID: 7862885750705296525}
   - component: {fileID: 3717974570117191530}
   - component: {fileID: 3071930831460818153}
+  - component: {fileID: 3270222412655256210}
+  - component: {fileID: 155848536359308950}
   - component: {fileID: 3588541267298942053}
   m_Layer: 0
   m_Name: LeftPalmUpSequence
@@ -11262,7 +11264,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cd9780be7e512049b4d33d5c9d0ac92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _activeState: {fileID: 3588541267298942053}
+  _activeState: {fileID: 3270222412655256210}
+--- !u!114 &3270222412655256210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3047035820044680915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aebd5da9a8bd22243b407f1927f4965b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _activeStates:
+  - {fileID: 155848536359308950}
+  - {fileID: 3588541267298942053}
+  _logicOperator: 0
+--- !u!114 &155848536359308950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3047035820044680915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f56a7bf8c315e94abb2b75ccabcfe96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  touchHandGrabInteractor: {fileID: 6133428604592336891}
+  handGrabInteractor: {fileID: 1689008907358140517}
+  distanceHandGrabInteractor: {fileID: 6843235393876163804}
 --- !u!114 &3588541267298942053
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17821,7 +17854,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 5817f7c0-f2a5-45f9-a5ca-64264e0166e8
-  instanceId: b7f6a3aa-424b-4d34-9b8c-da3f6ab6595c
+  instanceId: 8efb248d-aae8-41d8-a075-5b20c65ff7f3
   version: 1
 --- !u!114 &246473943236323533
 MonoBehaviour:
@@ -17927,7 +17960,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 6b67162c-2460-4766-a931-980388647573
-  instanceId: bec0d028-0587-479e-af2f-255fd838cb3e
+  instanceId: 107c56b8-f8ef-4f3a-8694-ab2011d59e64
   version: 1
 --- !u!114 &2591306135782827510
 MonoBehaviour:
@@ -18534,7 +18567,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 0393ca30-f2a9-4865-a40f-f9a68d01c3a9
-  instanceId: 304b035f-428c-4922-9d89-f79a4b354357
+  instanceId: 79da96a6-72a4-440f-8164-9182f0bd101a
   version: 1
 --- !u!114 &4926169802912567821
 MonoBehaviour:
@@ -23463,7 +23496,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 5817f7c0-f2a5-45f9-a5ca-64264e0166e8
-  instanceId: b241365e-0050-49ad-ba8c-15807571c810
+  instanceId: 55ab699d-0e43-47a0-b34f-327cc1a0a270
   version: 1
 --- !u!114 &6601701461773203778
 MonoBehaviour:
@@ -26771,6 +26804,8 @@ GameObject:
   - component: {fileID: 7371576695247285564}
   - component: {fileID: 8696979240541010521}
   - component: {fileID: 2890074985079623439}
+  - component: {fileID: 231880127860889947}
+  - component: {fileID: 3619523749151482745}
   - component: {fileID: 7371576695247285563}
   m_Layer: 0
   m_Name: RightPalmUpSequence
@@ -26819,7 +26854,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cd9780be7e512049b4d33d5c9d0ac92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _activeState: {fileID: 7371576695247285563}
+  _activeState: {fileID: 231880127860889947}
+--- !u!114 &231880127860889947
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7371576695247285567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aebd5da9a8bd22243b407f1927f4965b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _activeStates:
+  - {fileID: 3619523749151482745}
+  - {fileID: 7371576695247285563}
+  _logicOperator: 0
+--- !u!114 &3619523749151482745
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7371576695247285567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f56a7bf8c315e94abb2b75ccabcfe96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  touchHandGrabInteractor: {fileID: 54799816396614033}
+  handGrabInteractor: {fileID: 84658576375256921}
+  distanceHandGrabInteractor: {fileID: 1540102968762145637}
 --- !u!114 &7371576695247285563
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27891,7 +27957,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 81f55626-5fad-45e9-a1df-184f330da7ba
-  instanceId: 876cdb73-4271-400b-b718-078edc9016c6
+  instanceId: 0b02a551-eb2e-4255-9836-972c8fea2a0b
   version: 1
 --- !u!114 &6112401889999348692
 MonoBehaviour:
@@ -28459,7 +28525,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 6b67162c-2460-4766-a931-980388647573
-  instanceId: 85de3c05-4a2d-4dbc-aabc-4de50cdc718d
+  instanceId: a65a5f63-d434-4665-a573-573f5e4dc4fe
   version: 1
 --- !u!114 &1647568006094785049
 MonoBehaviour:
@@ -31443,7 +31509,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 8b26b298-7bf4-490e-b245-a039c0184303
-  instanceId: 2ca60822-bc62-47ca-9199-0e5c53cf1021
+  instanceId: 2083ae00-5fd5-4501-b5d0-84b59388493c
   version: 1
 --- !u!114 &7335431785716577588
 MonoBehaviour:
@@ -32085,7 +32151,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 316c5b1d-a5e4-49f2-a663-15fd22dbcba9
-  instanceId: 90c11c03-a022-4092-b635-3057e21946f2
+  instanceId: 543ff287-3df1-46d1-b265-3abb6f4ee8a6
   version: 1
 --- !u!114 &5631334115237263288
 MonoBehaviour:
@@ -32485,7 +32551,6 @@ MonoBehaviour:
     m_Bits: 1024
   raycastDistance: 3
   raycastRadius: 0.05
-  seedSpawnChargeSpeed: 0.8
 --- !u!1 &8739172446910083397
 GameObject:
   m_ObjectHideFlags: 0
@@ -32830,7 +32895,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: e47682b9-c270-40b1-b16d-90b627a5ce1b
-  instanceId: 418dee8b-98bc-4990-b830-f472f97a82e5
+  instanceId: 20861fad-3ef1-45db-b750-107c401ad59c
   version: 1
 --- !u!114 &433376283547223316
 MonoBehaviour:
