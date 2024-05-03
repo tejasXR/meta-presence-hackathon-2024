@@ -378,7 +378,7 @@ MonoBehaviour:
   _oneGrabTransformer: {fileID: 0}
   _twoGrabTransformer: {fileID: 0}
   _targetTransform: {fileID: 6830854556218966323}
-  _maxGrabPoints: 1
+  _maxGrabPoints: 2
 --- !u!114 &7622138791036159224
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -796,7 +796,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8646029585021388215}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 9ea5d9898e310b644b40dc7204bbf949, type: 2}
   m_CullingMode: 0
