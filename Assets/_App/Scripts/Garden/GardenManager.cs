@@ -148,6 +148,6 @@ public class GardenManager : MonoBehaviour
     private void SpawnNewPlant(GameObject prefab, Vector3 spawnPosition, Quaternion spawnRotation, Vector3 spawnSurfaceNormal)
     {
         Quaternion randomYAxisRotation = Quaternion.Euler(0f, Random.Range(0f, 360f), 0f);
-        _persistenceManager.CreateNewPlant(prefab, spawnPosition, Quaternion.FromToRotation(Vector3.up, -spawnSurfaceNormal.normalized) * randomYAxisRotation * spawnRotation);
+        _persistenceManager.CreateNewPlant(prefab, spawnPosition, /* Quaternion.FromToRotation(Vector3.up, -spawnSurfaceNormal.normalized) * */randomYAxisRotation * spawnRotation);
     }
 }
