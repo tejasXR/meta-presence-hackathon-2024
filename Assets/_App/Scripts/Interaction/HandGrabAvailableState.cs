@@ -2,13 +2,17 @@ using System;
 using Oculus.Interaction;
 using Oculus.Interaction.HandGrab;
 using UnityEngine;
+using UnityEngine.Events;
 
-public class HandAvailableState : MonoBehaviour, IActiveState
+public class HandGrabAvailableState : MonoBehaviour, IActiveState
 {
     [SerializeField] private TouchHandGrabInteractor touchHandGrabInteractor;
     [SerializeField] private HandGrabInteractor handGrabInteractor;
     [SerializeField] private DistanceHandGrabInteractor distanceHandGrabInteractor;
 
+    public UnityEvent OnHandAvailableToGrab;
+    public UnityEvent OnHandsNotAvailableToGrab;
+    
     public bool Active => !_isGrabbing;
 
     private bool _isGrabbing;
@@ -53,6 +57,7 @@ public class HandAvailableState : MonoBehaviour, IActiveState
     
     private void RegisterGrab()
     {
+        OnHandsNotAvailableToGrab?.Invoke();
         _isGrabbing = true;
     }
 
@@ -61,6 +66,7 @@ public class HandAvailableState : MonoBehaviour, IActiveState
         if (touchHandGrabInteractor.HasInteractable | distanceHandGrabInteractor.HasInteractable | handGrabInteractor.HasInteractable)
             return;
         
+        OnHandAvailableToGrab?.Invoke();
         _isGrabbing = false;
     }
 }
