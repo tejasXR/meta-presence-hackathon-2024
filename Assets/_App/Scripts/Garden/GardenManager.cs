@@ -1,6 +1,5 @@
 using Meta.XR.MRUtilityKit;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -74,13 +73,9 @@ public class GardenManager : MonoBehaviour
             {
                 Debug.Log($"[{nameof(GardenManager)}] {nameof(OnSeedPoppedOnTheCeiling)}: Spawn a new island!");
 
-                Quaternion randomYAxisRotation = Quaternion.Euler(0f, Random.Range(0f, 360f), 0f);
-                _persistenceManager.CreateNewIsland(islandPrefab, position, randomYAxisRotation * planting.PlantSpawnRotation);
+                SpawnNewIsland(islandPrefab, position, planting.PlantSpawnRotation);
 
-                // Update spawn position to use as reference to spawn the plant on the island.
-                planting.PlantSpawnPosition = position;
                 _newPlantQueue.Enqueue(planting);
-
                 _plantingMap.Remove(seed.Uuid);
             }
         }
@@ -91,8 +86,7 @@ public class GardenManager : MonoBehaviour
     {
         if (_plantingMap.TryGetValue(seed.Uuid, out Planting planting) && planting.IsValid)
         {
-            Quaternion randomYAxisRotation = Quaternion.Euler(0f, Random.Range(0f, 360f), 0f);
-            _persistenceManager.CreateNewPlant(planting.PlantPrefab, position, randomYAxisRotation * planting.PlantSpawnRotation);
+            SpawnNewPlant(planting.PlantPrefab, position, planting.PlantSpawnRotation, normal);
         }
         else Debug.LogError($"[{nameof(GardenManager)}] {nameof(OnSeedPoppedOnIsland)}: but something went wrong.");
     }
@@ -102,9 +96,7 @@ public class GardenManager : MonoBehaviour
         if (_newPlantQueue.Count > 0)
         {
             Planting planting = _newPlantQueue.Dequeue();
-
-            Quaternion randomYAxisRotation = Quaternion.Euler(0f, Random.Range(0f, 360f), 0f);
-            _persistenceManager.CreateNewPlant(planting.PlantPrefab, island.OriginSpawnPoint.position, randomYAxisRotation * planting.PlantSpawnRotation);
+            SpawnNewPlant(planting.PlantPrefab, island.OriginSpawnPoint.position, planting.PlantSpawnRotation, Vector3.down);
         }
         else Debug.LogError($"[{nameof(GardenManager)}] {nameof(OnNewIslandCreated)} Island spawned successfully, but planting queue is empty!");
     }
@@ -145,5 +137,17 @@ public class GardenManager : MonoBehaviour
     {
         // TODO(yola): Seed > Plant correlation
         return (Plants.PlantType)Random.Range(1, Enum.GetValues(typeof(Plants.PlantType)).Length);
+    }
+
+    private void SpawnNewIsland(GameObject prefab, Vector3 spawnPosition, Quaternion spawnRotation)
+    {
+        Quaternion randomYAxisRotation = Quaternion.Euler(0f, Random.Range(0f, 360f), 0f);
+        _persistenceManager.CreateNewIsland(prefab, spawnPosition, randomYAxisRotation * spawnRotation);
+    }
+
+    private void SpawnNewPlant(GameObject prefab, Vector3 spawnPosition, Quaternion spawnRotation, Vector3 spawnSurfaceNormal)
+    {
+        Quaternion randomYAxisRotation = Quaternion.Euler(0f, Random.Range(0f, 360f), 0f);
+        _persistenceManager.CreateNewPlant(prefab, spawnPosition, Quaternion.FromToRotation(Vector3.up, -spawnSurfaceNormal.normalized) * randomYAxisRotation * spawnRotation);
     }
 }
