@@ -234,7 +234,6 @@ GameObject:
   - component: {fileID: 2289688170436121190}
   - component: {fileID: 7194061965855250695}
   - component: {fileID: 6144265659279370428}
-  - component: {fileID: 4130016719466330412}
   m_Layer: 0
   m_Name: DistanceHandGrabInteractor
   m_TagString: Untagged
@@ -369,49 +368,6 @@ MonoBehaviour:
   _hand: {fileID: 4023076774122305321}
   _bufferLengthSeconds: 0.1
   _sampleFrequency: 90
---- !u!114 &4130016719466330412
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 71422048821109538}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 747277cef77345d4fb8fa84835874129, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  activeStateSelector: {fileID: 3071930831460818153}
-  stateSelectionActive:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6843235393876163804}
-        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
-        m_MethodName: set_enabled
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  stateSelectionInactive:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6843235393876163804}
-        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
-        m_MethodName: set_enabled
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
 --- !u!1 &96409062386326405
 GameObject:
   m_ObjectHideFlags: 0
@@ -2314,6 +2270,81 @@ Transform:
   - {fileID: 1884876733134872243}
   m_Father: {fileID: 8574910693453276402}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &698578011162405682
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 961464592537404918}
+  - component: {fileID: 471630424741808984}
+  m_Layer: 0
+  m_Name: Right Distance Grab Pose Blocker
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &961464592537404918
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 698578011162405682}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7911522155802901764}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &471630424741808984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 698578011162405682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 747277cef77345d4fb8fa84835874129, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activeStateSelector: {fileID: 2890074985079623439}
+  stateSelectionActive:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1540102968762145637}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  stateSelectionInactive:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1540102968762145637}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!1 &703766103989064060
 GameObject:
   m_ObjectHideFlags: 0
@@ -4730,7 +4761,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 316c5b1d-a5e4-49f2-a663-15fd22dbcba9
-  instanceId: 9648b05e-dbeb-4fdf-9792-73b9bdf6f11f
+  instanceId: 121c9f6b-7a00-471f-bda2-1cb0b9a52aff
   version: 1
 --- !u!114 &8044682605406657417
 MonoBehaviour:
@@ -9284,7 +9315,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 8b26b298-7bf4-490e-b245-a039c0184303
-  instanceId: 5c3c01d0-45e9-441e-bfb0-263140343bfe
+  instanceId: c3d7ffdb-69c8-42ee-a2ea-453493f9f94e
   version: 1
 --- !u!114 &7354074966128072981
 MonoBehaviour:
@@ -10281,7 +10312,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: f0540b20-dfd6-420e-b20d-c270f88dc77e
-  instanceId: c3aa8320-8a1f-4f96-9f30-343e1b23fc1f
+  instanceId: ca6065e6-e2da-4cf0-b4e4-0197aeb84bff
   version: 1
 --- !u!114 &8884395806638410722
 MonoBehaviour:
@@ -11215,7 +11246,6 @@ GameObject:
   - component: {fileID: 3717974570117191530}
   - component: {fileID: 3071930831460818153}
   - component: {fileID: 3270222412655256210}
-  - component: {fileID: 155848536359308950}
   - component: {fileID: 3588541267298942053}
   m_Layer: 0
   m_Name: LeftPalmUpSequence
@@ -11278,24 +11308,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _activeStates:
-  - {fileID: 155848536359308950}
+  - {fileID: 702507468199647143}
   - {fileID: 3588541267298942053}
   _logicOperator: 0
---- !u!114 &155848536359308950
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3047035820044680915}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f56a7bf8c315e94abb2b75ccabcfe96, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  touchHandGrabInteractor: {fileID: 6133428604592336891}
-  handGrabInteractor: {fileID: 1689008907358140517}
-  distanceHandGrabInteractor: {fileID: 6843235393876163804}
 --- !u!114 &3588541267298942053
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16614,7 +16629,7 @@ GameObject:
   - component: {fileID: 2761163441549280518}
   - component: {fileID: 4447982560467255539}
   - component: {fileID: 2976750402765903266}
-  - component: {fileID: 1984970966439732584}
+  - component: {fileID: 2383225512423656447}
   m_Layer: 0
   m_Name: DistanceHandGrabInteractor
   m_TagString: Untagged
@@ -16749,7 +16764,7 @@ MonoBehaviour:
   _hand: {fileID: 7274880142456962558}
   _bufferLengthSeconds: 0.1
   _sampleFrequency: 90
---- !u!114 &1984970966439732584
+--- !u!114 &2383225512423656447
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -16758,40 +16773,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 4510628870950949504}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 747277cef77345d4fb8fa84835874129, type: 3}
+  m_Script: {fileID: 11500000, guid: 4f56a7bf8c315e94abb2b75ccabcfe96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activeStateSelector: {fileID: 2890074985079623439}
-  stateSelectionActive:
+  touchHandGrabInteractor: {fileID: 0}
+  handGrabInteractor: {fileID: 0}
+  distanceHandGrabInteractor: {fileID: 0}
+  OnHandAvailableToGrab:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1540102968762145637}
-        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
-        m_MethodName: set_enabled
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  stateSelectionInactive:
+      m_Calls: []
+  OnHandsNotAvailableToGrab:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1540102968762145637}
-        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
-        m_MethodName: set_enabled
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &4511559475867942471
 GameObject:
   m_ObjectHideFlags: 0
@@ -17458,6 +17451,8 @@ Transform:
   - {fileID: 7400396857244091057}
   - {fileID: 6231852571592450193}
   - {fileID: 8941231625128155573}
+  - {fileID: 5654098557851826284}
+  - {fileID: 7911522155802901764}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4743372355923976329
@@ -17854,7 +17849,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 5817f7c0-f2a5-45f9-a5ca-64264e0166e8
-  instanceId: b83c6421-573f-4e89-ae6d-6cc30ce3ee20
+  instanceId: cc95fecb-096e-42cb-b802-db139d5d49d8
   version: 1
 --- !u!114 &246473943236323533
 MonoBehaviour:
@@ -17960,7 +17955,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 6b67162c-2460-4766-a931-980388647573
-  instanceId: c831da6e-ff97-46c0-bd13-5c1c239137fb
+  instanceId: 47663786-d30c-48a7-bf99-ac4799092fd6
   version: 1
 --- !u!114 &2591306135782827510
 MonoBehaviour:
@@ -18567,7 +18562,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 0393ca30-f2a9-4865-a40f-f9a68d01c3a9
-  instanceId: f0254a5f-ee6d-43a7-800c-946eca28ee76
+  instanceId: e05c3faf-7fe6-4178-bf89-a1e93bc618a1
   version: 1
 --- !u!114 &4926169802912567821
 MonoBehaviour:
@@ -19553,6 +19548,59 @@ Transform:
   m_Children: []
   m_Father: {fileID: 284775654489221608}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5386062589825493231
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 417545349701556045}
+  - component: {fileID: 1575880055929493583}
+  m_Layer: 0
+  m_Name: Right Hand Grab Availability
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &417545349701556045
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5386062589825493231}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5654098557851826284}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1575880055929493583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5386062589825493231}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f56a7bf8c315e94abb2b75ccabcfe96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  touchHandGrabInteractor: {fileID: 54799816396614033}
+  handGrabInteractor: {fileID: 84658576375256921}
+  distanceHandGrabInteractor: {fileID: 1540102968762145637}
+  OnHandAvailableToGrab:
+    m_PersistentCalls:
+      m_Calls: []
+  OnHandsNotAvailableToGrab:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &5403926972523811082
 GameObject:
   m_ObjectHideFlags: 0
@@ -23496,7 +23544,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 5817f7c0-f2a5-45f9-a5ca-64264e0166e8
-  instanceId: 026c2ad0-4d55-42d6-901f-77a09c76d24e
+  instanceId: b55ba07f-6a18-4a8a-b50c-bc148dfd0b04
   version: 1
 --- !u!114 &6601701461773203778
 MonoBehaviour:
@@ -23803,9 +23851,9 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1075260060617572504}
+  - {fileID: 4697669074074054339}
   - {fileID: 7194031709842824994}
   - {fileID: 6205177836390873198}
-  - {fileID: 4697669074074054339}
   m_Father: {fileID: 8580994348159443414}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &789054397464007183
@@ -24379,6 +24427,81 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2177852750323673800}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6694433495109884622
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3725989950275119526}
+  - component: {fileID: 4516162895658797344}
+  m_Layer: 0
+  m_Name: Left Distance Grab Pose Blocker
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3725989950275119526
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6694433495109884622}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7911522155802901764}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4516162895658797344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6694433495109884622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 747277cef77345d4fb8fa84835874129, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activeStateSelector: {fileID: 3071930831460818153}
+  stateSelectionActive:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6843235393876163804}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  stateSelectionInactive:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6843235393876163804}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!1 &6705471812154184617
 GameObject:
   m_ObjectHideFlags: 0
@@ -26805,7 +26928,6 @@ GameObject:
   - component: {fileID: 8696979240541010521}
   - component: {fileID: 2890074985079623439}
   - component: {fileID: 231880127860889947}
-  - component: {fileID: 3619523749151482745}
   - component: {fileID: 7371576695247285563}
   m_Layer: 0
   m_Name: RightPalmUpSequence
@@ -26868,24 +26990,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _activeStates:
-  - {fileID: 3619523749151482745}
+  - {fileID: 1575880055929493583}
   - {fileID: 7371576695247285563}
   _logicOperator: 0
---- !u!114 &3619523749151482745
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7371576695247285567}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f56a7bf8c315e94abb2b75ccabcfe96, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  touchHandGrabInteractor: {fileID: 54799816396614033}
-  handGrabInteractor: {fileID: 84658576375256921}
-  distanceHandGrabInteractor: {fileID: 1540102968762145637}
 --- !u!114 &7371576695247285563
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27957,7 +28064,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 81f55626-5fad-45e9-a1df-184f330da7ba
-  instanceId: 2522dc5a-e467-4db3-a271-a89c065e0dcb
+  instanceId: f5367863-006c-4cbe-96d5-4fb96106b6c9
   version: 1
 --- !u!114 &6112401889999348692
 MonoBehaviour:
@@ -28525,7 +28632,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 6b67162c-2460-4766-a931-980388647573
-  instanceId: 9666d4c2-f309-4dfb-baf5-a1b3f8e96d71
+  instanceId: b5f991fa-b009-4774-86ea-79bf78b6d410
   version: 1
 --- !u!114 &1647568006094785049
 MonoBehaviour:
@@ -30210,6 +30317,59 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6040085042816768288}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8143264088479097521
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6690837444044373979}
+  - component: {fileID: 702507468199647143}
+  m_Layer: 0
+  m_Name: Left Hand Grab Availability
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6690837444044373979
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8143264088479097521}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5654098557851826284}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &702507468199647143
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8143264088479097521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f56a7bf8c315e94abb2b75ccabcfe96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  touchHandGrabInteractor: {fileID: 6133428604592336891}
+  handGrabInteractor: {fileID: 1689008907358140517}
+  distanceHandGrabInteractor: {fileID: 6843235393876163804}
+  OnHandAvailableToGrab:
+    m_PersistentCalls:
+      m_Calls: []
+  OnHandsNotAvailableToGrab:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &8151837208891406200
 GameObject:
   m_ObjectHideFlags: 0
@@ -31509,7 +31669,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 8b26b298-7bf4-490e-b245-a039c0184303
-  instanceId: 50e3e3ba-7579-45b4-9947-a62d74f5f1c0
+  instanceId: ac10de93-f658-4b06-810b-ccb8e708be12
   version: 1
 --- !u!114 &7335431785716577588
 MonoBehaviour:
@@ -32151,7 +32311,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 316c5b1d-a5e4-49f2-a663-15fd22dbcba9
-  instanceId: 0c2b1823-1bbe-45af-a7ab-6ac14a1a34b6
+  instanceId: e71d6bf8-c495-4733-8e13-fcc5d194ec8e
   version: 1
 --- !u!114 &5631334115237263288
 MonoBehaviour:
@@ -32551,6 +32711,39 @@ MonoBehaviour:
     m_Bits: 1024
   raycastDistance: 3
   raycastRadius: 0.05
+--- !u!1 &8720164346275825004
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7911522155802901764}
+  m_Layer: 0
+  m_Name: Custom Blockers
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7911522155802901764
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8720164346275825004}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 3725989950275119526}
+  - {fileID: 961464592537404918}
+  m_Father: {fileID: 8580994348159443414}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8739172446910083397
 GameObject:
   m_ObjectHideFlags: 0
@@ -32813,6 +33006,39 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2635917509958740435}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8800407119154381934
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5654098557851826284}
+  m_Layer: 0
+  m_Name: Custom States
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5654098557851826284
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8800407119154381934}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 6690837444044373979}
+  - {fileID: 417545349701556045}
+  m_Father: {fileID: 8580994348159443414}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8802222650149745440
 GameObject:
   m_ObjectHideFlags: 0
@@ -32895,7 +33121,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: e47682b9-c270-40b1-b16d-90b627a5ce1b
-  instanceId: 7efeb3af-7cf3-49d7-8590-c0dd87aa475b
+  instanceId: 64bac4e7-9607-485b-adc3-f3a39ca6cc4f
   version: 1
 --- !u!114 &433376283547223316
 MonoBehaviour:
