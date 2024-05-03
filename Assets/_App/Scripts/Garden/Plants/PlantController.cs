@@ -26,6 +26,7 @@ public class PlantController : MonoBehaviour
     public bool IsPlantBaseFullyGrown => Mathf.Abs(_maxGrowth - _basePlantGrowth) < 0.001f;
     public Plants.PlantType Type => _type;
     
+    private const float MAX_PLANT_BLOOM_GROWTH = 1F; 
     private const float MAX_PLANT_CHARGE = 1F; 
     private const float SEED_BLOOM_EMISSIVE_ADDITION = 7F; 
     private const string EMISSIVE_STRENGTH_PROPERTY = "_Emissive_Strength";
@@ -35,6 +36,7 @@ public class PlantController : MonoBehaviour
     private float _currentPlantCharge;
     private float _basePlantGrowth;
     private float _seedBloomPlantGrowth;
+    private float _basePlantBloomGrowth;
     
     private Material _basePlantMaterial;
     private Material _plantBloomMaterial;
@@ -54,7 +56,7 @@ public class PlantController : MonoBehaviour
         get => _seedBloomPlantGrowth;
         set
         {
-            _seedBloomPlantGrowth = Mathf.Clamp01(value);
+            _seedBloomPlantGrowth = Mathf.Clamp(value, _basePlantBloomGrowth, MAX_PLANT_BLOOM_GROWTH);
             _plantBloomMaterial.SetFloat(GROWTH_PROPERTY, _seedBloomPlantGrowth);
         }
     }
@@ -75,6 +77,7 @@ public class PlantController : MonoBehaviour
 
         _basePlantMaterial = meshRenderers[0].materials[0];
         _plantBloomMaterial = meshRenderers[0].materials[1];
+        _basePlantBloomGrowth = _plantBloomMaterial.GetFloat(GROWTH_PROPERTY);
         
         BasePlantGrowth = _minGrowth;
         SeedBloomPlantGrowth = 0;
@@ -108,7 +111,7 @@ public class PlantController : MonoBehaviour
         while (_currentPlantCharge < MAX_PLANT_CHARGE)
         {
             _currentPlantCharge += plantChargeSpeed * Time.deltaTime;
-            SeedBloomPlantGrowth = _currentPlantCharge;
+            SeedBloomPlantGrowth = _currentPlantCharge * (MAX_PLANT_BLOOM_GROWTH - _basePlantBloomGrowth);
             yield return new WaitForEndOfFrame();
         }
         
