@@ -121,6 +121,12 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 7965137792303543692, guid: f714b21331d01814da77594119410784, type: 3}
+--- !u!23 &3483562906435391851 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: f714b21331d01814da77594119410784,
+    type: 3}
+  m_PrefabInstance: {fileID: 2853469757958360559}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5594696596216424053
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -138,6 +144,31 @@ PrefabInstance:
         type: 3}
       propertyPath: Type
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3151093410528320438, guid: 65570d298f0249045bfec0059bb0f7e8,
+        type: 3}
+      propertyPath: _rumble
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3151093410528320438, guid: 65570d298f0249045bfec0059bb0f7e8,
+        type: 3}
+      propertyPath: _emergeSpeed
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3151093410528320438, guid: 65570d298f0249045bfec0059bb0f7e8,
+        type: 3}
+      propertyPath: _rumbleSpeed
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 3151093410528320438, guid: 65570d298f0249045bfec0059bb0f7e8,
+        type: 3}
+      propertyPath: _meshRenderer
+      value: 
+      objectReference: {fileID: 3483562906435391851}
+    - target: {fileID: 3151093410528320438, guid: 65570d298f0249045bfec0059bb0f7e8,
+        type: 3}
+      propertyPath: _rumbleIntensity
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 4045707689745711094, guid: 65570d298f0249045bfec0059bb0f7e8,
         type: 3}

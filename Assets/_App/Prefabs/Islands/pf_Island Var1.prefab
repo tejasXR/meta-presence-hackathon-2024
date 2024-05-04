@@ -87,6 +87,12 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 301569745320527768}
   m_SourcePrefab: {fileID: 100100000, guid: 3a484c7b7ba7e5a4ea9611a0121b284f, type: 3}
+--- !u!23 &774394123151833875 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 3a484c7b7ba7e5a4ea9611a0121b284f,
+    type: 3}
+  m_PrefabInstance: {fileID: 2125319675163174807}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1278968598830963398 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 3a484c7b7ba7e5a4ea9611a0121b284f,
@@ -152,9 +158,34 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3151093410528320438, guid: 65570d298f0249045bfec0059bb0f7e8,
         type: 3}
+      propertyPath: _rumble
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3151093410528320438, guid: 65570d298f0249045bfec0059bb0f7e8,
+        type: 3}
       propertyPath: _meshFilter
       value: 
       objectReference: {fileID: 3268421543835570137}
+    - target: {fileID: 3151093410528320438, guid: 65570d298f0249045bfec0059bb0f7e8,
+        type: 3}
+      propertyPath: _emergeSpeed
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3151093410528320438, guid: 65570d298f0249045bfec0059bb0f7e8,
+        type: 3}
+      propertyPath: _rumbleSpeed
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 3151093410528320438, guid: 65570d298f0249045bfec0059bb0f7e8,
+        type: 3}
+      propertyPath: _meshRenderer
+      value: 
+      objectReference: {fileID: 774394123151833875}
+    - target: {fileID: 3151093410528320438, guid: 65570d298f0249045bfec0059bb0f7e8,
+        type: 3}
+      propertyPath: _rumbleIntensity
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4045707689745711094, guid: 65570d298f0249045bfec0059bb0f7e8,
         type: 3}
       propertyPath: m_Name

@@ -18,6 +18,31 @@ PrefabInstance:
       propertyPath: Type
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 3151093410528320438, guid: 65570d298f0249045bfec0059bb0f7e8,
+        type: 3}
+      propertyPath: _rumble
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3151093410528320438, guid: 65570d298f0249045bfec0059bb0f7e8,
+        type: 3}
+      propertyPath: _emergeSpeed
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3151093410528320438, guid: 65570d298f0249045bfec0059bb0f7e8,
+        type: 3}
+      propertyPath: _rumbleSpeed
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 3151093410528320438, guid: 65570d298f0249045bfec0059bb0f7e8,
+        type: 3}
+      propertyPath: _meshRenderer
+      value: 
+      objectReference: {fileID: 8566929950163479686}
+    - target: {fileID: 3151093410528320438, guid: 65570d298f0249045bfec0059bb0f7e8,
+        type: 3}
+      propertyPath: _rumbleIntensity
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4045707689745711094, guid: 65570d298f0249045bfec0059bb0f7e8,
         type: 3}
       propertyPath: m_Name
@@ -209,3 +234,9 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -1700826452619330939, guid: 2258787acb8cf5442b398a16a000869a, type: 3}
+--- !u!23 &8566929950163479686 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 2258787acb8cf5442b398a16a000869a,
+    type: 3}
+  m_PrefabInstance: {fileID: 6999241191648964610}
+  m_PrefabAsset: {fileID: 0}

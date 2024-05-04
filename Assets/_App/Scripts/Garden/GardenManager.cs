@@ -96,12 +96,15 @@ public class GardenManager : MonoBehaviour
         if (_newPlantQueue.Count > 0)
         {
             Planting planting = _newPlantQueue.Dequeue();
-            SpawnNewPlant(planting.PlantPrefab, island.OriginSpawnPoint.position, planting.PlantSpawnRotation, Vector3.down);
+            island.StartEmerging(() => SpawnNewPlant(planting.PlantPrefab, island.OriginSpawnPoint.position, planting.PlantSpawnRotation, Vector3.down));
         }
         else Debug.LogError($"[{nameof(GardenManager)}] {nameof(OnNewIslandCreated)} Island spawned successfully, but planting queue is empty!");
     }
 
-    public void OnIslandLoaded(IslandData _, IslandController __) { }
+    public void OnIslandLoaded(IslandData _, IslandController island)
+    {
+        island.SetEmerged();
+    }
 
     public void OnNewPlantCreated(PlantData _, PlantController plant)
     {
