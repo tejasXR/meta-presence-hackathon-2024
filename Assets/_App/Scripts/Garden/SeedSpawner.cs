@@ -189,7 +189,6 @@ public class SeedSpawner : MonoBehaviour
 
     private void OnSeedCombined(SeedController seed)
     {
-        _gardenManager.OnSeedCombined(seed);
         _seedPooler.ReturnItem(seed);
     }
 

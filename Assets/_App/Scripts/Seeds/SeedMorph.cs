@@ -25,9 +25,9 @@ public class SeedMorph : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        var interactingBlob = other.GetComponent<SeedController>();
-        if (interactingBlob) 
-            CombineBlobs(interactingBlob);
+        var interactingSeed = other.GetComponent<SeedController>();
+        if (interactingSeed) 
+            CombineBlobs(interactingSeed);
     }
 
     private SeedSizeComparisonEnum CompareSize(SeedController seed)
@@ -67,7 +67,7 @@ public class SeedMorph : MonoBehaviour
             var combinedColor = CombineColors(_seedController.SeedColor, seedToAbsorb.SeedColor);
             _seedController.SetColor(combinedColor);
 
-            _seedController.SeedCombined();
+            seedToAbsorb.SeedCombined();
             return;
         }
     }
