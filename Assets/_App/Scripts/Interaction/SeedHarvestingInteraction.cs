@@ -44,7 +44,7 @@ public class SeedHarvestingInteraction : MonoBehaviour
 
     private void OnPoseActivated(HandPoseActivator handPoseActivator, Transform handPosePoint)
     {
-        if (leftFistPoseActivator.PoseActive && rightFistPoseActivator.PoseActive)
+        if (leftFistPoseActivator.Active && rightFistPoseActivator.Active)
         {
             _detectedPlant = null;
             DetectPlant();

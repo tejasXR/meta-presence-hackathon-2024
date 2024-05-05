@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using Oculus.Interaction;
 using UnityEngine;
 using UnityEngine.Events;
@@ -10,32 +7,34 @@ using UnityEngine.Events;
 /// </summary>
 public class PoseInteractionBlocker : MonoBehaviour
 {
-    [SerializeField] private ActiveStateSelector activeStateSelector;
+    [SerializeField] private HandPoseActivator handPoseActivator;
 
     public UnityEvent stateSelectionActive;
     public UnityEvent stateSelectionInactive;
 
     private void Awake()
     {
-        activeStateSelector.WhenSelected += OnStateSelectorActive;
-        activeStateSelector.WhenUnselected += OnStateSelectorInactive;
+        handPoseActivator.PoseActivated += OnStateSelectorActive;
+        handPoseActivator.PoseDeactivated += OnStateSelectorInactive;
     }
 
     private void OnDestroy()
     {
-        if (activeStateSelector)
+        if (handPoseActivator)
         {
-            activeStateSelector.WhenSelected -= OnStateSelectorActive;
-            activeStateSelector.WhenUnselected -= OnStateSelectorInactive;
+            handPoseActivator.PoseActivated -= OnStateSelectorActive;
+            handPoseActivator.PoseDeactivated -= OnStateSelectorInactive;
         }
     }
+    
+    
 
-    private void OnStateSelectorActive()
+    private void OnStateSelectorActive(HandPoseActivator handPoseActivator, Transform transform1)
     {
         stateSelectionActive?.Invoke();
     }
 
-    private void OnStateSelectorInactive()
+    private void OnStateSelectorInactive(HandPoseActivator handPoseActivator)
     {
         stateSelectionInactive?.Invoke();
     }

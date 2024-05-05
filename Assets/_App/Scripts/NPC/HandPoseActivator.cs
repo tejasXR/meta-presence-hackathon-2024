@@ -2,40 +2,53 @@
 using Oculus.Interaction;
 using UnityEngine;
 
-public class HandPoseActivator: MonoBehaviour
+public class HandPoseActivator: MonoBehaviour, IActiveState
 {
     public event Action<HandPoseActivator, Transform> PoseActivated;
     public event Action<HandPoseActivator> PoseDeactivated;
 
-    [SerializeField] private ActiveStateSelector poseStateSelector;
+    [SerializeField] private ActiveStateSelector[] poseStateSelectors;
     [SerializeField] private Transform posePoint;
     
-    public bool PoseActive { get; private set; }
+    public bool Active { get; private set; }
+
+    private int _activePoses;
     
     private void Awake()
     {
-        poseStateSelector.WhenSelected += ActivatePose;
-        poseStateSelector.WhenUnselected += DeactivatePose;
+        foreach (var activeStateSelector in poseStateSelectors)
+        {
+            activeStateSelector.WhenSelected += ActivatePose;
+            activeStateSelector.WhenUnselected += DeactivatePose;
+        }
     }
 
     private void OnDestroy()
     {
-        if (poseStateSelector)
+        foreach (var activeStateSelector in poseStateSelectors)
         {
-            poseStateSelector.WhenSelected -= ActivatePose;
-            poseStateSelector.WhenUnselected -= DeactivatePose;
+            activeStateSelector.WhenSelected -= ActivatePose;
+            activeStateSelector.WhenUnselected -= DeactivatePose;
         }
     }
 
     private void ActivatePose()
     {
-        PoseActive = true;
-        PoseActivated?.Invoke(this, posePoint);
+        _activePoses++;
+
+        if (_activePoses == poseStateSelectors.Length)
+        {
+            Active = true;
+            PoseActivated?.Invoke(this, posePoint);
+        }
     }
 
     private void DeactivatePose()
     {
-        PoseActive = false;
+        _activePoses--;
+        
+        Active = false;
         PoseDeactivated?.Invoke(this);
     }
+
 }
