@@ -4807,7 +4807,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 316c5b1d-a5e4-49f2-a663-15fd22dbcba9
-  instanceId: a96b0438-fdc4-4170-ad93-1f99243737e8
+  instanceId: 8d6eab7d-d5e4-4302-8c06-466db53f085b
   version: 1
 --- !u!114 &8044682605406657417
 MonoBehaviour:
@@ -9411,7 +9411,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 8b26b298-7bf4-490e-b245-a039c0184303
-  instanceId: d3586168-4cd8-4570-98f3-4514fd91aa07
+  instanceId: 0cdeeef8-3ddb-4818-a9bb-4367ba596ff3
   version: 1
 --- !u!114 &7354074966128072981
 MonoBehaviour:
@@ -10408,7 +10408,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: f0540b20-dfd6-420e-b20d-c270f88dc77e
-  instanceId: adeb6416-718a-4f75-b929-b1cecceb49b6
+  instanceId: 5a0a5ed8-6d3f-4ee6-8953-a9c906202afc
   version: 1
 --- !u!114 &8884395806638410722
 MonoBehaviour:
@@ -16725,7 +16725,6 @@ GameObject:
   - component: {fileID: 2761163441549280518}
   - component: {fileID: 4447982560467255539}
   - component: {fileID: 2976750402765903266}
-  - component: {fileID: 2383225512423656447}
   m_Layer: 0
   m_Name: DistanceHandGrabInteractor
   m_TagString: Untagged
@@ -16860,21 +16859,6 @@ MonoBehaviour:
   _hand: {fileID: 7274880142456962558}
   _bufferLengthSeconds: 0.1
   _sampleFrequency: 90
---- !u!114 &2383225512423656447
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4510628870950949504}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f56a7bf8c315e94abb2b75ccabcfe96, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  touchHandGrabInteractor: {fileID: 0}
-  handGrabInteractor: {fileID: 0}
-  distanceHandGrabInteractor: {fileID: 0}
 --- !u!1 &4511559475867942471
 GameObject:
   m_ObjectHideFlags: 0
@@ -17939,7 +17923,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 5817f7c0-f2a5-45f9-a5ca-64264e0166e8
-  instanceId: c6e15062-5cc4-4388-aff0-658cffe3ac82
+  instanceId: e531a0b7-8c4e-4c8d-8ac9-6991ea3b7aea
   version: 1
 --- !u!114 &246473943236323533
 MonoBehaviour:
@@ -18045,7 +18029,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 6b67162c-2460-4766-a931-980388647573
-  instanceId: 7ae7df63-41df-44eb-85c5-75035af511b8
+  instanceId: 2e1017b3-a63b-47dd-ab6a-d5294ca1a132
   version: 1
 --- !u!114 &2591306135782827510
 MonoBehaviour:
@@ -18652,7 +18636,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 0393ca30-f2a9-4865-a40f-f9a68d01c3a9
-  instanceId: 8c2610d9-94fe-4cea-86c1-cb3005c1592e
+  instanceId: b235b4f2-46f8-41bb-a495-05e56ad83c91
   version: 1
 --- !u!114 &4926169802912567821
 MonoBehaviour:
@@ -23582,7 +23566,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 5817f7c0-f2a5-45f9-a5ca-64264e0166e8
-  instanceId: 4f23b301-2340-49a3-b1c1-5f7a049cdd7f
+  instanceId: 76cc2fd7-ff0c-4002-8f43-5ac958e1c49c
   version: 1
 --- !u!114 &6601701461773203778
 MonoBehaviour:
@@ -28100,7 +28084,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 81f55626-5fad-45e9-a1df-184f330da7ba
-  instanceId: cae7870b-cb0f-4365-bfb5-a6e4e24066ca
+  instanceId: 588b4937-251b-4e6b-b507-fce33b52e2d4
   version: 1
 --- !u!114 &6112401889999348692
 MonoBehaviour:
@@ -28668,7 +28652,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 6b67162c-2460-4766-a931-980388647573
-  instanceId: 7aaaed6b-ad9b-412e-869c-9a2c6f561ab1
+  instanceId: 8a88a34e-ca2f-47c0-88c7-0274a6abcc0a
   version: 1
 --- !u!114 &1647568006094785049
 MonoBehaviour:
@@ -31700,7 +31684,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 8b26b298-7bf4-490e-b245-a039c0184303
-  instanceId: 911f683d-cb4d-49c1-8d77-d30dfe399a84
+  instanceId: 2be61378-3e25-4544-a876-1a498468ecf2
   version: 1
 --- !u!114 &7335431785716577588
 MonoBehaviour:
@@ -32342,7 +32326,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 316c5b1d-a5e4-49f2-a663-15fd22dbcba9
-  instanceId: a6d80e30-444d-476e-8602-3c871f7c0c1b
+  instanceId: ee9f3928-05ff-4c39-a059-c4267a8b551a
   version: 1
 --- !u!114 &5631334115237263288
 MonoBehaviour:
@@ -32735,8 +32719,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4efa2ec318869b64ba9a794ef64740c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leftFistPoseActivator: {fileID: 0}
-  rightFistPoseActivator: {fileID: 0}
+  bothPalmsAwayPoseActivator: {fileID: 1156548025786748142}
   plantMask:
     serializedVersion: 2
     m_Bits: 1024
@@ -33152,7 +33135,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: e47682b9-c270-40b1-b16d-90b627a5ce1b
-  instanceId: 6caf136a-08ca-42c7-b54c-3d9086f2e20a
+  instanceId: 54084de1-4ff8-437a-816d-8b231b6d7ae4
   version: 1
 --- !u!114 &433376283547223316
 MonoBehaviour:

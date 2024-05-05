@@ -3,8 +3,7 @@ using UnityEngine;
 
 public class SeedHarvestingInteraction : MonoBehaviour
 {
-    [SerializeField] private HandPoseActivator leftFistPoseActivator;
-    [SerializeField] private HandPoseActivator rightFistPoseActivator;
+    [SerializeField] private HandPoseActivator bothPalmsAwayPoseActivator;
     [Space]
     [SerializeField] private LayerMask plantMask;
     [SerializeField] private float raycastDistance = 3F;
@@ -18,37 +17,26 @@ public class SeedHarvestingInteraction : MonoBehaviour
 
     private void Awake()
     {
-        leftFistPoseActivator.PoseActivated += OnPoseActivated;
-        rightFistPoseActivator.PoseActivated += OnPoseActivated;
+        bothPalmsAwayPoseActivator.PoseActivated += OnPoseActivated;
         
-        leftFistPoseActivator.PoseDeactivated += OnPoseDeactivated;
-        rightFistPoseActivator.PoseDeactivated += OnPoseDeactivated;
+        bothPalmsAwayPoseActivator.PoseDeactivated += OnPoseDeactivated;
         
         _cameraTransform = Camera.main.transform;
     }
 
     private void OnDestroy()
     {
-        if (leftFistPoseActivator)
+        if (bothPalmsAwayPoseActivator)
         {
-            leftFistPoseActivator.PoseActivated -= OnPoseActivated;
-            leftFistPoseActivator.PoseDeactivated -= OnPoseDeactivated;
-        }
-
-        if (rightFistPoseActivator)
-        {
-            rightFistPoseActivator.PoseActivated -= OnPoseActivated;
-            rightFistPoseActivator.PoseDeactivated -= OnPoseDeactivated;
+            bothPalmsAwayPoseActivator.PoseActivated -= OnPoseActivated;
+            bothPalmsAwayPoseActivator.PoseDeactivated -= OnPoseDeactivated;
         }
     }
 
     private void OnPoseActivated(HandPoseActivator handPoseActivator, Transform handPosePoint)
     {
-        if (leftFistPoseActivator.Active && rightFistPoseActivator.Active)
-        {
-            _detectedPlant = null;
-            DetectPlant();
-        }
+        _detectedPlant = null;
+        DetectPlant();
     }
 
     private void OnPoseDeactivated(HandPoseActivator handPoseActivator)
