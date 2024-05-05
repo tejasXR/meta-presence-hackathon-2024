@@ -24,6 +24,7 @@ public class SeedController : MonoBehaviour
     public UnityEvent<SeedController> OnSeedFlung;
     public UnityEvent<SeedController, Vector3> OnSeedPoppedOnTheCeiling;
     public UnityEvent<SeedController, Vector3, Vector3> OnSeedPoppedOnAnIsland;
+    public UnityEvent<SeedController> OnSeedCombined;
 
     public Color SeedColor
     {
@@ -215,6 +216,12 @@ public class SeedController : MonoBehaviour
         {
             go.SetActive(!isValid);
         }
+    }
+
+    public void SeedCombined()
+    {
+        OnSeedCombined?.Invoke(this);
+        Pop();
     }
 
     private void Pop()

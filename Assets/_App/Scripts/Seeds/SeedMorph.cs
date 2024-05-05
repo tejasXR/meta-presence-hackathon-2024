@@ -66,8 +66,8 @@ public class SeedMorph : MonoBehaviour
             // CHANGE COLOR
             var combinedColor = CombineColors(_seedController.SeedColor, seedToAbsorb.SeedColor);
             _seedController.SetColor(combinedColor);
-        
-            Destroy(seedToAbsorb.gameObject);
+
+            _seedController.SeedCombined();
             return;
         }
     }

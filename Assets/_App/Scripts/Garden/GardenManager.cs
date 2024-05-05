@@ -91,6 +91,14 @@ public class GardenManager : MonoBehaviour
         else Debug.LogError($"[{nameof(GardenManager)}] {nameof(OnSeedPoppedOnIsland)}: but something went wrong.");
     }
 
+    public void OnSeedCombined(SeedController seed)
+    {
+        if (_plantingMap.TryGetValue(seed.Uuid, out Planting planting) && planting.IsValid)
+        {
+            _plantingMap.Remove(seed.Uuid);
+        }
+    }
+
     public void OnNewIslandCreated(IslandData _, IslandController island)
     {
         if (_newPlantQueue.Count > 0)

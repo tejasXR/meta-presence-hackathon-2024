@@ -98,6 +98,10 @@ public class SeedSpawner : MonoBehaviour
         foreach (var tupleVector3Quaternion in getSpawnPositions)
         {
             var pooledSeed = _seedPooler.BorrowItem();
+            
+            if (!pooledSeed.gameObject.activeSelf)
+                pooledSeed.gameObject.SetActive(true);
+            
             pooledSeed.transform.SetParent(transform);
             pooledSeed.transform.position = tupleVector3Quaternion.Item1;
         }
@@ -152,6 +156,7 @@ public class SeedSpawner : MonoBehaviour
     {
         SeedController seed = Instantiate(seedPrefab);
         seed.OnSeedFlung.AddListener(OnSeedFlung);
+        seed.OnSeedCombined.AddListener(OnSeedCombined);
         seed.OnSeedPoppedOnTheCeiling.AddListener(OnSeedPoppedOnTheCeiling);
         seed.OnSeedPoppedOnAnIsland.AddListener(OnSeedPoppedOnAnIsland);
         return seed;
@@ -179,6 +184,12 @@ public class SeedSpawner : MonoBehaviour
     private void OnSeedPoppedOnAnIsland(SeedController seed, Vector3 position, Vector3 normal)
     {
         _gardenManager.OnSeedPoppedOnIsland(seed, position, normal);
+        _seedPooler.ReturnItem(seed);
+    }
+
+    private void OnSeedCombined(SeedController seed)
+    {
+        _gardenManager.OnSeedCombined(seed);
         _seedPooler.ReturnItem(seed);
     }
 
