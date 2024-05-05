@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -60,6 +59,8 @@ public class PlantController : MonoBehaviour
             _plantBloomMaterial.SetFloat(GROWTH_PROPERTY, _seedBloomPlantGrowth);
         }
     }
+    
+    public Guid SpatialAnchorUuid { get; private set; }
 
     private void Awake()
     {
@@ -80,7 +81,6 @@ public class PlantController : MonoBehaviour
         _basePlantBloomGrowth = _plantBloomMaterial.GetFloat(GROWTH_PROPERTY);
         
         BasePlantGrowth = _minGrowth;
-        SeedBloomPlantGrowth = 0;
     }
 
     public void StartGrowing() => ResumeGrowing(_minGrowth, null);
@@ -111,7 +111,7 @@ public class PlantController : MonoBehaviour
         while (_currentPlantCharge < MAX_PLANT_CHARGE)
         {
             _currentPlantCharge += plantChargeSpeed * Time.deltaTime;
-            SeedBloomPlantGrowth = _currentPlantCharge * (MAX_PLANT_BLOOM_GROWTH - _basePlantBloomGrowth);
+            SeedBloomPlantGrowth = _basePlantBloomGrowth + _currentPlantCharge * (MAX_PLANT_BLOOM_GROWTH - _basePlantBloomGrowth);
             yield return new WaitForEndOfFrame();
         }
         
@@ -127,9 +127,16 @@ public class PlantController : MonoBehaviour
         while (_currentPlantCharge > 0)
         {
             _currentPlantCharge -= plantCancelChargeSpeed * Time.deltaTime;
-            SeedBloomPlantGrowth = _currentPlantCharge;
+            SeedBloomPlantGrowth = _basePlantBloomGrowth + _currentPlantCharge * (MAX_PLANT_BLOOM_GROWTH - _basePlantBloomGrowth);
             yield return new WaitForEndOfFrame();
         }
+
+        _currentPlantCharge = 0;
+    }
+
+    public void SetSpatialAnchorId(Guid uuid)
+    {
+        SpatialAnchorUuid = uuid;
     }
 
     private IEnumerator TriggerSeedSpawning()

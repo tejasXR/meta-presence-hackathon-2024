@@ -128,6 +128,11 @@ public class GardenPersistenceManager : MonoBehaviour
         }
     }
 
+    public void DestroyPlant(Guid uuid)
+    {
+        _spatialAnchorCore.EraseAnchorByUuid(uuid);
+    }
+
     #region Spatial Anchor Core Building Block Events
 
     public void OnAchorCreateCompleted(OVRSpatialAnchor anchor, OVRSpatialAnchor.OperationResult result)

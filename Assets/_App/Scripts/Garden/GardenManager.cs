@@ -106,21 +106,23 @@ public class GardenManager : MonoBehaviour
         island.SetEmerged();
     }
 
-    public void OnNewPlantCreated(PlantData _, PlantController plant)
+    public void OnNewPlantCreated(PlantData plantData, PlantController plant)
     {
-        plant.SeedSpawningTriggered.AddListener(OnPlantFullyGrown);
+        plant.SeedSpawningTriggered.AddListener(OnPlantHarvested);
         plant.StartGrowing();
+        plant.SetSpatialAnchorId(plantData.Uuid);
     }
 
     public void OnPlantLoaded(PlantData data, PlantController plant)
     {
-        plant.SeedSpawningTriggered.AddListener(OnPlantFullyGrown);
+        plant.SeedSpawningTriggered.AddListener(OnPlantHarvested);
         plant.ResumeGrowing(data.Growth, _persistenceManager.TimeSinceLastGardenVisit);
     }
 
-    private void OnPlantFullyGrown(PlantController plant)
+    private void OnPlantHarvested(PlantController plant)
     {
         _seedSpawner.SpawnFullyGrownPlantSeeds(plant.MinLoot, plant.LootSpawnPointsRoot);
+        _persistenceManager.DestroyPlant(plant.SpatialAnchorUuid);
     }
 
     private Tuple<Vector3, Quaternion> GetValidPlantSpawnPoint(GameObject plantPrefab)
