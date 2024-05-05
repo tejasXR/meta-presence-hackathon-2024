@@ -48,7 +48,7 @@ public class SeedController : MonoBehaviour
     }
 
   
-    public Vector3 Size => _destinationScale;
+    public Vector3 Size => transform.lossyScale;
     public bool IsAboutToBeAbsorbed { get; private set; }
 
     private const float SCALE_TRANSITION_SPEED = 4F;
