@@ -17,7 +17,6 @@ public class FlingDetector : MonoBehaviour
     void Start()
     {
         _rigidbody = GetComponent<Rigidbody>();
-        
         _flingDirection = _flingDirection.normalized;
     }
 

@@ -18,7 +18,6 @@ public class SeedHarvestingInteraction : MonoBehaviour
     private void Awake()
     {
         bothPalmsAwayPoseActivator.PoseActivated += OnPoseActivated;
-        
         bothPalmsAwayPoseActivator.PoseDeactivated += OnPoseDeactivated;
         
         _cameraTransform = Camera.main.transform;

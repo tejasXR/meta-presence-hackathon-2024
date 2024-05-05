@@ -11,9 +11,7 @@ public class PoseInteractionBlocker : MonoBehaviour
 
     public UnityEvent stateSelectionActive;
     public UnityEvent stateSelectionInactive;
-
-    private int _poseBlockers;
-
+    
     private void Awake()
     {
         activeStateSelector.WhenSelected += OnStateSelectorActive;
