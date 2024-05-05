@@ -7,34 +7,31 @@ using UnityEngine.Events;
 /// </summary>
 public class PoseInteractionBlocker : MonoBehaviour
 {
-    [SerializeField] private HandPoseActivator handPoseActivator;
+    [SerializeField] private ActiveStateSelector activeStateSelector;
 
     public UnityEvent stateSelectionActive;
     public UnityEvent stateSelectionInactive;
 
+    private int _poseBlockers;
+
     private void Awake()
     {
-        handPoseActivator.PoseActivated += OnStateSelectorActive;
-        handPoseActivator.PoseDeactivated += OnStateSelectorInactive;
+        activeStateSelector.WhenSelected += OnStateSelectorActive;
+        activeStateSelector.WhenUnselected += OnStateSelectorInactive;
     }
 
     private void OnDestroy()
     {
-        if (handPoseActivator)
-        {
-            handPoseActivator.PoseActivated -= OnStateSelectorActive;
-            handPoseActivator.PoseDeactivated -= OnStateSelectorInactive;
-        }
+        activeStateSelector.WhenSelected -= OnStateSelectorActive;
+        activeStateSelector.WhenUnselected -= OnStateSelectorInactive;
     }
-    
-    
 
-    private void OnStateSelectorActive(HandPoseActivator handPoseActivator, Transform transform1)
+    private void OnStateSelectorActive()
     {
         stateSelectionActive?.Invoke();
     }
 
-    private void OnStateSelectorInactive(HandPoseActivator handPoseActivator)
+    private void OnStateSelectorInactive()
     {
         stateSelectionInactive?.Invoke();
     }
