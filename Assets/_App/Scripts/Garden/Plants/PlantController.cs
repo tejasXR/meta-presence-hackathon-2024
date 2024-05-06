@@ -156,10 +156,10 @@ public class PlantController : MonoBehaviour
         
         SeedSpawningTriggered?.Invoke(this);
         _plantReadyVfx.StopParticles();
+
+        SeedBloomPlantGrowth = _basePlantBloomGrowth;
         
-        // TEJAS: As a placeholder function, we deactivate this object
-        // TODO: We need to properly destroy the anchor via GardenPersistenceManager.cs
-        gameObject.SetActive(false);
+        // TODO: put in a cooldown timer for plants producing seeds 
     }
 
     private void StartGrowthCoroutine(ref Coroutine coroutine)

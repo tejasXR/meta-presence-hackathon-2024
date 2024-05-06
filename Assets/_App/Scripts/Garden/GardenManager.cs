@@ -130,7 +130,6 @@ public class GardenManager : MonoBehaviour
     private void OnPlantHarvested(PlantController plant)
     {
         _seedSpawner.SpawnFullyGrownPlantSeeds(plant.MinLoot, plant.LootSpawnPointsRoot);
-        _persistenceManager.DestroyPlant(plant.SpatialAnchorUuid);
     }
 
     private Tuple<Vector3, Quaternion> GetValidPlantSpawnPoint(GameObject plantPrefab)
