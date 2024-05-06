@@ -61,7 +61,7 @@ public class SeedController : MonoBehaviour
 
     private const float SCALE_TRANSITION_SPEED = 4F;
     private const float COLOR_TRANSITION_SEED = 3F;
-    private const float DISSOLVE_TRANSITION_SEED = 3F;
+    private const float DISSOLVE_TRANSITION_SEED = .5F;
     
     private const string BASE_COLOR_PROPERTY = "_BaseColor";
     private const string MAIN_GLOW_PROPERTY = "_MainGlow";
