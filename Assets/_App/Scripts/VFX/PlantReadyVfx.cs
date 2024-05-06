@@ -51,6 +51,7 @@ public class PlantReadyVfx : MonoBehaviour
 
     private void OnPlantGlowing()
     {
+        plantReadyParticles.Stop();
         seedFormingParticles.Play();
     }
 
