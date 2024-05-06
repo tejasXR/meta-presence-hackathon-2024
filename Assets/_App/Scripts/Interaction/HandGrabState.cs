@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class HandGrabState : MonoBehaviour, IActiveState
 {
+    public event Action GrabbingActive;
+    public event Action GrabbingDeactived;
+    
     [SerializeField] private TouchHandGrabInteractor touchHandGrabInteractor;
     [SerializeField] private HandGrabInteractor handGrabInteractor;
     [SerializeField] private DistanceHandGrabInteractor distanceHandGrabInteractor;
@@ -51,7 +54,7 @@ public class HandGrabState : MonoBehaviour, IActiveState
     
     private void RegisterGrab()
     {
-        // OnHandsNotAvailableToGrab?.Invoke();
+        GrabbingActive?.Invoke();
         Active = true;
     }
 
@@ -60,9 +63,7 @@ public class HandGrabState : MonoBehaviour, IActiveState
         if (touchHandGrabInteractor.HasInteractable | distanceHandGrabInteractor.HasInteractable | handGrabInteractor.HasInteractable)
             return;
         
-        // OnHandAvailableToGrab?.Invoke();
+        GrabbingDeactived?.Invoke();
         Active = false;
     }
-
-
 }
