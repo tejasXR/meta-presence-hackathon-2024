@@ -469,7 +469,7 @@ MonoBehaviour:
   _modeChange: 2
   _gazingPositionThreshold: 0.01
   _gazingTimeThreshold: 5
-  _gazingTransitionDuration: 5
+  _gazingTransitionDuration: 3
   _buildingTransitionDuration: 1
   _plantsGrowthFrequency: 0.01
   _awayPlantsGrowthSpeed: 0.25
