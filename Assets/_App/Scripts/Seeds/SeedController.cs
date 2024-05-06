@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -35,6 +36,12 @@ public class SeedController : MonoBehaviour
             _seedMaterial.SetColor(MAIN_GLOW_PROPERTY, value);
         } 
     }
+
+    public float SeedDissolve
+    {
+        get => _seedMaterial.GetFloat(DISSOLVE_LEVEL_PROPERTY);
+        set => _seedMaterial.SetFloat(DISSOLVE_LEVEL_PROPERTY, value);
+    }
     
     public Guid Uuid
     {
@@ -54,6 +61,7 @@ public class SeedController : MonoBehaviour
 
     private const float SCALE_TRANSITION_SPEED = 4F;
     private const float COLOR_TRANSITION_SEED = 3F;
+    private const float DISSOLVE_TRANSITION_SEED = 3F;
     
     private const string BASE_COLOR_PROPERTY = "_BaseColor";
     private const string MAIN_GLOW_PROPERTY = "_MainGlow";
@@ -80,6 +88,7 @@ public class SeedController : MonoBehaviour
         _seedMaterial = meshRenderer.material;
 
         ConfigureVariation();
+        StartCoroutine(Dissolve(true));
         
         _destinationScale = transform.localScale;
         _destinationColor = SeedColor;
@@ -233,6 +242,32 @@ public class SeedController : MonoBehaviour
     }
 
     private void Reset() => SetTargetDestination(Vector3.negativeInfinity);
+
+    private IEnumerator Dissolve(bool dissolveIn)
+    {
+        SeedDissolve = dissolveIn ? 1 : 0;
+
+        if (dissolveIn)
+        {
+            while (SeedDissolve > 0)
+            {
+                SeedDissolve -= Time.deltaTime * DISSOLVE_TRANSITION_SEED;
+                yield return new WaitForEndOfFrame();
+            }
+            
+            SeedDissolve = 0;
+        }
+        else
+        {
+            while (SeedDissolve < 1)
+            {
+                SeedDissolve += Time.deltaTime * DISSOLVE_TRANSITION_SEED;
+                yield return new WaitForEndOfFrame();
+            }
+            
+            SeedDissolve = 1;
+        }
+    }
 
 #if UNITY_EDITOR
     private void OnDrawGizmos()
