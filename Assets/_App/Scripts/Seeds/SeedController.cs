@@ -96,6 +96,7 @@ public class SeedController : MonoBehaviour
     private void OnEnable()
     {
         StartCoroutine(Dissolve(true));
+        StartCoroutine(ResetTrailRendererDistance());
     }
 
     private void Update()
@@ -271,6 +272,13 @@ public class SeedController : MonoBehaviour
             
             SeedDissolve = 1;
         }
+    }
+
+    private IEnumerator ResetTrailRendererDistance()
+    {
+        trailRenderer.enabled = false;
+        yield return new WaitForFixedUpdate();
+        trailRenderer.enabled = true;
     }
 
 #if UNITY_EDITOR
