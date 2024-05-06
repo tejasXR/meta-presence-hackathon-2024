@@ -47,6 +47,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37c8f752ca5f1c041b73012536076eb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _waterVfx: {fileID: 6712117586951820367}
+  _deepWaterColorGazingMode: {r: 0, g: 0, b: 0, a: 1}
+  _deepWaterColorBuildingMode: {r: 0.6784314, g: 0.6784314, b: 0.6784314, a: 0.48235294}
   _dustVfx: {fileID: 3858211321072118089}
   _particlesPerSquareMeter: 150
 --- !u!1 &3530521165071263626
@@ -268,6 +271,12 @@ PrefabInstance:
 --- !u!4 &1565806484237639422 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8907331552394519663, guid: 7de24e00bb0932f498277507f58d1f00,
+    type: 3}
+  m_PrefabInstance: {fileID: 7937575003454077585}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &6712117586951820367 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 3675453014502289118, guid: 7de24e00bb0932f498277507f58d1f00,
     type: 3}
   m_PrefabInstance: {fileID: 7937575003454077585}
   m_PrefabAsset: {fileID: 0}

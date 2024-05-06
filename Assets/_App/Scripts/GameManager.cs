@@ -44,6 +44,9 @@ public class GameManager : Singleton<GameManager>
 
     public float AwayPlantsGrowthSpeed => _awayPlantsGrowthSpeed;
 
+    public float GazingTransitionDuration => _gazingTransitionDuration;
+    public float BuildingTransitionDuration => _buildingTransitionDuration;
+
     private Transform _cameraTransform;
     private Vector3 _lastCameraPosition, _lastLeftHandPosition, _lastRightHandPosition;
     private float _gazingTimer = 0f;
