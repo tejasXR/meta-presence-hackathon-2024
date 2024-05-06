@@ -20,7 +20,11 @@ public class PlantController : MonoBehaviour
     public Transform LootSpawnPointsRoot;
 
     [Space]
+    public UnityEvent PlantReadyToBeHarvested;
+    public UnityEvent PlantChargingUp;
+    public UnityEvent PlantChargingDown;
     public UnityEvent<PlantController> SeedSpawningTriggered;
+    public UnityEvent PlantGlowingBeforeSeedSpawn;
 
     public bool IsPlantBaseFullyGrown => Mathf.Abs(_maxGrowth - _basePlantGrowth) < 0.001f;
     public Plants.PlantType Type => _type;
@@ -108,7 +112,7 @@ public class PlantController : MonoBehaviour
         if (!IsPlantBaseFullyGrown)
             yield break;
         
-        _plantReadyVfx.HoverState();
+        PlantChargingUp?.Invoke();
         
         while (_currentPlantCharge < MAX_PLANT_CHARGE)
         {
@@ -126,7 +130,7 @@ public class PlantController : MonoBehaviour
         if (Math.Abs(_currentPlantCharge - MAX_PLANT_CHARGE) < .001F)
             yield break;
         
-        _plantReadyVfx.DefaultState();
+        PlantChargingDown?.Invoke();
         
         while (_currentPlantCharge > 0)
         {
@@ -145,6 +149,8 @@ public class PlantController : MonoBehaviour
 
     private IEnumerator TriggerSeedSpawning()
     {
+        PlantGlowingBeforeSeedSpawn?.Invoke();
+        
         var seedBloomMaterialEmission = _plantBloomMaterial.GetFloat(EMISSIVE_STRENGTH_PROPERTY);
         var seedBloomDestinationEmission = seedBloomMaterialEmission + SEED_BLOOM_EMISSIVE_ADDITION;
         while (seedBloomMaterialEmission < seedBloomDestinationEmission)
@@ -155,7 +161,6 @@ public class PlantController : MonoBehaviour
         }
         
         SeedSpawningTriggered?.Invoke(this);
-        _plantReadyVfx.StopParticles();
 
         SeedBloomPlantGrowth = _basePlantBloomGrowth;
         
@@ -181,7 +186,7 @@ public class PlantController : MonoBehaviour
 
         // Fully grown
         BasePlantGrowth = _maxGrowth;
-        _plantReadyVfx.StartParticles();
+        PlantReadyToBeHarvested?.Invoke();
     }
 
 #if UNITY_EDITOR
