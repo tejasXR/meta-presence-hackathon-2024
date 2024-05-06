@@ -5,6 +5,7 @@ public class NpcController : MonoBehaviour
 {
     [SerializeField] private NpcOptionsMenu optionsMenu;
     [SerializeField] private float moveSpeed;
+    [SerializeField] private ParticleSystem npcParticles;
 
     public enum MovementTypeEnum
     {
@@ -53,6 +54,8 @@ public class NpcController : MonoBehaviour
         _destinationTransform = destPoint;
         _movementType = movementType;
         
+        npcParticles.Play();
+        
         optionsMenu.Hide();
     }
 
@@ -60,6 +63,8 @@ public class NpcController : MonoBehaviour
     {
         _shouldMove = false;
         _movementType = MovementTypeEnum.Idle;
+        
+        npcParticles.Stop();
         
         if (hideDialogueOptions)
             optionsMenu.Hide();

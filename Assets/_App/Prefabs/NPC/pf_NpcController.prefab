@@ -97,6 +97,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   optionsMenu: {fileID: 2387753556014954764}
   moveSpeed: 4
+  npcParticles: {fileID: 7584119723241451101}
 --- !u!1 &9133952702033646156
 GameObject:
   m_ObjectHideFlags: 0
@@ -150,12 +151,12 @@ PrefabInstance:
     - target: {fileID: 6099056024364331440, guid: 92402e4e35118d146b1bc734ba2a85c7,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.0083
       objectReference: {fileID: 0}
     - target: {fileID: 6099056024364331440, guid: 92402e4e35118d146b1bc734ba2a85c7,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.0032
       objectReference: {fileID: 0}
     - target: {fileID: 6099056024364331440, guid: 92402e4e35118d146b1bc734ba2a85c7,
         type: 3}
@@ -200,6 +201,12 @@ PrefabInstance:
 --- !u!4 &6066377059355261443 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6099056024364331440, guid: 92402e4e35118d146b1bc734ba2a85c7,
+    type: 3}
+  m_PrefabInstance: {fileID: 41705475510881203}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &7584119723241451101 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 7625753449544869358, guid: 92402e4e35118d146b1bc734ba2a85c7,
     type: 3}
   m_PrefabInstance: {fileID: 41705475510881203}
   m_PrefabAsset: {fileID: 0}
