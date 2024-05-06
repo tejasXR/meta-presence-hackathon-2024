@@ -96,6 +96,7 @@ Transform:
   - {fileID: 4723375868237468223}
   - {fileID: 9076537883135750835}
   - {fileID: 617633737822801348}
+  - {fileID: 9040519810086770957}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &9654764580692362
@@ -120,7 +121,19 @@ MonoBehaviour:
   _seedBloomEmissionTransitionSpeed: 7
   MinLoot: 1
   LootSpawnPointsRoot: {fileID: 9076537883135750835}
+  PlantReadyToBeHarvested:
+    m_PersistentCalls:
+      m_Calls: []
+  PlantChargingUp:
+    m_PersistentCalls:
+      m_Calls: []
+  PlantChargingDown:
+    m_PersistentCalls:
+      m_Calls: []
   SeedSpawningTriggered:
+    m_PersistentCalls:
+      m_Calls: []
+  PlantGlowingBeforeSeedSpawn:
     m_PersistentCalls:
       m_Calls: []
 --- !u!54 &627597244706163318
@@ -268,3 +281,77 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ef502b74c40f6a40a5d67152943b32a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &4676666018204441640
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 8241301067917369585}
+    m_Modifications:
+    - target: {fileID: 4436250320182297893, guid: fd7e9b477b8121d42966d7d09da71308,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4436250320182297893, guid: fd7e9b477b8121d42966d7d09da71308,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4436250320182297893, guid: fd7e9b477b8121d42966d7d09da71308,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4436250320182297893, guid: fd7e9b477b8121d42966d7d09da71308,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4436250320182297893, guid: fd7e9b477b8121d42966d7d09da71308,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4436250320182297893, guid: fd7e9b477b8121d42966d7d09da71308,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4436250320182297893, guid: fd7e9b477b8121d42966d7d09da71308,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4436250320182297893, guid: fd7e9b477b8121d42966d7d09da71308,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4436250320182297893, guid: fd7e9b477b8121d42966d7d09da71308,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4436250320182297893, guid: fd7e9b477b8121d42966d7d09da71308,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8329304309902006496, guid: fd7e9b477b8121d42966d7d09da71308,
+        type: 3}
+      propertyPath: m_Name
+      value: Seed Forming VFX
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: fd7e9b477b8121d42966d7d09da71308, type: 3}
+--- !u!4 &9040519810086770957 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4436250320182297893, guid: fd7e9b477b8121d42966d7d09da71308,
+    type: 3}
+  m_PrefabInstance: {fileID: 4676666018204441640}
+  m_PrefabAsset: {fileID: 0}
