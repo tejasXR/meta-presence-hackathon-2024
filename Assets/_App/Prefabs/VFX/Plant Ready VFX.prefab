@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 25669825278652211}
+  - component: {fileID: 1654844588219298085}
   - component: {fileID: 2823260954195465387}
   - component: {fileID: 8222276464151403046}
   m_Layer: 0
@@ -33,6 +34,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!114 &1654844588219298085
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1120054543312646972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ef502b74c40f6a40a5d67152943b32a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  plantReadyParticles: {fileID: 2823260954195465387}
+  defaultColor: {r: 0.5176471, g: 0.18039216, b: 0.9803922, a: 1}
+  hoverColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!198 &2823260954195465387
 ParticleSystem:
   m_ObjectHideFlags: 0

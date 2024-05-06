@@ -114,7 +114,7 @@ MonoBehaviour:
   _lifeSpan: 60
   _minGrowth: 0
   _maxGrowth: 1
-  _plantFullyGrownParticles: {fileID: 3451807819498174044}
+  _plantReadyVfx: {fileID: 2179254516822463442}
   plantChargeSpeed: 0.1
   plantCancelChargeSpeed: 0.5
   _seedBloomEmissionTransitionSpeed: 7
@@ -123,7 +123,6 @@ MonoBehaviour:
   SeedSpawningTriggered:
     m_PersistentCalls:
       m_Calls: []
-  TimeInSeconds: 120
 --- !u!54 &627597244706163318
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -257,9 +256,15 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 633164823031948023}
   m_PrefabAsset: {fileID: 0}
---- !u!198 &3451807819498174044 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 2823260954195465387, guid: b82fd911b5f492d40ae152f86248ec52,
+--- !u!114 &2179254516822463442 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1654844588219298085, guid: b82fd911b5f492d40ae152f86248ec52,
     type: 3}
   m_PrefabInstance: {fileID: 633164823031948023}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ef502b74c40f6a40a5d67152943b32a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

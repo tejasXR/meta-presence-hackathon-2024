@@ -11,7 +11,7 @@ public class PlantController : MonoBehaviour
     [Range(0f, 1f)] [SerializeField] private float _maxGrowth = 1f;
     [Space] 
  
-    [SerializeField] private ParticleSystem _plantFullyGrownParticles;
+    [SerializeField] private PlantReadyVfx _plantReadyVfx;
     [Range(0F, 2F)] [SerializeField] private float plantChargeSpeed = .1F;
     [Range(0F, 2F)] [SerializeField] private float plantCancelChargeSpeed = .5F;
     [SerializeField] private float _seedBloomEmissionTransitionSpeed = 1.5F;
@@ -108,6 +108,8 @@ public class PlantController : MonoBehaviour
         if (!IsPlantBaseFullyGrown)
             yield break;
         
+        _plantReadyVfx.HoverState();
+        
         while (_currentPlantCharge < MAX_PLANT_CHARGE)
         {
             _currentPlantCharge += plantChargeSpeed * Time.deltaTime;
@@ -123,6 +125,8 @@ public class PlantController : MonoBehaviour
     {
         if (Math.Abs(_currentPlantCharge - MAX_PLANT_CHARGE) < .001F)
             yield break;
+        
+        _plantReadyVfx.DefaultState();
         
         while (_currentPlantCharge > 0)
         {
@@ -151,7 +155,7 @@ public class PlantController : MonoBehaviour
         }
         
         SeedSpawningTriggered?.Invoke(this);
-        _plantFullyGrownParticles.Stop();
+        _plantReadyVfx.StopParticles();
         
         // TEJAS: As a placeholder function, we deactivate this object
         // TODO: We need to properly destroy the anchor via GardenPersistenceManager.cs
@@ -177,9 +181,7 @@ public class PlantController : MonoBehaviour
 
         // Fully grown
         BasePlantGrowth = _maxGrowth;
-        
-        if (!_plantFullyGrownParticles.isPlaying)
-            _plantFullyGrownParticles.Play();
+        _plantReadyVfx.StartParticles();
     }
 
 #if UNITY_EDITOR
