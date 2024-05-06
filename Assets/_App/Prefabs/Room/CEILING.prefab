@@ -200,6 +200,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: CEILING_WaterVfx
       objectReference: {fileID: 0}
+    - target: {fileID: 5491928511052838040, guid: 7de24e00bb0932f498277507f58d1f00,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8150503186179318538, guid: 7de24e00bb0932f498277507f58d1f00,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 8907331552394519663, guid: 7de24e00bb0932f498277507f58d1f00,
         type: 3}
       propertyPath: m_LocalPosition.x
