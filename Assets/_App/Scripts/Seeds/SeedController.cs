@@ -88,10 +88,14 @@ public class SeedController : MonoBehaviour
         _seedMaterial = meshRenderer.material;
 
         ConfigureVariation();
-        StartCoroutine(Dissolve(true));
         
         _destinationScale = transform.localScale;
         _destinationColor = SeedColor;
+    }
+
+    private void OnEnable()
+    {
+        StartCoroutine(Dissolve(true));
     }
 
     private void Update()
