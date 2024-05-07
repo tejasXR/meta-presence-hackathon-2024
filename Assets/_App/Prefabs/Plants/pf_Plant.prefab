@@ -49,7 +49,7 @@ MonoBehaviour:
   plantReadyParticles: {fileID: 3451807819498174044}
   seedFormingParticles: {fileID: 8900007791127459173}
   defaultColor: {r: 0.5176471, g: 0.18039216, b: 0.98039216, a: 1}
-  hoverColor: {r: 1, g: 1, b: 1, a: 1}
+  hoverColor: {r: 1, g: 0.3820755, b: 0.9442656, a: 1}
 --- !u!1 &1583229380098009780
 GameObject:
   m_ObjectHideFlags: 0
@@ -165,9 +165,9 @@ MonoBehaviour:
   _minGrowth: 0
   _maxGrowth: 1
   _plantReadyVfx: {fileID: 0}
-  plantChargeSpeed: 0.1
+  plantChargeSpeed: 0.5
   plantCancelChargeSpeed: 0.5
-  _seedBloomEmissionTransitionSpeed: 3
+  _seedBloomEmissionTransitionSpeed: 2
   MinLoot: 1
   LootSpawnPointsRoot: {fileID: 9076537883135750835}
   PlantReadyToBeHarvested:
