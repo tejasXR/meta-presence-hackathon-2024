@@ -132,6 +132,10 @@ public class SeedSpawner : MonoBehaviour
         foreach (Transform selectedTransform in randomSpawnPoints)
         {
             var pooledSeed = _seedPooler.BorrowItem();
+            
+            if (!pooledSeed.gameObject.activeSelf)
+                pooledSeed.gameObject.SetActive(true);
+            
             pooledSeed.transform.SetParent(transform);
             pooledSeed.transform.position = selectedTransform.position;
         }
