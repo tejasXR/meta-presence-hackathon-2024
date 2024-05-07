@@ -42,11 +42,13 @@ public class PlantReadyVfx : MonoBehaviour
     private void OnPlantDefault()
     {
         ChangePlantReadyParticlesStartColor(defaultColor);
+        seedFormingParticles.Stop();
     }
     
     private void OnPlantCharging()
     {
         ChangePlantReadyParticlesStartColor(hoverColor);
+        seedFormingParticles.Play();
     }
 
     private void OnPlantGlowing()
