@@ -9,6 +9,7 @@ public class PlantController : MonoBehaviour
     [SerializeField] private float _lifeSpan = 5f;
     [Range(0f, 1f)] [SerializeField] private float _minGrowth = 0f;
     [Range(0f, 1f)] [SerializeField] private float _maxGrowth = 1f;
+    [Range(0f, 1f)] [SerializeField] private float _plantHarvestCooldownSeconds = 60f;
     [Space] 
  
     [SerializeField] private PlantReadyVfx _plantReadyVfx;
@@ -43,6 +44,8 @@ public class PlantController : MonoBehaviour
     
     private Material _basePlantMaterial;
     private Material _plantBloomMaterial;
+
+    private bool _harvestCooldownActive;
     
     public float BasePlantGrowth
     {
@@ -112,6 +115,9 @@ public class PlantController : MonoBehaviour
         if (!IsPlantBaseFullyGrown)
             yield break;
         
+        if (_harvestCooldownActive)
+            yield break;
+        
         PlantChargingUp?.Invoke();
         
         while (_currentPlantCharge < MAX_PLANT_CHARGE)
@@ -163,8 +169,22 @@ public class PlantController : MonoBehaviour
         SeedSpawningTriggered?.Invoke(this);
 
         SeedBloomPlantGrowth = _basePlantBloomGrowth;
-        
-        // TODO: put in a cooldown timer for plants producing seeds 
+
+        StartCoroutine(TriggerPlantHarvestCooldown());
+    }
+
+    private IEnumerator TriggerPlantHarvestCooldown()
+    {
+        _harvestCooldownActive = true;
+        var coolDownTimer = _plantHarvestCooldownSeconds;
+        while (coolDownTimer > 0)
+        {
+            coolDownTimer -= Time.deltaTime;
+            yield return null;
+        }
+
+        _harvestCooldownActive = false;
+        StartGrowing();
     }
 
     private void StartGrowthCoroutine(ref Coroutine coroutine)
