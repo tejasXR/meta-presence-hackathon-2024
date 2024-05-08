@@ -100,9 +100,9 @@ public class PlantController : MonoBehaviour
         BasePlantGrowth = _minGrowth;
     }
 
-    public void StartGrowing() => ResumeGrowing(_minGrowth, null, false);
+    public void StartGrowing() => ResumeGrowing(_minGrowth, null);
 
-    public void ResumeGrowing(float lastRecordedGrowthValue, TimeSpan? lastRecordedGrowthTimespan, bool isDull = true)
+    public void ResumeGrowing(float lastRecordedGrowthValue, TimeSpan? lastRecordedGrowthTimespan)
     {
         Debug.Log($"[{nameof(PlantController)}] {nameof(ResumeGrowing)}: {nameof(lastRecordedGrowthValue)}={lastRecordedGrowthValue}, {nameof(lastRecordedGrowthTimespan)}={lastRecordedGrowthTimespan?.ToString(@"d\.hh\:mm\:ss") ?? "N/A"}");
 
@@ -117,8 +117,9 @@ public class PlantController : MonoBehaviour
         BasePlantGrowth = Math.Min(lastRecordedGrowthValue + growthDifference, _maxGrowth);
         Debug.Log($"[{nameof(PlantController)}] {nameof(ResumeGrowing)}: {nameof(BasePlantGrowth)}={BasePlantGrowth}");
 
-        if (isDull)
+        if ((float)lastRecordedGrowthTimespan.Value.TotalSeconds >= GameManager.Instance.AwaySecondsToDull)
         {
+            Debug.Log($"[{nameof(PlantController)}] {nameof(ResumeGrowing)}: Plant has become dull!");
             StartDullTransitionCoroutine(ref _dullTransitionCoroutine);
         }
         else

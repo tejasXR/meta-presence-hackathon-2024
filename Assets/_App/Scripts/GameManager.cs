@@ -24,6 +24,8 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private float _buildingPlantsGrowthSpeed = 1f;
     [SerializeField] private float _gazingPlantsGrowthSpeed = 10f;
 
+    [SerializeField] private float _awaySecondsToDull = 10f;
+
     [Header("Hands")]
     [SerializeField] private Transform _leftHandAnchor;
     [SerializeField] private Transform _righHandAnchor;
@@ -43,6 +45,7 @@ public class GameManager : Singleton<GameManager>
     };
 
     public float AwayPlantsGrowthSpeed => _awayPlantsGrowthSpeed;
+    public float AwaySecondsToDull => _awaySecondsToDull;
 
     public float GazingTransitionDuration => _gazingTransitionDuration;
     public float BuildingTransitionDuration => _buildingTransitionDuration;
