@@ -92,24 +92,6 @@ public class PassthroughController : MonoBehaviour
         SetLut(0, 1f, interpolate: false);
     }
 
-    #region Interpolation
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private static IEnumerator InterpolateValue(float startValue, float targetValue, float duration, Action<float> setValueAction)
-    {
-        float elapsedTime = 0f;
-
-        while (elapsedTime < duration)
-        {
-            elapsedTime += Time.deltaTime;
-            setValueAction(Mathf.Lerp(startValue, targetValue, Mathf.Clamp01(elapsedTime / duration)));
-
-            yield return null;
-        }
-
-        setValueAction(targetValue);
-    }
-
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private void StartInterpolation(ref Coroutine coroutine, float startValue, float targetValue, float duration, Action<float> setValueAction)
     {
@@ -117,8 +99,6 @@ public class PassthroughController : MonoBehaviour
         {
             StopCoroutine(coroutine);
         }
-        coroutine = StartCoroutine(InterpolateValue(startValue, targetValue, duration, setValueAction));
+        coroutine = StartCoroutine(InterpolationUtils.InterpolateValue(startValue, targetValue, duration, setValueAction));
     }
-
-    #endregion
 }

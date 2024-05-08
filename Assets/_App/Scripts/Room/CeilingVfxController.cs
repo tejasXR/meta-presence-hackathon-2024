@@ -61,24 +61,6 @@ public class CeilingVfxController : MonoBehaviour
         main.maxParticles = (int)(transform.localScale.x * transform.localScale.y * _particlesPerSquareMeter);
     }
 
-    #region Interpolation
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private static IEnumerator InterpolateColor(Color startColor, Color targetColor, float duration, Action<Color> setValueAction)
-    {
-        float elapsedTime = 0f;
-
-        while (elapsedTime < duration)
-        {
-            elapsedTime += Time.deltaTime;
-            setValueAction(Color.Lerp(startColor, targetColor, Mathf.Clamp01(elapsedTime / duration)));
-
-            yield return null;
-        }
-
-        setValueAction(targetColor);
-    }
-
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private void StartInterpolation(ref Coroutine coroutine, Color startColor, Color targetColor, float duration, Action<Color> setColorAction)
     {
@@ -86,8 +68,6 @@ public class CeilingVfxController : MonoBehaviour
         {
             StopCoroutine(coroutine);
         }
-        coroutine = StartCoroutine(InterpolateColor(startColor, targetColor, duration, setColorAction));
+        coroutine = StartCoroutine(InterpolationUtils.InterpolateColor(startColor, targetColor, duration, setColorAction));
     }
-
-    #endregion
 }
