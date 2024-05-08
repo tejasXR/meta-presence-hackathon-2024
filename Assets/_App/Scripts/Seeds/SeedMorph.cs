@@ -7,6 +7,8 @@ using UnityEngine;
 [RequireComponent(typeof(SeedController))]
 public class SeedMorph : MonoBehaviour
 {
+    public event Action AbsorbedSeed;
+    
     private SeedController _seedController;
     private Material _material;
     private float _colorTransitionTime;
@@ -68,6 +70,7 @@ public class SeedMorph : MonoBehaviour
             _seedController.SetColor(combinedColor);
 
             seedToAbsorb.SeedCombined();
+            AbsorbedSeed?.Invoke();
             return;
         }
     }
