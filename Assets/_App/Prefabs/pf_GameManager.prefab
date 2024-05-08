@@ -343,7 +343,7 @@ MonoBehaviour:
   _gazingTransitionDuration: 3
   _buildingTransitionDuration: 1
   _plantsGrowthFrequency: 0.01
-  _awayPlantsGrowthSpeed: 0.25
+  _awayPlantsGrowthSpeed: 0
   _lobbyPlantsGrowthSpeed: 0
   _buildingPlantsGrowthSpeed: 1
   _gazingPlantsGrowthSpeed: 10
@@ -399,7 +399,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 80aa2eb2-af2f-40a9-ad9e-18044ce65bee
-  instanceId: 2cef2b83-3d27-4aab-9711-3a37b756d269
+  instanceId: deccd098-4b62-4753-aded-a86e6dc5b0ba
   version: 1
 --- !u!114 &4570427374497185063
 MonoBehaviour:
