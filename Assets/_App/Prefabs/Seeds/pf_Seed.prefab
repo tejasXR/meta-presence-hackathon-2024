@@ -180,7 +180,7 @@ Transform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4202023673908015}
+  m_Father: {fileID: 6830854556218966323}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &261097428804083356
 MonoBehaviour:
@@ -335,7 +335,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4202023673908015}
   m_Layer: 0
-  m_Name: Container
+  m_Name: Model Container
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -355,8 +355,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7683277584076773900}
-  - {fileID: 127403713301635754}
-  - {fileID: 7796308365762698504}
   - {fileID: 2343297168245715882}
   - {fileID: 5720846122063794485}
   - {fileID: 6569148495287192969}
@@ -395,7 +393,7 @@ Transform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4202023673908015}
+  m_Father: {fileID: 6830854556218966323}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6754994944486617804
 MonoBehaviour:
@@ -495,6 +493,200 @@ MonoBehaviour:
   _pointable: {fileID: 6754994944486617804}
   _rigidbody: {fileID: 1653994964226470285}
   _scaleMassWithSize: 1
+--- !u!1 &5214434343728555601
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3300196719818758931}
+  - component: {fileID: 769487425366460893}
+  - component: {fileID: 7095468083889869643}
+  - component: {fileID: 1984996994402977138}
+  m_Layer: 0
+  m_Name: Seed Audio
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3300196719818758931
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5214434343728555601}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6830854556218966323}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &769487425366460893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5214434343728555601}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc8e03969bf97f442a462728fefc9db6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  seedAudioSource: {fileID: 7095468083889869643}
+  seedAppear:
+    Clips:
+    - {fileID: 8300000, guid: f3d68a36171a69a40847255d046645ad, type: 3}
+    Volume: 0.6
+  grabSeedAudio:
+    Clips:
+    - {fileID: 8300000, guid: 16cad2a488a71d540b0daecf081dcfef, type: 3}
+    - {fileID: 8300000, guid: 35212c7d5a04dfe40a17db3643e1cd5e, type: 3}
+    - {fileID: 8300000, guid: 0e2ddfa545fe46849a6de764c301da02, type: 3}
+    Volume: 1
+  hoverSeedAudio:
+    Clips:
+    - {fileID: 8300000, guid: 4c8695b77d6bb084ba7bed83eede60df, type: 3}
+    - {fileID: 8300000, guid: e2fdb766c2acdf84ca7021b8c1d0611a, type: 3}
+    - {fileID: 8300000, guid: 249682d7bbb6eb54483ac1f8d34ff0c4, type: 3}
+    Volume: 0.3
+  seedFlungAudio:
+    Clips:
+    - {fileID: 8300000, guid: 88807e97697152246a337a1ba12a2a76, type: 3}
+    Volume: 0.9
+  seedPoppingOnCeilingAudio:
+    Clips:
+    - {fileID: 8300000, guid: f75003c2058b0f74dbcacf3a3d02118f, type: 3}
+    Volume: 0.9
+  seedLifecycleCompletedAudio:
+    Clips:
+    - {fileID: 8300000, guid: 6a31ca829e466df43b624d9b9a531aae, type: 3}
+    Volume: 0.9
+  absorbedSeedAudio:
+    Clips:
+    - {fileID: 8300000, guid: b6c7da4335dde574698e8dcd75c9e166, type: 3}
+    Volume: 0.5
+  grabbable: {fileID: 6754994944486617804}
+  seedController: {fileID: 1266713546525695306}
+  seedMorph: {fileID: 7766479633320254590}
+--- !u!82 &7095468083889869643
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5214434343728555601}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 0
+  MaxDistance: 3
+  Pan2D: 0
+  rolloffMode: 1
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &1984996994402977138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5214434343728555601}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a07f270ac36c49789466c75ceb88424c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enableSpatialization: 1
+  gainBoostDb: 0
+  enableAcoustics: 1
+  reverbSendDb: 0
 --- !u!1 &6380627689599003290
 GameObject:
   m_ObjectHideFlags: 0
@@ -696,7 +888,10 @@ Transform:
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 7796308365762698504}
+  - {fileID: 127403713301635754}
   - {fileID: 4202023673908015}
+  - {fileID: 3300196719818758931}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &1653994964226470285
@@ -779,14 +974,35 @@ MonoBehaviour:
   - {fileID: 2554605352498088836}
   OnSeedFlung:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7622138791036159224}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 261097428804083356}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnSeedPoppedOnTheCeiling:
     m_PersistentCalls:
       m_Calls: []
   OnSeedPoppedOnAnIsland:
-    m_PersistentCalls:
-      m_Calls: []
-  OnSeedCombined:
     m_PersistentCalls:
       m_Calls: []
   OnSeedLifecycleCompleted:
