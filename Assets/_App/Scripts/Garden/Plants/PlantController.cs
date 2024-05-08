@@ -41,6 +41,7 @@ public class PlantController : MonoBehaviour
     private const float SEED_BLOOM_EMISSIVE_ADDITION = 7F; 
     private const string EMISSIVE_STRENGTH_PROPERTY = "_Emissive_Strength";
     private const string GROWTH_PROPERTY = "_Growth";
+    private const string COLOR_PROPERTY = "_Color";
 
     private Coroutine _growthCoroutine;
     private Coroutine _dullTransitionCoroutine;
