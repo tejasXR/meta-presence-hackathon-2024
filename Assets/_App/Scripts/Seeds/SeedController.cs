@@ -195,6 +195,7 @@ public class SeedController : MonoBehaviour
 
         seed.enabled = true;
         nucleus.enabled = true;
+        IsAboutToBeAbsorbed = false;
 
         popParticles.gameObject.SetActive(false);
     }
@@ -313,11 +314,3 @@ public class SeedController : MonoBehaviour
     // }
 #endif
 }
-
-/*[Serializable]
-public struct SeedColorData
-{
-    public Color baseColor;
-    public Color mainGlowColor;
-    [ColorUsageAttribute(true, true)] public Color edgeGlowColor;
-}*/
