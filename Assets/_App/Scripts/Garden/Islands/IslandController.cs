@@ -14,6 +14,7 @@ public class IslandController : MonoBehaviour
     [SerializeField] private bool _rumble = true;
     [SerializeField] private float _rumbleSpeed = 100f;
     [SerializeField] private float _rumbleIntensity = 0.5f;
+    [SerializeField] private AudioSource islandEmergeAudio;
 
     private Action _onEmergingCompleted;
     private Vector3 _originalLocalPosition;
@@ -47,6 +48,7 @@ public class IslandController : MonoBehaviour
             _meshRenderer.transform.localPosition = Vector3.Lerp(_meshRenderer.transform.localPosition, new(noise.x * _rumbleIntensity, _originalLocalPosition.y, noise.z * _rumbleIntensity), _emergeSpeed * Time.deltaTime);
 
             _isEmerging = Mathf.Abs(_meshRenderer.transform.localPosition.y - _originalLocalPosition.y) > 0.001f;
+            
             if (!_isEmerging)
             {
                 Debug.Log($"[{nameof(IslandController)}] {nameof(Update)}: Emerging completed");
@@ -64,6 +66,8 @@ public class IslandController : MonoBehaviour
 
         _meshRenderer.transform.localPosition = new(0f, -_meshRenderer.bounds.size.y, 0f);
         _meshRenderer.enabled = true;
+        
+        islandEmergeAudio.Play();
 
         _isEmerging = true;
     }
