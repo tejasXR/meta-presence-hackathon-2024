@@ -14,6 +14,9 @@ public static class AudioUtils
     {
         if (source.volume < destinationVolume)
         {
+            if (!source.isPlaying)
+                source.Play();
+            
             while (source.volume < destinationVolume)
             {
                 source.volume += Time.deltaTime / timeForFadeInSeconds;
