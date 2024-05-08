@@ -16,8 +16,6 @@ public class SeedController : MonoBehaviour
     [Range(.1F, .3F)][SerializeField] private float maxStartingScale;
 
     [SerializeField] private float _moveSpeed = 1.3f;
-    [SerializeField] private float _ascendSpeed = 1.3f;
-    [SerializeField] private float _spinSpeed = 1.3f;
 
     [SerializeField] private List<GameObject> _deactivateOnFlung;
 
@@ -73,7 +71,6 @@ public class SeedController : MonoBehaviour
     private float _colorTransitionTime;
 
     private Vector3 _targetDestination = Vector3.negativeInfinity;
-    private bool _isAscending = false;
 
     private Guid _uuid = Guid.Empty;
     
