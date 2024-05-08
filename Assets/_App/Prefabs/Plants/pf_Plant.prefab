@@ -172,6 +172,7 @@ MonoBehaviour:
   _dullTransitionDuration: 5
   _dullEmissiveStrength: 0
   _dullColor: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
+  _becomeDullWhenHarvested: 1
   MinLoot: 1
   LootSpawnPointsRoot: {fileID: 9076537883135750835}
   PlantReadyToBeHarvested:

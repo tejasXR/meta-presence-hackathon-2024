@@ -22,6 +22,8 @@ public class PlantController : MonoBehaviour
     [SerializeField] private float _dullTransitionDuration = 5f;
     [SerializeField] private float _dullEmissiveStrength = 0f;
     [SerializeField] private Color _dullColor;
+    [SerializeField] private bool _becomeDullWhenHarvested;
+
     [Header("LootConfig")]
     public int MinLoot = 1;
     public Transform LootSpawnPointsRoot;
@@ -121,7 +123,7 @@ public class PlantController : MonoBehaviour
         if (lastRecordedGrowthTimespan.HasValue && (float)lastRecordedGrowthTimespan.Value.TotalSeconds >= GameManager.Instance.AwaySecondsToDull)
         {
             Debug.Log($"[{nameof(PlantController)}] {nameof(ResumeGrowing)}: Plant has become dull!");
-            StartDullTransitionCoroutine(ref _dullTransitionCoroutine);
+            StartDullTransitionCoroutine(ref _dullTransitionCoroutine, _dullTransitionDuration);
         }
         else
         {
@@ -194,16 +196,23 @@ public class PlantController : MonoBehaviour
 
     private IEnumerator TriggerPlantHarvestCooldown()
     {
-        _harvestCooldownActive = true;
-        var coolDownTimer = _plantHarvestCooldownSeconds;
-        while (coolDownTimer > 0)
+        if (_becomeDullWhenHarvested)
         {
-            coolDownTimer -= Time.deltaTime;
-            yield return null;
+            StartDullTransitionCoroutine(ref _dullTransitionCoroutine, _plantHarvestCooldownSeconds);
         }
+        else
+        {
+            _harvestCooldownActive = true;
+            var coolDownTimer = _plantHarvestCooldownSeconds;
+            while (coolDownTimer > 0)
+            {
+                coolDownTimer -= Time.deltaTime;
+                yield return null;
+            }
 
-        _harvestCooldownActive = false;
-        StartGrowing();
+            _harvestCooldownActive = false;
+            StartGrowing();
+        }
     }
 
     private void StartGrowthCoroutine(ref Coroutine coroutine)
@@ -228,16 +237,16 @@ public class PlantController : MonoBehaviour
         PlantReadyToBeHarvested?.Invoke();
     }
 
-    private void StartDullTransitionCoroutine(ref Coroutine coroutine)
+    private void StartDullTransitionCoroutine(ref Coroutine coroutine, float duration)
     {
         if (coroutine != null)
         {
             StopCoroutine(coroutine);
         }
-        coroutine = StartCoroutine(StartDullTransition());
+        coroutine = StartCoroutine(StartDullTransition(duration));
     }
 
-    private IEnumerator StartDullTransition()
+    private IEnumerator StartDullTransition(float duration)
     {
         _dullTransitionActive = true;
 
@@ -250,14 +259,14 @@ public class PlantController : MonoBehaviour
 
         // Start transitioning to default look. 
         StartEmissiveStrengthInterpolation(
-                    ref _emissiveStrengthCoroutine, _dullEmissiveStrength, defaultEmissiveStrength, _dullTransitionDuration,
+                    ref _emissiveStrengthCoroutine, _dullEmissiveStrength, defaultEmissiveStrength, duration,
                     emissiveStrength => _basePlantMaterial.SetFloat(EMISSIVE_STRENGTH_PROPERTY, emissiveStrength));
 
         StartColorInterpolation(
-                    ref _colorCoroutine, _dullColor, defaultColor, _dullTransitionDuration,
+                    ref _colorCoroutine, _dullColor, defaultColor, duration,
                     color => _basePlantMaterial.SetColor(COLOR_PROPERTY, color));
 
-        yield return new WaitForSeconds(_dullTransitionDuration);
+        yield return new WaitForSeconds(duration);
 
         _dullTransitionActive = false;
 
@@ -294,7 +303,7 @@ public class PlantController : MonoBehaviour
     [Sirenix.OdinInspector.Button("Start Plant Dull Transition")]
     public void StartDullTransitionButton()
     {
-        StartDullTransitionCoroutine(ref _dullTransitionCoroutine);
+        StartDullTransitionCoroutine(ref _dullTransitionCoroutine, _dullTransitionDuration);
     }
 
     // private void OnDrawGizmos()
