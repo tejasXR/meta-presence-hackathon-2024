@@ -10,9 +10,9 @@ public class PlantController : MonoBehaviour
     [SerializeField] private float _lifeSpan = 5f;
     [Range(0f, 1f)] [SerializeField] private float _minGrowth = 0f;
     [Range(0f, 1f)] [SerializeField] private float _maxGrowth = 1f;
-    [Range(0f, 1f)] [SerializeField] private float _plantHarvestCooldownSeconds = 60f;
-    [Space] 
- 
+    [SerializeField] private float _plantHarvestCooldownSeconds = 60f;
+    [Space]
+
     [SerializeField] private PlantReadyVfx _plantReadyVfx;
     [Range(0F, 2F)] [SerializeField] private float plantChargeSpeed = .1F;
     [Range(0F, 2F)] [SerializeField] private float plantCancelChargeSpeed = .5F;
