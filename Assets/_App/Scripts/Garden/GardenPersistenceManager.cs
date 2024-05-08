@@ -135,12 +135,17 @@ public class GardenPersistenceManager : MonoBehaviour
 
     #region Spatial Anchor Core Building Block Events
 
+    private int _anchorCount = 0;
+
     public void OnAchorCreateCompleted(OVRSpatialAnchor anchor, OVRSpatialAnchor.OperationResult result)
     {
         if (result != OVRSpatialAnchor.OperationResult.Success)
         {
             return;
         }
+
+        _anchorCount++;
+        Debug.Log($"[{nameof(GardenPersistenceManager)}] {nameof(OnAchorCreateCompleted)}: {nameof(_anchorCount)}={_anchorCount}");
 
         if (anchor.TryGetComponent(out IslandController islandController))
         {
@@ -168,6 +173,9 @@ public class GardenPersistenceManager : MonoBehaviour
 
     public void OnAnchorsLoadCompleted(List<OVRSpatialAnchor> anchors)
     {
+        _anchorCount += anchors.Count;
+        Debug.Log($"[{nameof(GardenPersistenceManager)}] {nameof(OnAnchorsLoadCompleted)}: {nameof(_anchorCount)}={++_anchorCount}");
+
         foreach (OVRSpatialAnchor anchor in anchors)
         {
             if (anchor.TryGetComponent(out IslandController islandController))
@@ -200,6 +208,9 @@ public class GardenPersistenceManager : MonoBehaviour
             return;
         }
 
+        _anchorCount = 0;
+        Debug.Log($"[{nameof(GardenPersistenceManager)}] {nameof(OnAnchorsEraseAllCompleted)}: {nameof(_anchorCount)}={_anchorCount}");
+
         GardenDataManager.SaveGarden(new());
         Debug.Log($"[{nameof(GardenPersistenceManager)}] {nameof(OnAnchorsEraseAllCompleted)}: Garden Destroyed");
     }
@@ -210,6 +221,9 @@ public class GardenPersistenceManager : MonoBehaviour
         {
             return;
         }
+
+        _anchorCount--;
+        Debug.Log($"[{nameof(GardenPersistenceManager)}] {nameof(OnAnchorEraseCompleted)}: {nameof(_anchorCount)}={_anchorCount}");
 
         if (Garden.IslandMap.Remove(anchor.Uuid))
         {
