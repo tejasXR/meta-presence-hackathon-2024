@@ -640,12 +640,12 @@ PrefabInstance:
       objectReference: {fileID: 420227325}
     - target: {fileID: 2755209629682363616, guid: b98b15b3ccfd95b47907165c5c4a2e13,
         type: 3}
-      propertyPath: SceneLoadedEvent.m_PersistentCalls.m_Calls.Array.data[3].m_Target
+      propertyPath: SceneLoadedEvent.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
       objectReference: {fileID: 9634534}
     - target: {fileID: 2755209629682363616, guid: b98b15b3ccfd95b47907165c5c4a2e13,
         type: 3}
-      propertyPath: SceneLoadedEvent.m_PersistentCalls.m_Calls.Array.data[4].m_Target
+      propertyPath: SceneLoadedEvent.m_PersistentCalls.m_Calls.Array.data[3].m_Target
       value: 
       objectReference: {fileID: 9634535}
     - target: {fileID: 6965797732230555248, guid: b98b15b3ccfd95b47907165c5c4a2e13,
