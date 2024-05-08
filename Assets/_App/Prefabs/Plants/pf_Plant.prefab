@@ -164,10 +164,14 @@ MonoBehaviour:
   _lifeSpan: 60
   _minGrowth: 0
   _maxGrowth: 1
+  _plantHarvestCooldownSeconds: 60
   _plantReadyVfx: {fileID: 0}
   plantChargeSpeed: 0.5
   plantCancelChargeSpeed: 0.5
   _seedBloomEmissionTransitionSpeed: 2
+  _dullTransitionDuration: 5
+  _dullEmissiveStrength: 0
+  _dullColor: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
   MinLoot: 1
   LootSpawnPointsRoot: {fileID: 9076537883135750835}
   PlantReadyToBeHarvested:

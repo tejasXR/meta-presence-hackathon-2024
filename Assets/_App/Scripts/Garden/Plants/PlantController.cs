@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -16,6 +17,11 @@ public class PlantController : MonoBehaviour
     [Range(0F, 2F)] [SerializeField] private float plantChargeSpeed = .1F;
     [Range(0F, 2F)] [SerializeField] private float plantCancelChargeSpeed = .5F;
     [SerializeField] private float _seedBloomEmissionTransitionSpeed = 1.5F;
+
+    [Header("DullVfx")]
+    [SerializeField] private float _dullTransitionDuration = 5f;
+    [SerializeField] private float _dullEmissiveStrength = 0f;
+    [SerializeField] private Color _dullColor;
     [Header("LootConfig")]
     public int MinLoot = 1;
     public Transform LootSpawnPointsRoot;
@@ -37,6 +43,9 @@ public class PlantController : MonoBehaviour
     private const string GROWTH_PROPERTY = "_Growth";
 
     private Coroutine _growthCoroutine;
+    private Coroutine _dullTransitionCoroutine;
+    private Coroutine _emissiveStrengthCoroutine;
+    private Coroutine _colorCoroutine;
     private float _currentPlantCharge;
     private float _basePlantGrowth;
     private float _seedBloomPlantGrowth;
@@ -46,7 +55,8 @@ public class PlantController : MonoBehaviour
     private Material _plantBloomMaterial;
 
     private bool _harvestCooldownActive;
-    
+    private bool _dullTransitionActive;
+
     public float BasePlantGrowth
     {
         get => _basePlantGrowth;
@@ -90,9 +100,9 @@ public class PlantController : MonoBehaviour
         BasePlantGrowth = _minGrowth;
     }
 
-    public void StartGrowing() => ResumeGrowing(_minGrowth, null);
+    public void StartGrowing() => ResumeGrowing(_minGrowth, null, false);
 
-    public void ResumeGrowing(float lastRecordedGrowthValue, TimeSpan? lastRecordedGrowthTimespan)
+    public void ResumeGrowing(float lastRecordedGrowthValue, TimeSpan? lastRecordedGrowthTimespan, bool isDull = true)
     {
         Debug.Log($"[{nameof(PlantController)}] {nameof(ResumeGrowing)}: {nameof(lastRecordedGrowthValue)}={lastRecordedGrowthValue}, {nameof(lastRecordedGrowthTimespan)}={lastRecordedGrowthTimespan?.ToString(@"d\.hh\:mm\:ss") ?? "N/A"}");
 
@@ -107,15 +117,22 @@ public class PlantController : MonoBehaviour
         BasePlantGrowth = Math.Min(lastRecordedGrowthValue + growthDifference, _maxGrowth);
         Debug.Log($"[{nameof(PlantController)}] {nameof(ResumeGrowing)}: {nameof(BasePlantGrowth)}={BasePlantGrowth}");
 
-        StartGrowthCoroutine(ref _growthCoroutine);
+        if (isDull)
+        {
+            StartDullTransitionCoroutine(ref _dullTransitionCoroutine);
+        }
+        else
+        {
+            StartGrowthCoroutine(ref _growthCoroutine);
+        }
     }
 
     public IEnumerator ChargeUpPlantForSeedSpawn()
     {
         if (!IsPlantBaseFullyGrown)
             yield break;
-        
-        if (_harvestCooldownActive)
+
+        if (_harvestCooldownActive || _dullTransitionActive)
             yield break;
         
         PlantChargingUp?.Invoke();
@@ -209,11 +226,73 @@ public class PlantController : MonoBehaviour
         PlantReadyToBeHarvested?.Invoke();
     }
 
+    private void StartDullTransitionCoroutine(ref Coroutine coroutine)
+    {
+        if (coroutine != null)
+        {
+            StopCoroutine(coroutine);
+        }
+        coroutine = StartCoroutine(StartDullTransition());
+    }
+
+    private IEnumerator StartDullTransition()
+    {
+        _dullTransitionActive = true;
+
+        float defaultEmissiveStrength = _basePlantMaterial.GetFloat(EMISSIVE_STRENGTH_PROPERTY);
+        Color defaultColor = _basePlantMaterial.GetColor(COLOR_PROPERTY);
+
+        // Set dull look.
+        _basePlantMaterial.SetFloat(EMISSIVE_STRENGTH_PROPERTY, _dullEmissiveStrength);
+        _basePlantMaterial.SetColor(COLOR_PROPERTY, _dullColor);
+
+        // Start transitioning to default look. 
+        StartEmissiveStrengthInterpolation(
+                    ref _emissiveStrengthCoroutine, _dullEmissiveStrength, defaultEmissiveStrength, _dullTransitionDuration,
+                    emissiveStrength => _basePlantMaterial.SetFloat(EMISSIVE_STRENGTH_PROPERTY, emissiveStrength));
+
+        StartColorInterpolation(
+                    ref _colorCoroutine, _dullColor, defaultColor, _dullTransitionDuration,
+                    color => _basePlantMaterial.SetColor(COLOR_PROPERTY, color));
+
+        yield return new WaitForSeconds(_dullTransitionDuration);
+
+        _dullTransitionActive = false;
+
+        StartGrowthCoroutine(ref _growthCoroutine);
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    private void StartColorInterpolation(ref Coroutine coroutine, Color startColor, Color targetColor, float duration, Action<Color> setColorAction)
+    {
+        if (coroutine != null)
+        {
+            StopCoroutine(coroutine);
+        }
+        coroutine = StartCoroutine(InterpolationUtils.InterpolateColor(startColor, targetColor, duration, setColorAction));
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    private void StartEmissiveStrengthInterpolation(ref Coroutine coroutine, float startValue, float targetValue, float duration, Action<float> setValueAction)
+    {
+        if (coroutine != null)
+        {
+            StopCoroutine(coroutine);
+        }
+        coroutine = StartCoroutine(InterpolationUtils.InterpolateValue(startValue, targetValue, duration, setValueAction));
+    }
+
 #if UNITY_EDITOR
     [Sirenix.OdinInspector.Button("Start Growing Plant")]
     public void StartGrowingButton()
     {
         StartGrowing();
+    }
+
+    [Sirenix.OdinInspector.Button("Start Plant Dull Transition")]
+    public void StartDullTransitionButton()
+    {
+        StartDullTransitionCoroutine(ref _dullTransitionCoroutine);
     }
 
     // private void OnDrawGizmos()
