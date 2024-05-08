@@ -1,5 +1,55 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1287978916555058218
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4398184256840720391}
+  - component: {fileID: 1275812184205212645}
+  m_Layer: 10
+  m_Name: Plant VFX
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4398184256840720391
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1287978916555058218}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 617633737822801348}
+  - {fileID: 9040519810086770957}
+  m_Father: {fileID: 8241301067917369585}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1275812184205212645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1287978916555058218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ef502b74c40f6a40a5d67152943b32a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  plantReadyParticles: {fileID: 3451807819498174044}
+  seedFormingParticles: {fileID: 8900007791127459173}
+  defaultColor: {r: 0.5176471, g: 0.18039216, b: 0.98039216, a: 1}
+  hoverColor: {r: 1, g: 0.3820755, b: 0.9442656, a: 1}
 --- !u!1 &1583229380098009780
 GameObject:
   m_ObjectHideFlags: 0
@@ -9,7 +59,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4723375868237468223}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +90,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2102579003606113766}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: SpawnPoint1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72,7 +122,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8241301067917369585}
   - component: {fileID: 9654764580692362}
-  m_Layer: 0
+  - component: {fileID: 627597244706163318}
+  m_Layer: 10
   m_Name: pf_Plant
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,6 +145,7 @@ Transform:
   m_Children:
   - {fileID: 4723375868237468223}
   - {fileID: 9076537883135750835}
+  - {fileID: 4398184256840720391}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &9654764580692362
@@ -110,16 +162,56 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _type: 0
   _lifeSpan: 60
-  _meshRenderers: []
   _minGrowth: 0
   _maxGrowth: 1
-  _growth: 0
+  _plantReadyVfx: {fileID: 0}
+  plantChargeSpeed: 0.5
+  plantCancelChargeSpeed: 0.5
+  _seedBloomEmissionTransitionSpeed: 2
   MinLoot: 1
   LootSpawnPointsRoot: {fileID: 9076537883135750835}
-  OnFullyGrown:
+  PlantReadyToBeHarvested:
     m_PersistentCalls:
       m_Calls: []
-  TimeInSeconds: 120
+  PlantChargingUp:
+    m_PersistentCalls:
+      m_Calls: []
+  PlantChargingDown:
+    m_PersistentCalls:
+      m_Calls: []
+  SeedSpawningTriggered:
+    m_PersistentCalls:
+      m_Calls: []
+  PlantGlowingBeforeSeedSpawn:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!54 &627597244706163318
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3030546091100231466}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &7863457792840083559
 GameObject:
   m_ObjectHideFlags: 0
@@ -129,7 +221,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9076537883135750835}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: LootSpawnPointsRoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -152,3 +244,163 @@ Transform:
   - {fileID: 2102579003606113766}
   m_Father: {fileID: 8241301067917369585}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &633164823031948023
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 4398184256840720391}
+    m_Modifications:
+    - target: {fileID: 25669825278652211, guid: b82fd911b5f492d40ae152f86248ec52,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 25669825278652211, guid: b82fd911b5f492d40ae152f86248ec52,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 25669825278652211, guid: b82fd911b5f492d40ae152f86248ec52,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 25669825278652211, guid: b82fd911b5f492d40ae152f86248ec52,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 25669825278652211, guid: b82fd911b5f492d40ae152f86248ec52,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 25669825278652211, guid: b82fd911b5f492d40ae152f86248ec52,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 25669825278652211, guid: b82fd911b5f492d40ae152f86248ec52,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 25669825278652211, guid: b82fd911b5f492d40ae152f86248ec52,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 25669825278652211, guid: b82fd911b5f492d40ae152f86248ec52,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 25669825278652211, guid: b82fd911b5f492d40ae152f86248ec52,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1120054543312646972, guid: b82fd911b5f492d40ae152f86248ec52,
+        type: 3}
+      propertyPath: m_Name
+      value: Plant Ready VFX
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b82fd911b5f492d40ae152f86248ec52, type: 3}
+--- !u!4 &617633737822801348 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 25669825278652211, guid: b82fd911b5f492d40ae152f86248ec52,
+    type: 3}
+  m_PrefabInstance: {fileID: 633164823031948023}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &3451807819498174044 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 2823260954195465387, guid: b82fd911b5f492d40ae152f86248ec52,
+    type: 3}
+  m_PrefabInstance: {fileID: 633164823031948023}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &4676666018204441640
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 4398184256840720391}
+    m_Modifications:
+    - target: {fileID: 4436250320182297893, guid: fd7e9b477b8121d42966d7d09da71308,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4436250320182297893, guid: fd7e9b477b8121d42966d7d09da71308,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4436250320182297893, guid: fd7e9b477b8121d42966d7d09da71308,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4436250320182297893, guid: fd7e9b477b8121d42966d7d09da71308,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4436250320182297893, guid: fd7e9b477b8121d42966d7d09da71308,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4436250320182297893, guid: fd7e9b477b8121d42966d7d09da71308,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4436250320182297893, guid: fd7e9b477b8121d42966d7d09da71308,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4436250320182297893, guid: fd7e9b477b8121d42966d7d09da71308,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4436250320182297893, guid: fd7e9b477b8121d42966d7d09da71308,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4436250320182297893, guid: fd7e9b477b8121d42966d7d09da71308,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8329304309902006496, guid: fd7e9b477b8121d42966d7d09da71308,
+        type: 3}
+      propertyPath: m_Name
+      value: Seed Forming VFX
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: fd7e9b477b8121d42966d7d09da71308, type: 3}
+--- !u!198 &8900007791127459173 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 4280098710390253901, guid: fd7e9b477b8121d42966d7d09da71308,
+    type: 3}
+  m_PrefabInstance: {fileID: 4676666018204441640}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &9040519810086770957 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4436250320182297893, guid: fd7e9b477b8121d42966d7d09da71308,
+    type: 3}
+  m_PrefabInstance: {fileID: 4676666018204441640}
+  m_PrefabAsset: {fileID: 0}

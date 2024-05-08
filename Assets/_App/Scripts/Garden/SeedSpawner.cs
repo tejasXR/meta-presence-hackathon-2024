@@ -57,13 +57,13 @@ public class SeedSpawner : MonoBehaviour
             return;
         }
 
-        if (_seedPooler.BorrowedCount == 0)
-        {
-            Debug.Log($"[{nameof(SeedSpawner)}] {nameof(PopRandomSeed)}: There are no seeds to pop!");
-            return;
-        }
+        // if (_seedPooler.BorrowedCount == 0)
+        // {
+        //     Debug.Log($"[{nameof(SeedSpawner)}] {nameof(PopRandomSeed)}: There are no seeds to pop!");
+        //     return;
+        // }
 
-        _seedPooler.BorrowedObjects[Random.Range(0, _seedPooler.BorrowedCount)].FlungTowardsCeiling();
+        _seedPooler.BorrowItem().FlungTowardsCeiling();
     }
 
     public void SpawnSeedsOnRoomWalls()
@@ -98,6 +98,10 @@ public class SeedSpawner : MonoBehaviour
         foreach (var tupleVector3Quaternion in getSpawnPositions)
         {
             var pooledSeed = _seedPooler.BorrowItem();
+            
+            if (!pooledSeed.gameObject.activeSelf)
+                pooledSeed.gameObject.SetActive(true);
+            
             pooledSeed.transform.SetParent(transform);
             pooledSeed.transform.position = tupleVector3Quaternion.Item1;
         }
@@ -128,6 +132,10 @@ public class SeedSpawner : MonoBehaviour
         foreach (Transform selectedTransform in randomSpawnPoints)
         {
             var pooledSeed = _seedPooler.BorrowItem();
+            
+            if (!pooledSeed.gameObject.activeSelf)
+                pooledSeed.gameObject.SetActive(true);
+            
             pooledSeed.transform.SetParent(transform);
             pooledSeed.transform.position = selectedTransform.position;
         }
@@ -152,25 +160,39 @@ public class SeedSpawner : MonoBehaviour
     {
         SeedController seed = Instantiate(seedPrefab);
         seed.OnSeedFlung.AddListener(OnSeedFlung);
-        seed.OnSeedPopped.AddListener(OnSeedPopped);
+        seed.OnSeedCombined.AddListener(OnSeedCombined);
+        seed.OnSeedPoppedOnTheCeiling.AddListener(OnSeedPoppedOnTheCeiling);
+        seed.OnSeedPoppedOnAnIsland.AddListener(OnSeedPoppedOnAnIsland);
         return seed;
     }
 
     private void OnSeedFlung(SeedController seed)
     {
-        Plants.PlantType plant = _gardenManager.GetPlantFrom(seed);
-        if (_gardenManager.TryGetPlantPrefab(plant, out GameObject prefab))
+        if (_gardenManager.TryCreateNewPlant(seed, out Vector3 seedTargetDestination))
         {
-            Tuple<Vector3, Quaternion> validPlantPosition = GetValidPositionForPlanting(prefab);
-            Quaternion randomYAxisRotation = Quaternion.Euler(0f, Random.Range(0f, 360f), 0f);
-
-            seed.SetPlant(plant, validPlantPosition.Item1, randomYAxisRotation * validPlantPosition.Item2);
+            Debug.Log($"[{nameof(SeedSpawner)}] {nameof(OnSeedFlung)}: {nameof(_gardenManager.TryCreateNewPlant)} succeeded, set seed target destination.");
+            seed.SetTargetDestination(seedTargetDestination);
+        }
+        else
+        {
+            Debug.LogWarning($"[{nameof(SeedSpawner)}] {nameof(OnSeedFlung)}: {nameof(_gardenManager.TryCreateNewPlant)} failed.");
         }
     }
 
-    private void OnSeedPopped(SeedController seed)
+    private void OnSeedPoppedOnTheCeiling(SeedController seed, Vector3 position)
     {
-        _gardenManager.OnSeedPopped(seed);
+        _gardenManager.OnSeedPoppedOnTheCeiling(seed, position);
+        _seedPooler.ReturnItem(seed);
+    }
+
+    private void OnSeedPoppedOnAnIsland(SeedController seed, Vector3 position, Vector3 normal)
+    {
+        _gardenManager.OnSeedPoppedOnIsland(seed, position, normal);
+        _seedPooler.ReturnItem(seed);
+    }
+
+    private void OnSeedCombined(SeedController seed)
+    {
         _seedPooler.ReturnItem(seed);
     }
 
@@ -184,7 +206,7 @@ public class SeedSpawner : MonoBehaviour
                 spawnLocation: FindSpawnPositions.SpawnLocation.HangingDown,
                 labels: MRUKAnchor.SceneLabels.CEILING);
 
-        Debug.Assert(validPositions.Length > 0, $"[{nameof(GardenManager)}] {nameof(GetValidPositionForPlanting)} error: invalid {nameof(validPositions)} array.");
+        Debug.Assert(validPositions.Length > 0, $"[{nameof(SeedSpawner)}] {nameof(GetValidPositionForPlanting)} error: invalid {nameof(validPositions)} array.");
         return validPositions[0];
     }
 }

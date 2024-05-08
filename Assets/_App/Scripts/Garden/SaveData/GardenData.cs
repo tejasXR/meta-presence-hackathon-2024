@@ -5,7 +5,8 @@ using System.Collections.Generic;
 [Serializable]
 public class GardenData
 {
-    public Dictionary<Guid, PlantData> Map = new();
+    public Dictionary<Guid, PlantData> PlantMap = new();
+    public Dictionary<Guid, IslandData> IslandMap = new();
     public string DateTimeOfLastVisit;
 
     public TimeSpan? GetTimeSinceLastVisit()

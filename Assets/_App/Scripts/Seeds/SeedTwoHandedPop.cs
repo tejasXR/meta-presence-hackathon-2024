@@ -24,12 +24,12 @@ public class SeedTwoHandedPop : MonoBehaviour
     private void OnGrabbablePointerEventRaised(PointerEvent pointerEvent)
     {
         if (pointerEvent.Type == PointerEventType.Select)
-            OnSeedGrabbed(pointerEvent.Pose);
+            OnSeedGrabbed();
         else if (pointerEvent.Type == PointerEventType.Unselect)
             OnSeedUngrabbed();
     }
 
-    private void OnSeedGrabbed(Pose grabPose)
+    private void OnSeedGrabbed()
     {
         // Detect Hand Movements After Two-Handed Grab
         if (seedGrabbable.GrabPoints.Count == 2)
@@ -59,7 +59,7 @@ public class SeedTwoHandedPop : MonoBehaviour
             if (distanceDelta < 0)
                 distanceDelta = 0;
             
-            interiorBubble.transform.localScale = Vector3.one * (.001F + distanceDelta) * interiorSeedPullAmplitude;
+            interiorBubble.transform.localScale = Vector3.one * (.001F + distanceDelta) * (interiorSeedPullAmplitude / transform.lossyScale.magnitude);
             
             if (Vector3.Distance(interiorBubble.transform.lossyScale, transform.lossyScale) < .001F 
                 || interiorBubble.transform.lossyScale.magnitude >= transform.lossyScale.magnitude)

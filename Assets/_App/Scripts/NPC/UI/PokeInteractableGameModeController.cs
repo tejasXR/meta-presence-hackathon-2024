@@ -3,7 +3,7 @@ using UnityEngine;
 public class PokeInteractableGameModeController : MonoBehaviour
 {
     [SerializeField] private string _gazingModeLockedString;
-    [SerializeField] private string _buildindModeUnlockedString;
+    [SerializeField] private string _buildingModeUnlockedString;
 
     [Space]
     [SerializeField] private TMPro.TMP_Text _buttonText;
@@ -22,7 +22,7 @@ public class PokeInteractableGameModeController : MonoBehaviour
                 GameManager.Instance.SetGazingMode(locked: true);
                 break;
             case GameMode.Gazing:
-                GameManager.Instance.SetBuildingMode();
+                GameManager.Instance.SetBuildingMode(force: true);
                 break;
         }
     }
@@ -32,7 +32,7 @@ public class PokeInteractableGameModeController : MonoBehaviour
         _buttonText.text = GameManager.Instance.CurrentGameMode switch
         {
             GameMode.Building => _gazingModeLockedString,
-            GameMode.Gazing => _buildindModeUnlockedString,
+            GameMode.Gazing => _buildingModeUnlockedString,
             _ => "",
         };
     }

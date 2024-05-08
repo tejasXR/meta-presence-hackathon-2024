@@ -360,6 +360,16 @@ PrefabInstance:
       propertyPath: rightHandPosePoint
       value: 
       objectReference: {fileID: 1513084593966617943}
+    - target: {fileID: 8172349110778605713, guid: e65fcf223de2503438d552497171da16,
+        type: 3}
+      propertyPath: leftHandPoseActivator
+      value: 
+      objectReference: {fileID: 451672335}
+    - target: {fileID: 8172349110778605713, guid: e65fcf223de2503438d552497171da16,
+        type: 3}
+      propertyPath: rightHandPoseActivator
+      value: 
+      objectReference: {fileID: 1513084593966617943}
     - target: {fileID: 8253894461744035928, guid: e65fcf223de2503438d552497171da16,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -388,18 +398,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 0}
     - targetCorrespondingSourceObject: {fileID: 2133741015610905526, guid: e65fcf223de2503438d552497171da16,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 8253894461744035924, guid: e65fcf223de2503438d552497171da16,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 8779719058228097127, guid: e65fcf223de2503438d552497171da16,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 650469942829598260, guid: e65fcf223de2503438d552497171da16,
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 0}
@@ -718,11 +716,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1580426640877588158, guid: 4bdbc4e9e19ef8f4895e393214189ee9,
-        type: 3}
-      propertyPath: _buttonClickActions.Array.data[0].Callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 420227325}
     - target: {fileID: 1658626597535816957, guid: 4bdbc4e9e19ef8f4895e393214189ee9,
         type: 3}
       propertyPath: m_LocalPosition.x

@@ -44,6 +44,9 @@ public class GameManager : Singleton<GameManager>
 
     public float AwayPlantsGrowthSpeed => _awayPlantsGrowthSpeed;
 
+    public float GazingTransitionDuration => _gazingTransitionDuration;
+    public float BuildingTransitionDuration => _buildingTransitionDuration;
+
     private Transform _cameraTransform;
     private Vector3 _lastCameraPosition, _lastLeftHandPosition, _lastRightHandPosition;
     private float _gazingTimer = 0f;
@@ -103,8 +106,10 @@ public class GameManager : Singleton<GameManager>
     /// </summary>
     public void Initialize() => SetBuildingMode();
 
-    public void SetBuildingMode()
+    public void SetBuildingMode(bool force = false)
     {
+        if (!force && _gazingModeLocked) return;
+
         _gazingTimer = 0f;
         _gazingModeLocked = false;
 
