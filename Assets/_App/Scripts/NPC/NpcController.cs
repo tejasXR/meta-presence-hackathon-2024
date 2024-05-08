@@ -1,4 +1,4 @@
-using System;
+using System.Collections;
 using UnityEngine;
 
 public class NpcController : MonoBehaviour
@@ -6,6 +6,7 @@ public class NpcController : MonoBehaviour
     [SerializeField] private NpcOptionsMenu optionsMenu;
     [SerializeField] private float moveSpeed;
     [SerializeField] private ParticleSystem npcParticles;
+    [SerializeField] private AudioSource npcAudioSource;
 
     public enum MovementTypeEnum
     {
@@ -22,10 +23,17 @@ public class NpcController : MonoBehaviour
     private bool _shouldMove;
     private Camera _mainCamera;
     private NpcCaller.PoseOrientation _currentPoseOrientation;
+    private IEnumerator _npcAudioFadeRoutine;
+    private float _npcAudioVolume;
 
     private void Awake()
     {
         _mainCamera = Camera.main;
+        
+        _npcAudioVolume = npcAudioSource.volume;
+        npcAudioSource.volume = 0;
+        npcAudioSource.Play();
+        
         SetNpcMenuOrientation(NpcCaller.PoseOrientation.LeftHand);
     }
 
@@ -55,6 +63,8 @@ public class NpcController : MonoBehaviour
         _movementType = movementType;
         
         npcParticles.Play();
+
+        SetNPCAudioVolume(1);
         
         optionsMenu.Hide();
     }
@@ -65,6 +75,8 @@ public class NpcController : MonoBehaviour
         _movementType = MovementTypeEnum.Idle;
         
         npcParticles.Stop();
+
+        SetNPCAudioVolume(0);
         
         if (hideDialogueOptions)
             optionsMenu.Hide();
@@ -78,6 +90,15 @@ public class NpcController : MonoBehaviour
             optionsMenu.Show(poseOrientation);
 
         _currentPoseOrientation = poseOrientation;
+    }
+
+    private void SetNPCAudioVolume(float volume)
+    {
+        if (_npcAudioFadeRoutine != null)
+            StopCoroutine(_npcAudioFadeRoutine);
+
+        _npcAudioFadeRoutine = AudioUtils.FadeToVolume(npcAudioSource, volume, 1F);
+        StartCoroutine(_npcAudioFadeRoutine);
     }
 }
 
