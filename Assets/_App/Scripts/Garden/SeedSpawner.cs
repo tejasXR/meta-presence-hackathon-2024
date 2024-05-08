@@ -160,9 +160,9 @@ public class SeedSpawner : MonoBehaviour
     {
         SeedController seed = Instantiate(seedPrefab);
         seed.OnSeedFlung.AddListener(OnSeedFlung);
-        seed.OnSeedCombined.AddListener(OnSeedCombined);
         seed.OnSeedPoppedOnTheCeiling.AddListener(OnSeedPoppedOnTheCeiling);
         seed.OnSeedPoppedOnAnIsland.AddListener(OnSeedPoppedOnAnIsland);
+        seed.OnSeedLifecycleCompleted.AddListener(OnSeedLifecycleCompleted);
         return seed;
     }
 
@@ -182,17 +182,17 @@ public class SeedSpawner : MonoBehaviour
     private void OnSeedPoppedOnTheCeiling(SeedController seed, Vector3 position)
     {
         _gardenManager.OnSeedPoppedOnTheCeiling(seed, position);
-        _seedPooler.ReturnItem(seed);
     }
 
     private void OnSeedPoppedOnAnIsland(SeedController seed, Vector3 position, Vector3 normal)
     {
         _gardenManager.OnSeedPoppedOnIsland(seed, position, normal);
-        _seedPooler.ReturnItem(seed);
     }
 
-    private void OnSeedCombined(SeedController seed)
+    private void OnSeedLifecycleCompleted(SeedController seed)
     {
+        seed.gameObject.SetActive(false);
+
         _seedPooler.ReturnItem(seed);
     }
 

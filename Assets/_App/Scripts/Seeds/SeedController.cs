@@ -7,9 +7,11 @@ using Random = UnityEngine.Random;
 
 public class SeedController : MonoBehaviour
 {
-    [SerializeField]  [ColorUsageAttribute(true, true)] private List<Color> startingColors;
+    [SerializeField][ColorUsage(true, true)] private List<Color> startingColors;
     [SerializeField] private ParticleSystem trailParticles;
     [SerializeField] private TrailRenderer trailRenderer;
+    [SerializeField] private ParticleSystem popParticles;
+    [SerializeField] private MeshRenderer seed;
     [SerializeField] private MeshRenderer nucleus;
     [Space]
     [Range(.075F, .15F)][SerializeField] private float minStartingScale;
@@ -23,7 +25,7 @@ public class SeedController : MonoBehaviour
     public UnityEvent<SeedController> OnSeedFlung;
     public UnityEvent<SeedController, Vector3> OnSeedPoppedOnTheCeiling;
     public UnityEvent<SeedController, Vector3, Vector3> OnSeedPoppedOnAnIsland;
-    public UnityEvent<SeedController> OnSeedCombined;
+    public UnityEvent<SeedController> OnSeedLifecycleCompleted;
 
     public Color SeedColor
     {
@@ -92,6 +94,8 @@ public class SeedController : MonoBehaviour
 
     private void OnEnable()
     {
+        Reset();
+
         StartCoroutine(Dissolve(true));
         StartCoroutine(ResetTrailRendererDistance());
     }
@@ -140,9 +144,10 @@ public class SeedController : MonoBehaviour
             // Raycast from the seed center upwards 
             if (Physics.Raycast(transform.position, (_targetDestination - transform.position).normalized, out RaycastHit hit, Mathf.Infinity))
             {
-                OnSeedPoppedOnTheCeiling?.Invoke(this, hit.point);
+                ResetTargetDestination();
                 Pop();
-                Reset();
+
+                OnSeedPoppedOnTheCeiling?.Invoke(this, hit.point);
             }
             else
             {
@@ -154,9 +159,10 @@ public class SeedController : MonoBehaviour
             // Raycast from the seed center upwards 
             if (Physics.Raycast(transform.position, (_targetDestination - transform.position).normalized, out RaycastHit hit, Mathf.Infinity))
             {
-                OnSeedPoppedOnAnIsland?.Invoke(this, hit.point, hit.normal);
+                ResetTargetDestination();
                 Pop();
-                Reset();
+
+                OnSeedPoppedOnAnIsland?.Invoke(this, hit.point, hit.normal);
             }
             else
             {
@@ -181,6 +187,16 @@ public class SeedController : MonoBehaviour
                 "The maximum seed starting scale can't be less than the minimum starting scale. Aborting seed creation");
         }
         transform.localScale = Vector3.one * Random.Range(minStartingScale, maxStartingScale);
+    }
+
+    public void Reset()
+    {
+        ResetTargetDestination();
+
+        seed.enabled = true;
+        nucleus.enabled = true;
+
+        popParticles.gameObject.SetActive(false);
     }
 
     public void SetScale(Vector3 newScale)
@@ -229,21 +245,23 @@ public class SeedController : MonoBehaviour
         }
     }
 
-    public void SeedCombined()
+    public void SeedCombined() => OnSeedLifecycleCompleted?.Invoke(this);
+
+    private void Pop() => StartCoroutine(DoPopAndCompleteLifecycle());
+
+    private IEnumerator DoPopAndCompleteLifecycle()
     {
-        OnSeedCombined?.Invoke(this);
-        Pop();
+        seed.enabled = false;
+        nucleus.enabled = false;
+
+        popParticles.gameObject.SetActive(true);
+
+        yield return new WaitForSeconds(popParticles.main.duration);
+
+        OnSeedLifecycleCompleted?.Invoke(this);
     }
 
-    private void Pop()
-    {
-        // Popping simply deactivates the seed for now.
-        // TODO(anyone): Trigger pop VFX.
-        // https://github.com/tejasXR/meta-presence-hackathon-2024/issues/28
-        gameObject.SetActive(false);
-    }
-
-    private void Reset() => SetTargetDestination(Vector3.negativeInfinity);
+    private void ResetTargetDestination() => SetTargetDestination(Vector3.negativeInfinity);
 
     private IEnumerator Dissolve(bool dissolveIn)
     {
@@ -279,14 +297,20 @@ public class SeedController : MonoBehaviour
     }
 
 #if UNITY_EDITOR
-    private void OnDrawGizmos()
+    [Sirenix.OdinInspector.Button]
+    public void PopSeed()
     {
-        if (_targetDestination.IsValid())
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawLine(transform.position, _targetDestination);
-        }
+        StartCoroutine(DoPopAndCompleteLifecycle());
     }
+
+    // private void OnDrawGizmos()
+    // {
+    //     if (_targetDestination.IsValid())
+    //     {
+    //         Gizmos.color = Color.red;
+    //         Gizmos.DrawLine(transform.position, _targetDestination);
+    //     }
+    // }
 #endif
 }
 
