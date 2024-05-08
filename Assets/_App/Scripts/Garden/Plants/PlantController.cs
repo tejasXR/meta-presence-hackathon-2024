@@ -118,7 +118,7 @@ public class PlantController : MonoBehaviour
         BasePlantGrowth = Math.Min(lastRecordedGrowthValue + growthDifference, _maxGrowth);
         Debug.Log($"[{nameof(PlantController)}] {nameof(ResumeGrowing)}: {nameof(BasePlantGrowth)}={BasePlantGrowth}");
 
-        if ((float)lastRecordedGrowthTimespan.Value.TotalSeconds >= GameManager.Instance.AwaySecondsToDull)
+        if (lastRecordedGrowthTimespan.HasValue && (float)lastRecordedGrowthTimespan.Value.TotalSeconds >= GameManager.Instance.AwaySecondsToDull)
         {
             Debug.Log($"[{nameof(PlantController)}] {nameof(ResumeGrowing)}: Plant has become dull!");
             StartDullTransitionCoroutine(ref _dullTransitionCoroutine);
