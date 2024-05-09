@@ -546,9 +546,9 @@ MonoBehaviour:
     Volume: 0
   grabSeedAudio:
     Clips:
-    - {fileID: 8300000, guid: 16cad2a488a71d540b0daecf081dcfef, type: 3}
-    - {fileID: 8300000, guid: 35212c7d5a04dfe40a17db3643e1cd5e, type: 3}
-    - {fileID: 8300000, guid: 0e2ddfa545fe46849a6de764c301da02, type: 3}
+    - {fileID: 8300000, guid: 522b2354ff2f22e4f8afd8af236dfd69, type: 3}
+    - {fileID: 8300000, guid: 073d2172838ee594d9d46f954f524469, type: 3}
+    - {fileID: 8300000, guid: ffb97c21edc6d9a4c89598d13e2c0ab2, type: 3}
     Volume: 1
   hoverSeedAudio:
     Clips:
