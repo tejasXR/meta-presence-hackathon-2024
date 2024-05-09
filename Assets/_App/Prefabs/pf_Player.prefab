@@ -2211,7 +2211,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _distanceInteractor: {fileID: 1540102968762145637}
-  _visualOffset: 0.07
+  _visualOffset: -0.1
   _visibleDuringNormal: 0
   _numLinePoints: 20
   _targetlessLength: 0.5
@@ -2267,10 +2267,10 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   _tint: {r: 1, g: 1, b: 1, a: 1}
   _progressFade: 0.2
-  _startFadeThresold: 0.2
-  _endFadeThresold: 0.2
+  _startFadeThresold: 0.03
+  _endFadeThresold: 0.03
   _invertThreshold: 0
-  _feather: 0.2
+  _feather: 0.05
   _mirrorTexture: 1
 --- !u!33 &8966148734401586494
 MeshFilter:
@@ -3436,7 +3436,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 316c5b1d-a5e4-49f2-a663-15fd22dbcba9
-  instanceId: 61fc3861-ba7c-43b6-a559-e23f1f74aea6
+  instanceId: d4bdaeb2-a95e-4978-9bc7-d2f3c9a5fcfd
   version: 1
 --- !u!114 &8044682605406657417
 MonoBehaviour:
@@ -6836,7 +6836,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 8b26b298-7bf4-490e-b245-a039c0184303
-  instanceId: 40d057dc-0a7d-414f-83ef-29950d66ac8f
+  instanceId: 43b3ca37-9913-4423-a52d-e1f751eb98e3
   version: 1
 --- !u!114 &7354074966128072981
 MonoBehaviour:
@@ -7351,7 +7351,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: f0540b20-dfd6-420e-b20d-c270f88dc77e
-  instanceId: 201985fd-ba57-42c3-b980-ec926c3ceaa4
+  instanceId: 6f765690-9486-47f5-ab96-68781ea65666
   version: 1
 --- !u!114 &8884395806638410722
 MonoBehaviour:
@@ -7920,7 +7920,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _distanceInteractor: {fileID: 6843235393876163804}
-  _visualOffset: 0.07
+  _visualOffset: -0.1
   _visibleDuringNormal: 0
   _numLinePoints: 20
   _targetlessLength: 0.5
@@ -7976,10 +7976,10 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   _tint: {r: 1, g: 1, b: 1, a: 1}
   _progressFade: 0.2
-  _startFadeThresold: 0.2
-  _endFadeThresold: 0.2
+  _startFadeThresold: 0.03
+  _endFadeThresold: 0.03
   _invertThreshold: 0
-  _feather: 0.2
+  _feather: 0.05
   _mirrorTexture: 1
 --- !u!33 &5970474166510405157
 MeshFilter:
@@ -8043,6 +8043,7 @@ GameObject:
   - component: {fileID: 3717974570117191530}
   - component: {fileID: 3071930831460818153}
   - component: {fileID: 3270222412655256210}
+  - component: {fileID: 849281570556645343}
   - component: {fileID: 3588541267298942053}
   m_Layer: 0
   m_Name: LeftPalmUpSequence
@@ -8107,7 +8108,25 @@ MonoBehaviour:
   _activeStates:
   - {fileID: 859009292311426808}
   - {fileID: 3588541267298942053}
+  - {fileID: 849281570556645343}
+  - {fileID: 7572287432809869967}
   _logicOperator: 0
+--- !u!114 &849281570556645343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3047035820044680915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08f7cfb1f9629da4494ac0840f3a3cfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _hand: {fileID: 8997432445728597178}
+  _fingerFeatureStateProvider: {fileID: 2369283307987788458}
+  _shapes:
+  - {fileID: 11400000, guid: db019d1c26a99c1468a7d3faca85ae26, type: 2}
 --- !u!114 &3588541267298942053
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8472,7 +8491,7 @@ MonoBehaviour:
   _minLength: 0.02
   _maxLength: 100
   _radiusStart: 0.19
-  _apertureDegrees: 7
+  _apertureDegrees: 10
 --- !u!1 &3121270324276331547
 GameObject:
   m_ObjectHideFlags: 0
@@ -12575,7 +12594,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 6b67162c-2460-4766-a931-980388647573
-  instanceId: e58bd045-b26c-4dd5-9fd9-ac4ed2f54142
+  instanceId: ea7a32d3-0f75-4d93-9d38-ce8af4a8b842
   version: 1
 --- !u!114 &2591306135782827510
 MonoBehaviour:
@@ -13088,7 +13107,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 0393ca30-f2a9-4865-a40f-f9a68d01c3a9
-  instanceId: 0935ca88-29ad-4292-9a48-160444ecd70f
+  instanceId: 70c52761-e468-41de-9ded-56af452ff424
   version: 1
 --- !u!114 &4926169802912567821
 MonoBehaviour:
@@ -20104,7 +20123,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 81f55626-5fad-45e9-a1df-184f330da7ba
-  instanceId: 555fbc89-69d7-4083-bf37-e08ee5ebdf6a
+  instanceId: 7d27a7f9-0e4f-4976-92bc-0bd5507f434e
   version: 1
 --- !u!114 &6112401889999348692
 MonoBehaviour:
@@ -20362,7 +20381,7 @@ MonoBehaviour:
   _minLength: 0.02
   _maxLength: 100
   _radiusStart: 0.19
-  _apertureDegrees: 7
+  _apertureDegrees: 10
 --- !u!1 &7686192741966904713
 GameObject:
   m_ObjectHideFlags: 0
@@ -20524,7 +20543,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 6b67162c-2460-4766-a931-980388647573
-  instanceId: e2d343ad-2c3d-4c4d-ad91-54d3148561b9
+  instanceId: 473356ed-9ccf-4530-94a5-a1e78bace626
   version: 1
 --- !u!114 &1647568006094785049
 MonoBehaviour:
@@ -22708,7 +22727,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 8b26b298-7bf4-490e-b245-a039c0184303
-  instanceId: 7da4048e-633d-4b35-a14e-148d157ecb16
+  instanceId: 63254554-bd71-4036-98ce-de56afb4ee7b
   version: 1
 --- !u!114 &7335431785716577588
 MonoBehaviour:
@@ -23195,7 +23214,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 316c5b1d-a5e4-49f2-a663-15fd22dbcba9
-  instanceId: 8ae5bb55-81d9-4435-b5f8-7d7a099a602f
+  instanceId: 498eb173-09c5-41b1-85f7-d5a239fb1d32
   version: 1
 --- !u!114 &5631334115237263288
 MonoBehaviour:
@@ -23829,7 +23848,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: e47682b9-c270-40b1-b16d-90b627a5ce1b
-  instanceId: 2c80f815-1cbd-4b33-b749-49bedfa9a32c
+  instanceId: 70c503c5-ab45-4b50-bb3f-9eea0b9c4a93
   version: 1
 --- !u!114 &433376283547223316
 MonoBehaviour:
