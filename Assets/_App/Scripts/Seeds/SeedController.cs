@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Oculus.Interaction.HandGrab;
 using UnityEngine;
 using UnityEngine.Events;
 using Random = UnityEngine.Random;
@@ -11,6 +12,9 @@ public class SeedController : MonoBehaviour
     [SerializeField] private ParticleSystem trailParticles;
     [SerializeField] private TrailRenderer trailRenderer;
     [SerializeField] private ParticleSystem popParticles;
+    [SerializeField] private HandGrabInteractable handGrabInteractable;
+    [SerializeField] private DistanceHandGrabInteractable distanceHandGrabInteractable;
+    [SerializeField] private Rigidbody rigidbody;
     [SerializeField] private MeshRenderer seed;
     [SerializeField] private MeshRenderer nucleus;
     [Space]
@@ -192,10 +196,13 @@ public class SeedController : MonoBehaviour
     public void Reset()
     {
         ResetTargetDestination();
+        ToggleGrabInteractors(true);
 
         seed.enabled = true;
         nucleus.enabled = true;
         IsAboutToBeAbsorbed = false;
+
+        rigidbody.isKinematic = false;
 
         popParticles.gameObject.SetActive(false);
     }
@@ -232,6 +239,7 @@ public class SeedController : MonoBehaviour
     {
         // TODO(anyone): Trigger flung VFX.
         // https://github.com/tejasXR/meta-presence-hackathon-2024/issues/28
+        ToggleGrabInteractors(false);
         OnSeedFlung?.Invoke(this);
     }
 
@@ -295,6 +303,12 @@ public class SeedController : MonoBehaviour
         trailRenderer.enabled = false;
         yield return new WaitForFixedUpdate();
         trailRenderer.enabled = true;
+    }
+
+    private void ToggleGrabInteractors(bool toggleOn)
+    {
+        handGrabInteractable.enabled = toggleOn;
+        distanceHandGrabInteractable.enabled = toggleOn;
     }
 
 #if UNITY_EDITOR

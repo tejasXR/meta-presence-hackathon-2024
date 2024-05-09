@@ -543,7 +543,7 @@ MonoBehaviour:
   seedAppear:
     Clips:
     - {fileID: 8300000, guid: f3d68a36171a69a40847255d046645ad, type: 3}
-    Volume: 0.6
+    Volume: 0
   grabSeedAudio:
     Clips:
     - {fileID: 8300000, guid: 16cad2a488a71d540b0daecf081dcfef, type: 3}
@@ -558,7 +558,7 @@ MonoBehaviour:
     Volume: 0.3
   seedFlungAudio:
     Clips:
-    - {fileID: 8300000, guid: 88807e97697152246a337a1ba12a2a76, type: 3}
+    - {fileID: 8300000, guid: b2ae11d1ab749c449a846a0b25942c47, type: 3}
     Volume: 0.9
   seedPoppingOnCeilingAudio:
     Clips:
@@ -596,7 +596,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 0
-  MaxDistance: 3
+  MaxDistance: 7
   Pan2D: 0
   rolloffMode: 1
   BypassEffects: 0
@@ -964,41 +964,18 @@ MonoBehaviour:
   trailParticles: {fileID: 5903380368631684048}
   trailRenderer: {fileID: 1522219915600048544}
   popParticles: {fileID: 3065222021988689764}
+  handGrabInteractable: {fileID: 7622138791036159224}
+  distanceHandGrabInteractable: {fileID: 261097428804083356}
+  rigidbody: {fileID: 1653994964226470285}
   seed: {fileID: 9040151202830891591}
   nucleus: {fileID: 1980112895191162380}
   minStartingScale: 0.075
   maxStartingScale: 0.125
   _moveSpeed: 1.3
-  _deactivateOnFlung:
-  - {fileID: 4670770484064239839}
-  - {fileID: 2554605352498088836}
+  _deactivateOnFlung: []
   OnSeedFlung:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 7622138791036159224}
-        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
-        m_MethodName: set_enabled
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 261097428804083356}
-        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
-        m_MethodName: set_enabled
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   OnSeedPoppedOnTheCeiling:
     m_PersistentCalls:
       m_Calls: []
