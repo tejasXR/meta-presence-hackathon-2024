@@ -1,8 +1,12 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
 public class NpcController : MonoBehaviour
 {
+    public event Action NpcSummoned;
+    public event Action NpcNotSummoned;
+    
     [SerializeField] private NpcOptionsMenu optionsMenu;
     [SerializeField] private float moveSpeed;
     [SerializeField] private ParticleSystem npcParticles;

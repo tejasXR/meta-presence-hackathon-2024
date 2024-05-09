@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 /// <summary>
@@ -8,15 +9,19 @@ public class NpcCaller : MonoBehaviour
     [SerializeField] private NpcController npcController;
     [SerializeField] private HandPoseActivator leftHandPoseActivator;
     [SerializeField] private HandPoseActivator rightHandPoseActivator;
+    
+    private const float REQUIRED_ACTIVE_STATE_TIME = .25F;
 
+    private IEnumerator _checkActiveTimeRoutine;
+    private HandPoseActivator _currentCallingPose = null;
+    private float _currentActiveTime;
+    
     public enum PoseOrientation
     {
         LeftHand,
         RightHand
     }
-    
-    private HandPoseActivator _currentCallingPose = null;
-    
+
     private void Awake()
     {
         leftHandPoseActivator.PoseActivated += OnPoseActivated;
@@ -48,6 +53,28 @@ public class NpcCaller : MonoBehaviour
             return;
         }
 
+        // TEJAS: messy call, but works
+
+        if (_checkActiveTimeRoutine != null)
+            StopCoroutine(_checkActiveTimeRoutine);
+
+        _checkActiveTimeRoutine = CheckActiveTime(handPoseActivator, callPoint);
+        StartCoroutine(_checkActiveTimeRoutine);
+    }
+
+    private IEnumerator CheckActiveTime(HandPoseActivator handPoseActivator, Transform callPoint)
+    {
+        while (_currentActiveTime < REQUIRED_ACTIVE_STATE_TIME)
+        {
+            _currentActiveTime += Time.deltaTime;
+            yield return null;
+        }
+        
+        CallNpc(handPoseActivator, callPoint);
+    }
+
+    private void CallNpc(HandPoseActivator handPoseActivator, Transform callPoint)
+    {
         CancelNpcMovementToPlayer();
 
         PoseOrientation orientation = handPoseActivator == leftHandPoseActivator ? PoseOrientation.LeftHand : PoseOrientation.RightHand;
@@ -61,6 +88,14 @@ public class NpcCaller : MonoBehaviour
     {
         if (_currentCallingPose != null && _currentCallingPose != handPoseActivator)
             return;
+
+        if (_checkActiveTimeRoutine != null)
+        {
+            StopCoroutine(_checkActiveTimeRoutine);
+            _checkActiveTimeRoutine = null;
+        }
+        
+        _currentActiveTime = 0;
 
         CancelNpcMovementToPlayer();
     }
