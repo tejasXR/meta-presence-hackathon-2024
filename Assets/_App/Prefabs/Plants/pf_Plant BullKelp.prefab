@@ -145,6 +145,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: pf_Plant BullKelp
       objectReference: {fileID: 0}
+    - target: {fileID: 3770116301642097351, guid: f60a78919f9030b4bb14b4ff55cd643a,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4428507354353905491, guid: f60a78919f9030b4bb14b4ff55cd643a,
+        type: 3}
+      propertyPath: MaxDistance
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8241301067917369585, guid: f60a78919f9030b4bb14b4ff55cd643a,
         type: 3}
       propertyPath: m_LocalPosition.x
