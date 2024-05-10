@@ -5,7 +5,6 @@ public class PlantAudio : MonoBehaviour
 {
     [SerializeField] private PlantController plantController;
     [Space]
-    [SerializeField] private AudioSource plantGrowthAudioSource;
     [SerializeField] private AudioSource plantChargeUpAudioSource;
     [SerializeField] private AudioSource plantSpawnSeedsAudioSource;
 
@@ -21,10 +20,7 @@ public class PlantAudio : MonoBehaviour
         plantController.SeedSpawningTriggered.AddListener(OnSeedSpawnedFromPlant);
 
         _startingPlantChargeVolume = plantChargeUpAudioSource.volume;
-        _startingPlantGrowthVolume = plantGrowthAudioSource.volume;
-
         plantChargeUpAudioSource.volume = 0;
-        plantGrowthAudioSource.volume = 0;
     }
 
     private void OnDestroy()
@@ -35,11 +31,6 @@ public class PlantAudio : MonoBehaviour
             plantController.PlantChargingDown.RemoveListener(OnPlantChargeDown);
             plantController.SeedSpawningTriggered.RemoveListener(OnSeedSpawnedFromPlant);
         }
-    }
-
-    private void Update()
-    {
-        plantGrowthAudioSource.volume = _startingPlantGrowthVolume * plantController.BasePlantGrowth;
     }
 
     private void OnPlantChargingUp()
