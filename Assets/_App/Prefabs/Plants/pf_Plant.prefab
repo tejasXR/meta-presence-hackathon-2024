@@ -406,7 +406,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: d23b04f3f1bd12445923dc9e73d2edd6, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 3cd5e6910d708f84fa793fb95e5b10e8, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -555,7 +555,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   plantController: {fileID: 9654764580692362}
-  plantGrowthAudioSource: {fileID: 0}
   plantChargeUpAudioSource: {fileID: 8156104073222340481}
   plantSpawnSeedsAudioSource: {fileID: 1607641631998633533}
 --- !u!1 &7863457792840083559
