@@ -135,6 +135,10 @@ public class PlantController : MonoBehaviour
     {
         if (!IsPlantBaseFullyGrown)
             yield break;
+        
+        // TEJAS: Guard to prevent dual-charging after we trigger plant glow emission event
+        if (Math.Abs(SeedBloomPlantGrowth - MAX_PLANT_BLOOM_GROWTH) < .01F)
+            yield break;
 
         if (_harvestCooldownActive || _dullTransitionActive)
             yield break;
@@ -150,6 +154,7 @@ public class PlantController : MonoBehaviour
         
         StartCoroutine(TriggerSeedSpawning());
         _currentPlantCharge = MAX_PLANT_CHARGE;
+        SeedBloomPlantGrowth = MAX_PLANT_BLOOM_GROWTH;
     }
 
     public IEnumerator CancelSeedSpawnCharging()
