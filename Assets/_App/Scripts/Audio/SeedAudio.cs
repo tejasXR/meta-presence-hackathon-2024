@@ -11,6 +11,7 @@ public class SeedAudio : MonoBehaviour
     [SerializeField] private AudioData hoverSeedAudio;
     [SerializeField] private AudioData seedFlungAudio;
     [SerializeField] private AudioData seedPoppingOnCeilingAudio;
+    [SerializeField] private AudioData seedPoppingOnIslandAudio;
     [SerializeField] private AudioData seedLifecycleCompletedAudio;
     [SerializeField] private AudioData absorbedSeedAudio;
     [Space]
@@ -25,6 +26,7 @@ public class SeedAudio : MonoBehaviour
         grabbable.WhenPointerEventRaised += OnGrabbablePointerEventRaised;
         seedController.OnSeedFlung.AddListener(OnSeedFlug);
         seedController.OnSeedPoppedOnTheCeiling.AddListener(OnSeedPoppedOnCeiling);
+        seedController.OnSeedPoppedOnAnIsland.AddListener(OnSeedPoppedOnIsland);
         seedController.OnSeedLifecycleCompleted.AddListener(OnSeedLifecycleCompleted);
         seedMorph.AbsorbedSeed += OnAbsorbedSeed;
     }
@@ -39,6 +41,7 @@ public class SeedAudio : MonoBehaviour
             seedController.OnSeedFlung.RemoveListener(OnSeedFlug);
             seedController.OnSeedPoppedOnTheCeiling.RemoveListener(OnSeedPoppedOnCeiling);
             seedController.OnSeedLifecycleCompleted.RemoveListener(OnSeedLifecycleCompleted);
+            seedController.OnSeedPoppedOnAnIsland.RemoveListener(OnSeedPoppedOnIsland);
         }
         
         if (seedMorph)
@@ -83,6 +86,11 @@ public class SeedAudio : MonoBehaviour
     private void OnSeedPoppedOnCeiling(SeedController _, Vector3 __)
     {
         AudioUtils.PlayRandomOneShotClipAtSource(seedPoppingOnCeilingAudio.Clips, seedAudioSource, seedPoppingOnCeilingAudio.Volume);
+    }
+
+    private void OnSeedPoppedOnIsland(SeedController _, Vector3 __, Vector3 ___)
+    {
+        AudioUtils.PlayRandomOneShotClipAtSource(seedPoppingOnIslandAudio.Clips, seedAudioSource, seedPoppingOnIslandAudio.Volume);
     }
 
     private void OnSeedLifecycleCompleted(SeedController arg0)

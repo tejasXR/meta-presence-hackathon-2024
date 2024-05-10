@@ -564,6 +564,10 @@ MonoBehaviour:
     Clips:
     - {fileID: 8300000, guid: f75003c2058b0f74dbcacf3a3d02118f, type: 3}
     Volume: 0.9
+  seedPoppingOnIslandAudio:
+    Clips:
+    - {fileID: 8300000, guid: f75003c2058b0f74dbcacf3a3d02118f, type: 3}
+    Volume: 0.9
   seedLifecycleCompletedAudio:
     Clips:
     - {fileID: 8300000, guid: 6a31ca829e466df43b624d9b9a531aae, type: 3}
