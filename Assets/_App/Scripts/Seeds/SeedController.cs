@@ -99,9 +99,6 @@ public class SeedController : MonoBehaviour
     private void OnEnable()
     {
         Reset();
-
-        StartCoroutine(Dissolve(true));
-        StartCoroutine(ResetTrailRendererDistance());
     }
 
     private void Update()
@@ -197,6 +194,9 @@ public class SeedController : MonoBehaviour
     {
         ResetTargetDestination();
         ToggleGrabInteractors(true);
+        
+        StartCoroutine(Dissolve(true));
+        StartCoroutine(ResetTrailRendererDistance());
 
         seed.enabled = true;
         nucleus.enabled = true;
@@ -301,7 +301,7 @@ public class SeedController : MonoBehaviour
     private IEnumerator ResetTrailRendererDistance()
     {
         trailRenderer.enabled = false;
-        yield return new WaitForFixedUpdate();
+        yield return new WaitForSeconds(1F);
         trailRenderer.enabled = true;
     }
 
