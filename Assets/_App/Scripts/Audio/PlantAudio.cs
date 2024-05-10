@@ -60,7 +60,7 @@ public class PlantAudio : MonoBehaviour
         if (_plantChargingRoutine != null)
             StopCoroutine(_plantChargingRoutine);
         
-        _plantChargingRoutine = AudioUtils.FadeToVolume(plantChargeUpAudioSource, volume, .8F);
+        _plantChargingRoutine = AudioUtils.FadeToVolume(plantChargeUpAudioSource, volume, 1.5F);
         StartCoroutine(_plantChargingRoutine);
         
         Debug.Log( $"[{nameof(PlantAudio)}] {nameof(ChangePlantChargeAudioVolume)}: Volume = {volume}");
