@@ -555,7 +555,7 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 4c8695b77d6bb084ba7bed83eede60df, type: 3}
     - {fileID: 8300000, guid: e2fdb766c2acdf84ca7021b8c1d0611a, type: 3}
     - {fileID: 8300000, guid: 249682d7bbb6eb54483ac1f8d34ff0c4, type: 3}
-    Volume: 0.3
+    Volume: 0.2
   seedFlungAudio:
     Clips:
     - {fileID: 8300000, guid: b2ae11d1ab749c449a846a0b25942c47, type: 3}

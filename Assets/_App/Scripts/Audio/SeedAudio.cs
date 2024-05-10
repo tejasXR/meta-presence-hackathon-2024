@@ -55,9 +55,9 @@ public class SeedAudio : MonoBehaviour
         switch (pointerEvent.Type)
         {
             case PointerEventType.Hover:
-                /*var interactorType = pointerEvent.Data.GetType();
+                var interactorType = pointerEvent.Data.GetType();
                 if (interactorType == typeof(DistanceHandGrabInteractor))
-                    AudioUtils.PlayRandomOneShotClipAtSource(hoverSeedAudio.Clips, seedAudioSource, hoverSeedAudio.Volume);*/
+                    AudioUtils.PlayRandomOneShotClipAtSource(hoverSeedAudio.Clips, seedAudioSource, hoverSeedAudio.Volume);
                 break;
             case PointerEventType.Unhover:
                 break;
