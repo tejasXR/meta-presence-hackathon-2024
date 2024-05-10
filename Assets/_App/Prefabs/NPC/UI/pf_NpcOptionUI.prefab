@@ -611,7 +611,7 @@ MonoBehaviour:
   _editor: {fileID: 6462319544040489332}
   _colorShaderPropertyName: _Color
   _normalColorState:
-    Color: {r: 0.08235294, g: 0.015686275, b: 0.36078432, a: 0.5019608}
+    Color: {r: 0.08235294, g: 0.015686275, b: 0.36078432, a: 0.7490196}
     ColorCurve:
       serializedVersion: 2
       m_Curve:

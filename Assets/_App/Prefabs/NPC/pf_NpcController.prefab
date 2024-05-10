@@ -420,6 +420,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: NPC_model01
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 062dc010830df074597923fbf2ed7915,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: e53b1d2fded4aff4bbd8225ba74dba92, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
