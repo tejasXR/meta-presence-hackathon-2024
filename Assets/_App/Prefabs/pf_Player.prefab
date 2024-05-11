@@ -1686,6 +1686,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _activeStates:
   - {fileID: 231880127860889947}
+  - {fileID: 3270222412655256210}
   - {fileID: 1156548025786748142}
   - {fileID: 1575880055929493583}
   _logicOperator: 1
@@ -2270,7 +2271,7 @@ MonoBehaviour:
   _gradient:
     serializedVersion: 2
     key0: {r: 1, g: 1, b: 1, a: 0}
-    key1: {r: 1, g: 1, b: 1, a: 0.78431374}
+    key1: {r: 1, g: 1, b: 1, a: 0.7071531}
     key2: {r: 0, g: 0, b: 0, a: 0.78431374}
     key3: {r: 0, g: 0, b: 0, a: 0.7490196}
     key4: {r: 0, g: 0, b: 0, a: 0}
@@ -2286,18 +2287,18 @@ MonoBehaviour:
     ctime6: 0
     ctime7: 0
     atime0: 0
-    atime1: 11758
-    atime2: 39707
+    atime1: 26214
+    atime2: 12914
     atime3: 65535
     atime4: 0
     atime5: 0
     atime6: 0
     atime7: 0
     m_Mode: 0
-    m_ColorSpace: -1
+    m_ColorSpace: 0
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
-  _tint: {r: 1, g: 1, b: 1, a: 1}
+  _tint: {r: 0, g: 0.734618, b: 0.8039216, a: 1}
   _progressFade: 0.2
   _startFadeThresold: 0.03
   _endFadeThresold: 0.03
@@ -3468,7 +3469,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 316c5b1d-a5e4-49f2-a663-15fd22dbcba9
-  instanceId: f0c5c937-5557-4c6e-8de1-bb73455680f6
+  instanceId: 3ce42606-e6ca-4396-aef5-ec61cda8537c
   version: 1
 --- !u!114 &8044682605406657417
 MonoBehaviour:
@@ -6870,7 +6871,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 8b26b298-7bf4-490e-b245-a039c0184303
-  instanceId: 0ab81d9a-e005-49b3-ab30-abfae9ed27c5
+  instanceId: e44a8c61-86fc-474a-9c41-26232ff7962f
   version: 1
 --- !u!114 &7354074966128072981
 MonoBehaviour:
@@ -7385,7 +7386,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: f0540b20-dfd6-420e-b20d-c270f88dc77e
-  instanceId: bea1d00b-0bd6-4b83-9916-6ea586a3f43a
+  instanceId: 1f6d545f-a151-47a4-aa2a-bf42f952d479
   version: 1
 --- !u!114 &8884395806638410722
 MonoBehaviour:
@@ -7997,7 +7998,7 @@ MonoBehaviour:
     ctime6: 0
     ctime7: 0
     atime0: 0
-    atime1: 11758
+    atime1: 26214
     atime2: 39707
     atime3: 65535
     atime4: 0
@@ -8005,10 +8006,10 @@ MonoBehaviour:
     atime6: 0
     atime7: 0
     m_Mode: 0
-    m_ColorSpace: -1
+    m_ColorSpace: 0
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
-  _tint: {r: 1, g: 1, b: 1, a: 1}
+  _tint: {r: 0, g: 0.73333335, b: 0.8039216, a: 1}
   _progressFade: 0.2
   _startFadeThresold: 0.03
   _endFadeThresold: 0.03
@@ -12661,7 +12662,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 6b67162c-2460-4766-a931-980388647573
-  instanceId: 33b16822-d8b9-4cd6-9725-926ae6fd4ee0
+  instanceId: f7498101-b735-4e33-bf64-589396c294c0
   version: 1
 --- !u!114 &2591306135782827510
 MonoBehaviour:
@@ -13174,7 +13175,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 0393ca30-f2a9-4865-a40f-f9a68d01c3a9
-  instanceId: 1124b632-de63-4f28-8c8a-d3ed11b46438
+  instanceId: ac3af020-dd01-4964-bc05-c157e4edc0ff
   version: 1
 --- !u!114 &4926169802912567821
 MonoBehaviour:
@@ -13818,6 +13819,37 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6234843612888495036}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5237844813760868099
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6166150217238110390}
+  m_Layer: 0
+  m_Name: Custom Grab Origin
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6166150217238110390
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5237844813760868099}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 100, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7911522155802901764}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5254461667679925647
 GameObject:
@@ -17824,6 +17856,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _activeStates:
   - {fileID: 3270222412655256210}
+  - {fileID: 231880127860889947}
   - {fileID: 1156548025786748142}
   - {fileID: 702507468199647143}
   _logicOperator: 1
@@ -20299,7 +20332,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 81f55626-5fad-45e9-a1df-184f330da7ba
-  instanceId: d796fd18-ec5a-47cd-9985-fc9ba8a64b80
+  instanceId: e4eca925-7eb9-403a-aaf2-152294720f8d
   version: 1
 --- !u!114 &6112401889999348692
 MonoBehaviour:
@@ -20719,7 +20752,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 6b67162c-2460-4766-a931-980388647573
-  instanceId: 57501566-4109-43d1-99c0-acede17d0d55
+  instanceId: 1f177d57-e738-42be-b664-022c78054d8c
   version: 1
 --- !u!114 &1647568006094785049
 MonoBehaviour:
@@ -22949,7 +22982,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 8b26b298-7bf4-490e-b245-a039c0184303
-  instanceId: 2ff13958-8f98-496c-b37e-8b5949f7df61
+  instanceId: b886d225-e263-4ffd-ae1e-c1c0e0a32cfb
   version: 1
 --- !u!114 &7335431785716577588
 MonoBehaviour:
@@ -23436,7 +23469,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 316c5b1d-a5e4-49f2-a663-15fd22dbcba9
-  instanceId: f1544b5d-9060-4be1-afbe-c929860a3a19
+  instanceId: 0054eb7f-b01b-431c-8358-ef2485f9ecdb
   version: 1
 --- !u!114 &5631334115237263288
 MonoBehaviour:
@@ -23691,6 +23724,7 @@ Transform:
   m_Children:
   - {fileID: 3725989950275119526}
   - {fileID: 961464592537404918}
+  - {fileID: 6166150217238110390}
   m_Father: {fileID: 8580994348159443414}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8726145456468473316
@@ -24070,7 +24104,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: e47682b9-c270-40b1-b16d-90b627a5ce1b
-  instanceId: a289fdf4-823f-4f45-8764-6c07e7be6910
+  instanceId: 2f4d50f6-2828-41e3-a9f5-6523b9cc974e
   version: 1
 --- !u!114 &433376283547223316
 MonoBehaviour:
@@ -24104,7 +24138,7 @@ MonoBehaviour:
   _sharpenType: 65536
   enableDynamicResolution: 1
   minDynamicResolutionScale: 1
-  maxDynamicResolutionScale: 1
+  maxDynamicResolutionScale: 1.3
   minRenderScale: 0.7
   maxRenderScale: 1
   _headPoseRelativeOffsetRotation: {x: 0, y: 0, z: 0}
