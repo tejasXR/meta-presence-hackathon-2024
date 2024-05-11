@@ -68,7 +68,7 @@ public class NpcController : MonoBehaviour
         
         npcParticles.Play();
 
-        SetNPCAudioVolume(1);
+        SetNPCAudioVolume(_npcAudioVolume);
         
         optionsMenu.Hide();
     }
