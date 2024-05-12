@@ -1,6 +1,7 @@
 using Meta.XR.MRUtilityKit;
 using System;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -27,6 +28,13 @@ public class GardenManager : MonoBehaviour
 
     private readonly Dictionary<Guid, Planting> _plantingMap = new();
     private readonly Queue<Planting> _newPlantQueue = new();
+
+    private void OnApplicationFocus(bool hasFocus) => OnApplicationPause(hasFocus);
+
+    private void OnApplicationPause(bool pauseStatus)
+    {
+        _persistenceManager.SaveGardenState();  
+    } 
 
     void OnApplicationQuit() => _persistenceManager.SaveGardenState();
 
