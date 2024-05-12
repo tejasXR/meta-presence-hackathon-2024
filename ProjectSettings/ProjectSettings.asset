@@ -142,6 +142,8 @@ PlayerSettings:
   bundleVersion: 1.0.0
   preloadedAssets:
   - {fileID: 11400000, guid: 8101bb7d2d372bb489c90b9194048458, type: 2}
+  - {fileID: 8651381181864207197, guid: 5a0cbe584355a8d44838ba343f39e767, type: 2}
+  - {fileID: 11400000, guid: 2d52bf9796925a64e885dcc749b761fc, type: 2}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -180,7 +182,7 @@ PlayerSettings:
   iPhoneStrippingLevel: 0
   iPhoneScriptCallOptimization: 0
   ForceInternetPermission: 0
-  ForceSDCardPermission: 0
+  ForceSDCardPermission: 1
   CreateWallpaper: 0
   APKExpansionFiles: 0
   keepLoadedShadersAlive: 0
