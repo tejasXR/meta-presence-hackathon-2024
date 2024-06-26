@@ -22,7 +22,7 @@ public class FlingDetector : MonoBehaviour
 
     void Update()
     {
-        float velocityInFlingDirection = Vector3.Dot(_rigidbody.velocity, _flingDirection);
+        float velocityInFlingDirection = Vector3.Dot(_rigidbody.linearVelocity, _flingDirection);
         if (_flung)
         {
             if (velocityInFlingDirection <= _flingDecelerateVelocity)
